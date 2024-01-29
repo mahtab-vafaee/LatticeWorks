@@ -7,7 +7,7 @@
 ## Installation
 
 ## Running examples
-
+Examples are contained in the `docs` folder.
 
 # Contributing
 We welcome submissions. If you'd like to contribute please file a pull request or post an issue. Thanks! 
