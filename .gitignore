@@ -1,0 +1,6 @@
+#Ignore MATLAB temporary files
+*.asv
+
+#Ignore .backup files
+*.backup
+*.md.backup
