@@ -1,88 +1,95 @@
-function [varargout]=SphericalTPMS(inputStruct)
+function [varargout] = CylindricalTPMS(inputStruct)
 
-% function [varargout]=SphericalTPMS(SphericalTPMS);
+% function [varargout]=CylindricalTPMS(inputStruct);
 %
 % -----------------------------------------------------------------------
-% This function is used to ...
+% This function is designed for generating TPMS lattices in cylindrical
+% coordinates. 
+% Grid data, faces, vertices, face color data, generated surfaces, and 
+% cylindrical coordinates of the grids can be produced as output of this
+% function.
 %
-% _*Name*_ 
-% 
+% _*Name*_
+%
 % License: <hyperlink to license>
 % Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
 %
 %  Change log:
-%  2024/1/31 MV Created  
+%  2024/1/31 MV Created
+%  2024/2/1 MV Fixed the variable input cases
 % -----------------------------------------------------------------------
 %% Parse input
+
 %Create default structure
 defaultInputStruct.L=1; % characteristic length
+defaultInputStruct.R=1; % characteristic radious
 defaultInputStruct.Ns=80; % number of sampling points
 defaultInputStruct.isocap=1; %Option to cap the isosurface
 defaultInputStruct.surfaceCase='g';
 defaultInputStruct.numPeriods=[1 1 1]; 
 defaultInputStruct.levelset=0.5;
 defaultInputStruct.surfaceSide=1;
-defaultInputStruct.phaseShift=0.*[pi pi pi]; 
-defaultInputStruct.GF=0; 
+defaultInputStruct.phaseShift=0*[pi pi pi]; 
+defaultInputStruct.gradiantF=0;
 
 %Complete input with default if incomplete
 [inputStruct]=structComplete(inputStruct,defaultInputStruct,1); %Complement provided with default if missing or empty
 
 %Get parameters from input structure
 L = inputStruct.L; % characteristic length
+R = inputStruct.R;  % radius
 Ns = inputStruct.Ns; % number of sampling points
 isocap= inputStruct.isocap; 
 surfaceCase=inputStruct.surfaceCase; 
 numPeriods=inputStruct.numPeriods; 
 levelset=inputStruct.levelset;
 phaseShift=inputStruct.phaseShift; 
-
-if numel(numPeriods)==1
-    numPeriods=numPeriods*ones(1,3);
-end
+GF=inputStruct.gradiantF;
 
 %% Generation of points
+
 %Define coordinate limits
-xMin=0+phaseShift(1);
-xMax=xMin+2*pi*numPeriods(1);
-yMin=0+phaseShift(2);
-yMax=yMin+2*pi*numPeriods(2);
+rMin=0+phaseShift(1);
+rMax=rMin+2*pi;
+thetMin=0+phaseShift(2);
+thetMax=thetMin+2*pi;
 zMin=0+phaseShift(3);
-zMax=zMin+2*pi*numPeriods(3);
+zMax=zMin+2*pi;
 
 %Create coordinates
-xRange=linspace(xMin,xMax,Ns);
-yRange=linspace(yMin,yMax,Ns);
-zRange=linspace(zMin,zMax,Ns);
-[X,Y,Z]=meshgrid(xRange,yRange,zRange);
+if (length(L) == 1)
+    xRange=linspace(0,rMax,Ns);
+    yRange=linspace(0,thetMax,Ns);
+    zRange=linspace(0,zMax,Ns);
+    [r,theta,Z]=meshgrid(xRange,yRange,zRange);
+end
 
-%Calculate 3D image data
-S=triplyPeriodicMinimal(X(:),Y(:),Z(:),surfaceCase);        
-S=reshape(S,size(X));
+% Convert cylindrical coordinates to Cartesian coordinates
+X = r .* cos(theta);
+Y = r .* sin(theta);
+Z = Z ;
 
 %Scaling coordinates
-switch length(L)
-    case 1
-        X=(((X./abs(xMax-xMin))-1/2).*L);
-        Y=(((Y./abs(yMax-yMin))-1/2).*L);
-        Z=(((Z./abs(zMax-zMin))-1/2).*L);
+if (length(L) == 1)
+    X=((X./abs(rMax-rMin)).*R);
+    Y=((Y./abs(rMax-rMin)).*R);
+    Z=((Z./abs(zMax-zMin)).*L);
 
-    case 3
-        X=(((X./abs(xMax-xMin))-1/2).*L(1,1));
-        Y=(((Y./abs(yMax-yMin))-1/2).*L(1,2));
-        Z=(((Z./abs(zMax-zMin))-1/2).*L(1,3));
+else
+    X=((X./abs(rMax-rMin)).*L(1));
+    Y=((Y./abs(thetMax-thetMin)).*L(2));
+    Z=((Z./abs(zMax-zMin)).*L(3));
+
 end
-
-%% Gradient surface
-switch length(L)
-    case 1
-        S=S.*(1-inputStruct.GF*Z/L);
-    case 3
-        S=S.*(1-inputStruct.GF*Z/L(1,3));
-end
-
 
 %% Generation of level sets and exporting
+S=(sin(X.* numPeriods(1)).*cos(Y.* numPeriods(2)))...
+    +(sin(Y.* numPeriods(2)).*cos(Z* numPeriods(3)))...
+    +(cos(X.* numPeriods(1)).*sin(Z.* numPeriods(3))); 
+
+% Apply grading
+S = S.*(1 + (-GF*(Z/zMax))); %Linear gradient in z-direction
+
 %Iso-surface
 switch inputStruct.surfaceSide
     case 0
@@ -107,6 +114,7 @@ switch inputStruct.surfaceSide
 end
 
 %% Merge nodes and clean-up mesh 
+
 %Merge nodes
 [f,v]=mergeVertices(f,v); 
 
@@ -133,5 +141,7 @@ varargout{4}=S;
 varargout{5}=X;
 varargout{6}=Y;
 varargout{7}=Z;
+varargout{8}=r;
+varargout{9}=theta;
 
 end

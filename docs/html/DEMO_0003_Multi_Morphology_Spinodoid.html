@@ -1,0 +1,304 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>DEMO_0003_Multi_Morphology_Spinodoid</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-01-01"><meta name="DC.source" content="DEMO_0003_Multi_Morphology_Spinodoid.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>DEMO_0003_Multi_Morphology_Spinodoid</h1><!--introduction--><p>This is a demo for:</p><div><ul><li>Building geometry for generating multi-morphology lattice of Spinodoid in cubic domain using Sigmoid Function (SF)</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Plot settings</a></li><li><a href="#4">Control parameters</a></li><li><a href="#5">Figure-3: Cubic Domain-SF Gyroid-Diamond Multi-Morphology</a></li><li><a href="#6">Compute individual gyroids</a></li><li><a href="#7">Define the central location of each individual spinodoid in space</a></li><li><a href="#8">Transition lengthscal and shape</a></li><li><a href="#9">Compute weight functions</a></li><li><a href="#10">Compue isosurface</a></li><li><a href="#11">Visualize</a></li></ul></div><p>----------------------------------------------------------------------- <i><b>Name</b></i></p><p>License: <a href="hyperlink">to license</a></p><p>Author: <i>Mahtab Vafaee</i>, <a href="mahtab.vafaee@gmail.com">mahtab.vafaee@gmail.com</a></p><pre>Change log:
+2023/11/15 MV Created
+2024/01/31 MV Sorted for publishing
+-----------------------------------------------------------------------</pre><pre class="codeinput">clear; close <span class="string">all</span>; clc;
+</pre><h2 id="3">Plot settings</h2><pre class="codeinput">fontSize=20;
+faceAlpha1=0.8;
+markerSize=10;
+lineWidth1=3;
+lineWidth2=4;
+markerSize1=25;
+</pre><h2 id="4">Control parameters</h2><pre class="codeinput">sampleSize=[3 1 1]; <span class="comment">%Heigh of the sample</span>
+res=[100 100 100]; <span class="comment">% set the resolution in 3D</span>
+</pre><h2 id="5">Figure-3: Cubic Domain-SF Gyroid-Diamond Multi-Morphology</h2><pre class="codeinput">inputStruct.isocap=true;
+inputStruct_A.domainSize=sampleSize;
+inputStruct_A.resolution=res;
+inputStruct_A.numWaves=1000;
+
+inputStruct_B = inputStruct_A;
+
+<span class="comment">% Set parameters for individual gyroid</span>
+inputStruct_A.waveNumber=15*pi;
+inputStruct_A.relativeDensity=0.3;
+inputStruct_A.thetas=[15 15 0];
+levelset_A=inputStruct_A.relativeDensity;
+
+inputStruct_B.waveNumber=20*pi;
+inputStruct_B.relativeDensity=0.5;
+inputStruct_B.thetas=[90 90 0];
+levelset_B=inputStruct_B.relativeDensity;
+</pre><h2 id="6">Compute individual gyroids</h2><p>No need to store faces and vertices, only require underlying S, grid coordinates, and levelset values</p><pre class="codeinput">[~,~,~,S_A,X,Y,Z]=spinodoid(inputStruct_A);
+[~,~,~,S_B,~,~,~]=spinodoid(inputStruct_B);
+</pre><h2 id="7">Define the central location of each individual spinodoid in space</h2><p>E.g., At center_A, the spinodoid will definitely correspond to input_A. As we move away from center_A, it will slowly transition into other spinodoids with input_B and input_C.</p><pre class="codeinput">center_A = [0.5, 0.5, 0.5];
+center_B = [1.5, 0.5, 0.5];
+</pre><h2 id="8">Transition lengthscal and shape</h2><p>kappa controls the lengthscale of transition between spinodoids Higher kappa =&gt; faster transition Lower kappa =&gt; slower transition</p><pre class="codeinput">kappa = 15;
+
+<span class="comment">%%Transition path (shape)</span>
+G1 = X;
+G1 = G1/max(G1(:)); <span class="comment">% from 0-1</span>
+G1 = G1-(max(G1(:))/2); <span class="comment">% from -1/2 to 1/2</span>
+
+G2 = Y;
+G2 = G2/max(G2(:)); <span class="comment">% from 0-1</span>
+G2 = G2-(max(G2(:))/2); <span class="comment">% from -1/2 to 1/2</span>
+
+G = G1 - G2;
+</pre><h2 id="9">Compute weight functions</h2><pre class="codeinput"><span class="comment">%Weight functions of each morphology</span>
+weights_A = 1/(1+exp(-kappa * G));
+weights_B=(1-weights_A);
+
+<span class="comment">% Interpolating using the above weights</span>
+graded_S =  weights_A .* (S_A - levelset_A) <span class="keyword">...</span>
+            + (weights_B).* (S_B - levelset_B);
+</pre><h2 id="10">Compue isosurface</h2><pre class="codeinput">graded_levelset = 0;
+
+[f,v] = isosurface(X,Y,Z,graded_S,graded_levelset);
+c=zeros(size(f,1),1);
+
+<span class="comment">% Compute isocaps</span>
+[fc,vc] = isocaps(X,Y,Z,graded_S,graded_levelset,<span class="string">'enclose'</span>,<span class="string">'below'</span>);
+
+<span class="comment">% Boilerplate code for preparing output for exporting/visualization</span>
+nc=patchNormal(fc,vc);
+cc=zeros(size(fc,1),1);
+cc(nc(:,1)&lt;-0.5)=1;
+cc(nc(:,1)&gt;0.5)=2;
+cc(nc(:,2)&lt;-0.5)=3;
+cc(nc(:,2)&gt;0.5)=4;
+cc(nc(:,3)&lt;-0.5)=5;
+cc(nc(:,3)&gt;0.5)=6;
+
+<span class="comment">% Join sets</span>
+[f,v,c]=joinElementSets({f,fc},{v,vc},{c,cc});
+
+<span class="comment">% Merge nodes</span>
+[f,v]=mergeVertices(f,v);
+
+<span class="comment">% Check for unique faces</span>
+[~,indUni,~]=unique(sort(f,2),<span class="string">'rows'</span>);
+f=f(indUni,:); <span class="comment">%Keep unique faces</span>
+c=c(indUni);
+
+<span class="comment">% Remove collapsed faces</span>
+[f,logicKeep]=patchRemoveCollapsed(f);
+c=c(logicKeep);
+
+<span class="comment">% Remove unused points</span>
+[f,v]=patchCleanUnused(f,v);
+
+<span class="comment">% Invert faces</span>
+f=fliplr(f);
+</pre><h2 id="11">Visualize</h2><pre class="codeinput">Hybrid_vizualize(f,v,c);
+</pre><img vspace="5" hspace="5" src="DEMO_0003_Multi_Morphology_Spinodoid_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% DEMO_0003_Multi_Morphology_Spinodoid 
+% This is a demo for:
+% 
+% * Building geometry for generating multi-morphology lattice of 
+% Spinodoid in cubic domain using Sigmoid Function (SF)
+
+%%  
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% _*Name*_ 
+% 
+% License: <hyperlink to license>
+%
+% Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
+%
+%  Change log:
+%  2023/11/15 MV Created  
+%  2024/01/31 MV Sorted for publishing
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+%%
+
+clear; close all; clc;
+
+%% Plot settings
+fontSize=20;
+faceAlpha1=0.8;
+markerSize=10;
+lineWidth1=3;
+lineWidth2=4;
+markerSize1=25;
+
+%% Control parameters
+
+sampleSize=[3 1 1]; %Heigh of the sample
+res=[100 100 100]; % set the resolution in 3D
+
+%% Figure-3: Cubic Domain-SF Gyroid-Diamond Multi-Morphology 
+
+inputStruct.isocap=true;
+inputStruct_A.domainSize=sampleSize; 
+inputStruct_A.resolution=res; 
+inputStruct_A.numWaves=1000; 
+
+inputStruct_B = inputStruct_A;
+
+% Set parameters for individual gyroid
+inputStruct_A.waveNumber=15*pi; 
+inputStruct_A.relativeDensity=0.3; 
+inputStruct_A.thetas=[15 15 0];
+levelset_A=inputStruct_A.relativeDensity; 
+
+inputStruct_B.waveNumber=20*pi; 
+inputStruct_B.relativeDensity=0.5; 
+inputStruct_B.thetas=[90 90 0];
+levelset_B=inputStruct_B.relativeDensity; 
+
+%% Compute individual gyroids
+% No need to store faces and vertices, only require underlying S,
+% grid coordinates, and levelset values
+
+[~,~,~,S_A,X,Y,Z]=spinodoid(inputStruct_A);
+[~,~,~,S_B,~,~,~]=spinodoid(inputStruct_B);
+
+%% Define the central location of each individual spinodoid in space
+% E.g., At center_A, the spinodoid will definitely correspond to input_A.
+% As we move away from center_A, it will slowly transition into other
+% spinodoids with input_B and input_C. 
+
+center_A = [0.5, 0.5, 0.5];
+center_B = [1.5, 0.5, 0.5];
+
+%% Transition lengthscal and shape
+% kappa controls the lengthscale of transition between spinodoids
+% Higher kappa => faster transition
+% Lower kappa => slower transition
+kappa = 15;
+
+%%Transition path (shape)
+G1 = X;
+G1 = G1/max(G1(:)); % from 0-1
+G1 = G1-(max(G1(:))/2); % from -1/2 to 1/2
+
+G2 = Y;
+G2 = G2/max(G2(:)); % from 0-1
+G2 = G2-(max(G2(:))/2); % from -1/2 to 1/2
+
+G = G1 - G2;
+
+%% Compute weight functions
+%Weight functions of each morphology
+weights_A = 1/(1+exp(-kappa * G));
+weights_B=(1-weights_A);
+
+% Interpolating using the above weights
+graded_S =  weights_A .* (S_A - levelset_A) ...
+            + (weights_B).* (S_B - levelset_B);
+
+%% Compue isosurface
+graded_levelset = 0;
+
+[f,v] = isosurface(X,Y,Z,graded_S,graded_levelset);
+c=zeros(size(f,1),1);
+
+% Compute isocaps
+[fc,vc] = isocaps(X,Y,Z,graded_S,graded_levelset,'enclose','below');
+
+% Boilerplate code for preparing output for exporting/visualization
+nc=patchNormal(fc,vc);
+cc=zeros(size(fc,1),1);
+cc(nc(:,1)<-0.5)=1;
+cc(nc(:,1)>0.5)=2;
+cc(nc(:,2)<-0.5)=3;
+cc(nc(:,2)>0.5)=4;
+cc(nc(:,3)<-0.5)=5;
+cc(nc(:,3)>0.5)=6;    
+
+% Join sets
+[f,v,c]=joinElementSets({f,fc},{v,vc},{c,cc});
+    
+% Merge nodes
+[f,v]=mergeVertices(f,v); 
+
+% Check for unique faces
+[~,indUni,~]=unique(sort(f,2),'rows');
+f=f(indUni,:); %Keep unique faces
+c=c(indUni);
+
+% Remove collapsed faces
+[f,logicKeep]=patchRemoveCollapsed(f); 
+c=c(logicKeep);
+
+% Remove unused points
+[f,v]=patchCleanUnused(f,v); 
+
+% Invert faces
+f=fliplr(f); 
+
+%% Visualize
+
+Hybrid_vizualize(f,v,c);
+
+##### SOURCE END #####
+--></body></html>
