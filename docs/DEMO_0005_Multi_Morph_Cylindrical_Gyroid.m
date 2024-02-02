@@ -5,7 +5,7 @@
 % structures in cylindrical domain using hybrid formulation.
 %
 % # Example-1: Utilizes hybrid formulation in axial direction.
-% # Eample-2: Utilizes hybrid formulation in circumferential direction.
+% # Example-2: Utilizes hybrid formulation in circumferential direction.
 %
 %%
 % _*Name*_ 

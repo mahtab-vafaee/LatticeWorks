@@ -5,7 +5,7 @@
 % coordinates.
 %
 % # Example-1: TPMS in cylindrical coordinates.
-% # Eample-2: TPMS in cylindrical coordinates.
+% # Example-2: TPMS in cylindrical coordinates.
 %
 %%
 % _*Name*_ 

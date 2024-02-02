@@ -6,7 +6,7 @@
 % 
 % # Example-1: Utilizes hybrid formulation for a 4-morph TPMS lattice in
 % cubic domain
-% # Eample-2: Utilizes hybrid formulation for a 3-morph Spinodoid lattices
+% # Example-2: Utilizes hybrid formulation for a 3-morph Spinodoid lattices
 % in cubic domain
 
 %%
