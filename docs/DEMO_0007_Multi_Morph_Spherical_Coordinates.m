@@ -6,8 +6,8 @@
 %
 % This example contains 
 % # Case-1: TPMS in spherical coordinates, cylindrical transition.
-% # Case-2: TPMS in spherical coordinates, , spherical transition.
-% # Case-3: TPMS in spherical coordinates, , linear transition.
+% # Case-2: TPMS in spherical coordinates, spherical transition.
+% # Case-3: TPMS in spherical coordinates, linear transition.
 %
 %%
 % _*Name*_ 
@@ -17,7 +17,7 @@
 %
 %  Change log:
 %  2023/11/15 MV Created  
-%  2024/02/1 MV Added Examples 1 & 2
+%  2024/02/2 MV Added cases 1-3
 % ----------------------------------------------------------------------
 %%
 
@@ -41,7 +41,7 @@ tranR=0.7; %Transition radius
 
 transType= 1;  % 1:cylindrical, 2: spherical, 3:linear
 
-%% Figure-7 (a-c): Spherical multi-morph TMPS
+%% Setting-up input parameters for individual lattices
 
 inputStruct_A.L=[2 2 2]; % characteristic length
 inputStruct_A.Ns=res; % number of sampling points
@@ -63,6 +63,7 @@ levelset_B=inputStruct_B.levelset;
 inputStruct_B.surfaceCase='d'; 
 
 %% Compute individual gyroids
+
 [~,~,~,S_A,X,Y,Z]=SphericalTPMS (inputStruct_A);
 [~,~,~,S_B,~,~,~]=SphericalTPMS (inputStruct_B);
 
@@ -91,7 +92,7 @@ switch transType
         kappa = 20;
 end
 
-%% Compute the weitgh function of region_A
+%% Compute the weitgh functions
 
 weights_A = 1/(1+exp(-kappa * G));
 weights_B = (1-weights_A);
@@ -162,8 +163,8 @@ C=C(G==indKeep,:); %Trim color data
 %% Visualizing geometry
 
 cFigure; hold on;
+title('Spherical multi-morphology TPMS','FontSize', fontSize)
 gpatch(F,V,[0.75, 0.75, 0],'none', 1);
 axisGeom(gca,fontSize); axis on;
-colormap gjet; icolorbar; 
 camlight headlight;
 drawnow;

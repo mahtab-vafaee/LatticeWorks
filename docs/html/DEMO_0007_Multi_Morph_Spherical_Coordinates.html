@@ -1,0 +1,365 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>DEMO_0007_Multi_Morph_Spherical_Coordinates</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-01-01"><meta name="DC.source" content="DEMO_0007_Multi_Morph_Spherical_Coordinates.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>DEMO_0007_Multi_Morph_Spherical_Coordinates</h1><!--introduction--><p>This is a demo for:</p><div><ul><li>Building geometry for multi-morphology TPMS structures (gyroid and diamond) in spherical coordinates, with transition in different directions.</li></ul></div><p>This example contains # Case-1: TPMS in spherical coordinates, cylindrical transition. # Case-2: TPMS in spherical coordinates, spherical transition. # Case-3: TPMS in spherical coordinates, linear transition.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Plot settings</a></li><li><a href="#4">Control parameters</a></li><li><a href="#5">Setting-up input parameters for individual lattices</a></li><li><a href="#6">Compute individual gyroids</a></li><li><a href="#7">Transition lengthScale and shape</a></li><li><a href="#8">Compute the weitgh functions</a></li><li><a href="#9">Trimming the domain to spherical or shell</a></li><li><a href="#10">graded surface</a></li><li><a href="#11">Visualizing geometry</a></li></ul></div><p><i><b>Name</b></i></p><p>License: <a href="hyperlink">to license</a> Author: <i>Mahtab Vafaee</i>, <a href="mahtab.vafaee@gmail.com">mahtab.vafaee@gmail.com</a></p><pre>Change log:
+2023/11/15 MV Created
+2024/02/2 MV Added cases 1-3
+----------------------------------------------------------------------</pre><pre class="codeinput">clear; close <span class="string">all</span>; clc;
+</pre><h2 id="3">Plot settings</h2><pre class="codeinput">fontSize=20;
+faceAlpha1=0.8;
+markerSize=10;
+lineWidth1=3;
+lineWidth2=4;
+markerSize1=25;
+</pre><h2 id="4">Control parameters</h2><pre class="codeinput">res=150; <span class="comment">%Resolution</span>
+
+R=1; <span class="comment">%Outter radius</span>
+r=0.5; <span class="comment">% Inner radius (for spherical shape r=0)</span>
+tranR=0.7; <span class="comment">%Transition radius</span>
+
+transType= 1;  <span class="comment">% 1:cylindrical, 2: spherical, 3:linear</span>
+</pre><h2 id="5">Setting-up input parameters for individual lattices</h2><pre class="codeinput">inputStruct_A.L=[2 2 2]; <span class="comment">% characteristic length</span>
+inputStruct_A.Ns=res; <span class="comment">% number of sampling points</span>
+inputStruct_A.isocap=1; <span class="comment">%Option to cap the isosurface</span>
+inputStruct_A.surfaceCase=<span class="string">'g'</span>; <span class="comment">%Surface type</span>
+
+inputStruct_B = inputStruct_A;
+
+<span class="comment">% Set parameters for individual gyroid</span>
+inputStruct_A.numPeriods=[10 10 10]; <span class="comment">%Number of periods in each direction</span>
+inputStruct_A.levelset=0.75; <span class="comment">%Isosurface level</span>
+inputStruct_A.gradiantF=0; <span class="comment">%Gradiant Factor</span>
+levelset_A=inputStruct_A.levelset;
+
+inputStruct_B.numPeriods=[10 10 10];
+inputStruct_B.levelset=0.6;
+inputStruct_B.gradiantF=0 ; <span class="comment">%Gradiant Factor</span>
+levelset_B=inputStruct_B.levelset;
+inputStruct_B.surfaceCase=<span class="string">'d'</span>;
+</pre><h2 id="6">Compute individual gyroids</h2><pre class="codeinput">[~,~,~,S_A,X,Y,Z]=SphericalTPMS (inputStruct_A);
+[~,~,~,S_B,~,~,~]=SphericalTPMS (inputStruct_B);
+</pre><h2 id="7">Transition lengthScale and shape</h2><p>kappa controls the lengthscale of transition between TPMS Higher kappa =&gt; faster transition Lower kappa =&gt; slower transition G controls the shape of transition between TPMS</p><pre class="codeinput"><span class="keyword">switch</span> transType
+    <span class="keyword">case</span> 1 <span class="comment">% Figure-7(a)</span>
+        <span class="comment">% Cylindrical transition boundary across x-axis</span>
+        G=X.^2 + Y.^2 -(tranR^2);
+        kappa = 20;
+
+    <span class="keyword">case</span> 2 <span class="comment">% Figure-7(b)</span>
+        <span class="comment">% Spherical transition boundary across x-axis</span>
+        G=X.^2 + Y.^2 + Z.^2 -(tranR^2);
+        kappa = 15;
+
+    <span class="keyword">case</span> 3 <span class="comment">% Figure-7(c)</span>
+        <span class="comment">% linear transition boundary across x-axis</span>
+        G = X;
+        G = G/max(G(:));
+        <span class="comment">%  G = G-(max(G(:))/2);</span>
+        kappa = 20;
+<span class="keyword">end</span>
+</pre><h2 id="8">Compute the weitgh functions</h2><pre class="codeinput">weights_A = 1/(1+exp(-kappa * G));
+weights_B = (1-weights_A);
+
+<span class="comment">% Interpolating using the above weights</span>
+graded_S =  weights_A .* (S_A - levelset_A) <span class="keyword">...</span>
+            + (1-weights_A).* (S_B - levelset_B);
+</pre><h2 id="9">Trimming the domain to spherical or shell</h2><pre class="codeinput"><span class="keyword">switch</span> transType
+
+    <span class="keyword">case</span> 1 <span class="comment">%cylindrical transition</span>
+        <span class="comment">% Outter Surface</span>
+        Ind_out=find(((X.^2 + Y.^2 + Z.^2) &lt; R) &amp; <span class="keyword">...</span>
+            ( 0 &lt;Z &amp; Z&lt;(sqrt(R^2-(X.^2 + Y.^2))))); <span class="comment">% -0.5&lt;Z&lt;Outter Shell</span>
+        <span class="comment">% Inner surface</span>
+        Ind_in=find((X.^2 + Y.^2 + Z.^2) &lt; r);
+
+    <span class="keyword">case</span> 2 <span class="comment">%spherical transition</span>
+        r = 0; <span class="comment">% Inner radius (for spherical case r=0)</span>
+        <span class="comment">% Outter Surface</span>
+        Ind_out=find(((X.^2 + Y.^2 + Z.^2) &lt; R) &amp; <span class="keyword">...</span>
+            ( -0.5 &lt;Z &amp; Z&lt;(sqrt(R^2-(X.^2 + Y.^2))))); <span class="comment">% -0.5&lt;Z&lt;Outter Shell</span>
+        <span class="comment">% Inner surface</span>
+        Ind_in=find((X.^2 + Y.^2 + Z.^2) &lt; r);
+
+    <span class="keyword">case</span> 3 <span class="comment">%linear transition</span>
+        <span class="comment">% Outter Surface</span>
+        Ind_out=find(((X.^2 + Y.^2 + Z.^2) &lt; R) &amp; <span class="keyword">...</span>
+            ( 0 &lt;Z &amp; Z&lt;(sqrt(R^2-(X.^2 + Y.^2))))); <span class="comment">% 0&lt;Z&lt;Outter Shell</span>
+        <span class="comment">% Inner surface</span>
+        Ind_in=find((X.^2 + Y.^2 + Z.^2) &lt; r);
+
+<span class="keyword">end</span>
+
+<span class="comment">% Trimm outter and inner points</span>
+Logic_out= ismember(1:size(X(:)) , Ind_out);
+Logic_out=reshape(Logic_out,size(X));
+
+Logic_in= ismember(1:size(X(:)) , Ind_in);
+Logic_in=reshape(Logic_in,size(X));
+
+keepLogic=and(Logic_out, ~Logic_in);
+Sn=double(keepLogic);
+Sn(keepLogic)=graded_S(keepLogic);
+
+<span class="comment">% Visualize trimmed field</span>
+sv3(Sn);
+</pre><img vspace="5" hspace="5" src="DEMO_0007_Multi_Morph_Spherical_Coordinates_01.png" alt=""> <h2 id="10">graded surface</h2><pre class="codeinput">graded_levelset=0;
+
+<span class="comment">% isosurface over the spherical shell</span>
+[F,V]=isosurface(X,Y,Z,Sn,graded_levelset);
+C=zeros(size(F,1),1);
+
+<span class="comment">% Using grouping to keep only largest group</span>
+groupOptStruct.outputType=<span class="string">'label'</span>;
+[G,~,groupSize]=tesgroup(F,groupOptStruct); <span class="comment">%Group connected faces</span>
+[~,indKeep]=max(groupSize); <span class="comment">%Index of largest group</span>
+
+<span class="comment">% Keep only largest group</span>
+F=F(G==indKeep,:); <span class="comment">%Trim faces</span>
+C=C(G==indKeep,:); <span class="comment">%Trim color data</span>
+[F,V]=patchCleanUnused(F,V); <span class="comment">%Remove unused nodes</span>
+</pre><h2 id="11">Visualizing geometry</h2><pre class="codeinput">cFigure; hold <span class="string">on</span>;
+title(<span class="string">'Spherical multi-morphology TPMS'</span>,<span class="string">'FontSize'</span>, fontSize)
+gpatch(F,V,[0.75, 0.75, 0],<span class="string">'none'</span>, 1);
+axisGeom(gca,fontSize); axis <span class="string">on</span>;
+camlight <span class="string">headlight</span>;
+drawnow;
+</pre><img vspace="5" hspace="5" src="DEMO_0007_Multi_Morph_Spherical_Coordinates_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% DEMO_0007_Multi_Morph_Spherical_Coordinates
+% This is a demo for:
+% 
+% * Building geometry for multi-morphology TPMS structures (gyroid and diamond)
+% in spherical coordinates, with transition in different directions.
+%
+% This example contains 
+% # Case-1: TPMS in spherical coordinates, cylindrical transition.
+% # Case-2: TPMS in spherical coordinates, spherical transition.
+% # Case-3: TPMS in spherical coordinates, linear transition.
+%
+%%
+% _*Name*_ 
+% 
+% License: <hyperlink to license>
+% Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
+%
+%  Change log:
+%  2023/11/15 MV Created  
+%  2024/02/2 MV Added cases 1-3
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%%
+
+clear; close all; clc;
+
+%% Plot settings
+fontSize=20;
+faceAlpha1=0.8;
+markerSize=10;
+lineWidth1=3;
+lineWidth2=4;
+markerSize1=25;
+
+%% Control parameters
+
+res=150; %Resolution
+
+R=1; %Outter radius
+r=0.5; % Inner radius (for spherical shape r=0)
+tranR=0.7; %Transition radius
+
+transType= 1;  % 1:cylindrical, 2: spherical, 3:linear
+
+%% Setting-up input parameters for individual lattices
+
+inputStruct_A.L=[2 2 2]; % characteristic length
+inputStruct_A.Ns=res; % number of sampling points
+inputStruct_A.isocap=1; %Option to cap the isosurface
+inputStruct_A.surfaceCase='g'; %Surface type
+
+inputStruct_B = inputStruct_A;
+
+% Set parameters for individual gyroid
+inputStruct_A.numPeriods=[10 10 10]; %Number of periods in each direction
+inputStruct_A.levelset=0.75; %Isosurface level
+inputStruct_A.gradiantF=0; %Gradiant Factor
+levelset_A=inputStruct_A.levelset; 
+
+inputStruct_B.numPeriods=[10 10 10];
+inputStruct_B.levelset=0.6; 
+inputStruct_B.gradiantF=0 ; %Gradiant Factor
+levelset_B=inputStruct_B.levelset; 
+inputStruct_B.surfaceCase='d'; 
+
+%% Compute individual gyroids
+
+[~,~,~,S_A,X,Y,Z]=SphericalTPMS (inputStruct_A);
+[~,~,~,S_B,~,~,~]=SphericalTPMS (inputStruct_B);
+
+%% Transition lengthScale and shape
+% kappa controls the lengthscale of transition between TPMS
+% Higher kappa => faster transition
+% Lower kappa => slower transition
+% G controls the shape of transition between TPMS
+
+switch transType
+    case 1 % Figure-7(a)
+        % Cylindrical transition boundary across x-axis
+        G=X.^2 + Y.^2 -(tranR^2);
+        kappa = 20;
+
+    case 2 % Figure-7(b)
+        % Spherical transition boundary across x-axis
+        G=X.^2 + Y.^2 + Z.^2 -(tranR^2);
+        kappa = 15;
+
+    case 3 % Figure-7(c)
+        % linear transition boundary across x-axis
+        G = X;
+        G = G/max(G(:));
+        %  G = G-(max(G(:))/2);
+        kappa = 20;
+end
+
+%% Compute the weitgh functions
+
+weights_A = 1/(1+exp(-kappa * G));
+weights_B = (1-weights_A);
+
+% Interpolating using the above weights
+graded_S =  weights_A .* (S_A - levelset_A) ...
+            + (1-weights_A).* (S_B - levelset_B);
+
+%% Trimming the domain to spherical or shell
+
+switch transType
+
+    case 1 %cylindrical transition
+        % Outter Surface
+        Ind_out=find(((X.^2 + Y.^2 + Z.^2) < R) & ...
+            ( 0 <Z & Z<(sqrt(R^2-(X.^2 + Y.^2))))); % -0.5<Z<Outter Shell
+        % Inner surface
+        Ind_in=find((X.^2 + Y.^2 + Z.^2) < r);
+
+    case 2 %spherical transition
+        r = 0; % Inner radius (for spherical case r=0)
+        % Outter Surface
+        Ind_out=find(((X.^2 + Y.^2 + Z.^2) < R) & ...
+            ( -0.5 <Z & Z<(sqrt(R^2-(X.^2 + Y.^2))))); % -0.5<Z<Outter Shell
+        % Inner surface
+        Ind_in=find((X.^2 + Y.^2 + Z.^2) < r);
+
+    case 3 %linear transition
+        % Outter Surface
+        Ind_out=find(((X.^2 + Y.^2 + Z.^2) < R) & ...
+            ( 0 <Z & Z<(sqrt(R^2-(X.^2 + Y.^2))))); % 0<Z<Outter Shell
+        % Inner surface
+        Ind_in=find((X.^2 + Y.^2 + Z.^2) < r);
+
+end
+
+% Trimm outter and inner points
+Logic_out= ismember(1:size(X(:)) , Ind_out);
+Logic_out=reshape(Logic_out,size(X));
+
+Logic_in= ismember(1:size(X(:)) , Ind_in);
+Logic_in=reshape(Logic_in,size(X));
+
+keepLogic=and(Logic_out, ~Logic_in);
+Sn=double(keepLogic);
+Sn(keepLogic)=graded_S(keepLogic);
+
+% Visualize trimmed field
+sv3(Sn); 
+
+%% graded surface
+graded_levelset=0;
+
+% isosurface over the spherical shell
+[F,V]=isosurface(X,Y,Z,Sn,graded_levelset);
+C=zeros(size(F,1),1);
+
+% Using grouping to keep only largest group
+groupOptStruct.outputType='label';
+[G,~,groupSize]=tesgroup(F,groupOptStruct); %Group connected faces
+[~,indKeep]=max(groupSize); %Index of largest group
+
+% Keep only largest group
+F=F(G==indKeep,:); %Trim faces
+C=C(G==indKeep,:); %Trim color data
+[F,V]=patchCleanUnused(F,V); %Remove unused nodes
+
+%% Visualizing geometry
+
+cFigure; hold on;
+title('Spherical multi-morphology TPMS','FontSize', fontSize)
+gpatch(F,V,[0.75, 0.75, 0],'none', 1);
+axisGeom(gca,fontSize); axis on;
+camlight headlight;
+drawnow;
+
+##### SOURCE END #####
+--></body></html>

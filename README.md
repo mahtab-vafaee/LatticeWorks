@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/mahtab-vafaee/Lattice_Structures/blob/main/LICENSE)
 
-This is a MATLAB toolbox for creating and manipulating lattice structures. 
+This is a MATLAB toolbox for creating and customizing lattice structures, multi-morphology lattices, and lattices in different coordinates and arrangements. 
 
 # Getting started
 ## Installation
@@ -14,7 +14,6 @@ Alternatively one can manually install by adding `lib` and `lib_ext` folders to 
 * Install the [GIBBON MATLAB toolbox](https://www.gibboncode.org/)
 * Required MATLAB toolboxes:
 	- Image Processing toolbox
-	- 
 Optional functionality
 * ABAQUS, to run finite element simulations through ABAQUS
 * [FEBio](https://www.febio.org/), to run finite element simulations through FEBio (see also configuration information with the GIBBON toolbox)

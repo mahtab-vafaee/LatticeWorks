@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>DEMO_0005_Multi_Morph_Cylindrical_Gyroid_</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-01-01"><meta name="DC.source" content="DEMO_0005_Multi_Morph_Cylindrical_Gyroid_.m"><style type="text/css">
+      --><title>DEMO_0005_Multi_Morph_Cylindrical_Gyroid_</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-01-01"><meta name="DC.source" content="DEMO_0005_Multi_Morph_Cylindrical_Gyroid.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>DEMO_0005_Multi_Morph_Cylindrical_Gyroid_</h1><!--introduction--><p>This is a demo for:</p><div><ul><li>Building geometry for multi-morphology lattices of different gyroid structures in cylindrical domain using hybrid formulation</li></ul></div><div><ol><li>Example-1: Utilizes hybrid formulation in axial direction</li><li>Eample-2: Utilizes hybrid formulation in circumferential direction</li></ol></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Plot settings</a></li><li><a href="#4">Control parameters</a></li><li><a href="#5">Example-1: Axial Transition (Figure-5(a))</a></li><li><a href="#6">Example-2: Circumferential Transition (Figure-5(b))</a></li></ul></div><p><i><b>Name</b></i></p><p>License: <a href="hyperlink">to license</a> Author: <i>Mahtab Vafaee</i>, <a href="mahtab.vafaee@gmail.com">mahtab.vafaee@gmail.com</a></p><pre>Change log:
+  </style></head><body><div class="content"><h1>DEMO_0005_Multi_Morph_Cylindrical_Gyroid_</h1><!--introduction--><p>This is a demo for:</p><div><ul><li>Building geometry for multi-morphology lattices of different gyroid structures in cylindrical domain using hybrid formulation.</li></ul></div><div><ol><li>Example-1: Utilizes hybrid formulation in axial direction.</li><li>Example-2: Utilizes hybrid formulation in circumferential direction.</li></ol></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Plot settings</a></li><li><a href="#4">Control parameters</a></li><li><a href="#5">Example-1: Axial Transition (Figure-5(a))</a></li><li><a href="#6">Example-2: Circumferential Transition (Figure-5(b))</a></li></ul></div><p><i><b>Name</b></i></p><p>License: <a href="hyperlink">to license</a></p><p>Author: <i>Mahtab Vafaee</i>, <a href="mahtab.vafaee@gmail.com">mahtab.vafaee@gmail.com</a></p><pre>Change log:
 2023/11/15 MV Created
 2024/02/1 MV Sorted for publishing
 ----------------------------------------------------------------------</pre><pre class="codeinput">clear; close <span class="string">all</span>; clc;
@@ -190,7 +190,7 @@ f=fliplr(f);
 <span class="comment">% Visualize</span>
 center_V=[center_A; center_B; center_C];
 Hybrid_vizualize(f,v,c,[], center_V);
-</pre><img vspace="5" hspace="5" src="DEMO_0005_Multi_Morph_Cylindrical_Gyroid__01.png" alt=""> <h2 id="6">Example-2: Circumferential Transition (Figure-5(b))</h2><pre class="codeinput">inputStruct_A.L=L; <span class="comment">% characteristic length</span>
+</pre><img vspace="5" hspace="5" src="DEMO_0005_Multi_Morph_Cylindrical_Gyroid_01.png" alt=""> <h2 id="6">Example-2: Circumferential Transition (Figure-5(b))</h2><pre class="codeinput">inputStruct_A.L=L; <span class="comment">% characteristic length</span>
 inputStruct_A.R=R;
 inputStruct_A.Ns=res; <span class="comment">% number of sampling points</span>
 inputStruct_A.isocap=1; <span class="comment">%Option to cap the isosurface</span>
@@ -307,21 +307,22 @@ f=fliplr(f);
 <span class="comment">% Visualize</span>
 center_V=[center_A; center_B; center_C];
 Hybrid_vizualize(f,v,c,[], center_V);
-</pre><img vspace="5" hspace="5" src="DEMO_0005_Multi_Morph_Cylindrical_Gyroid__02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="DEMO_0005_Multi_Morph_Cylindrical_Gyroid_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% DEMO_0005_Multi_Morph_Cylindrical_Gyroid_
 % This is a demo for:
 % 
 % * Building geometry for multi-morphology lattices of different gyroid
-% structures in cylindrical domain using hybrid formulation
+% structures in cylindrical domain using hybrid formulation.
 %
-% # Example-1: Utilizes hybrid formulation in axial direction
-% # Eample-2: Utilizes hybrid formulation in circumferential direction
+% # Example-1: Utilizes hybrid formulation in axial direction.
+% # Example-2: Utilizes hybrid formulation in circumferential direction.
 %
 %%
 % _*Name*_ 
 % 
 % License: <hyperlink to license>
+%
 % Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
 %
 %  Change log:

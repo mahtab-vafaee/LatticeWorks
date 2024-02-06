@@ -55,6 +55,13 @@ switch nargin
         gpatch(F,V,C,'none', 1); %visualize faces
 
     case 5
+        if isempty (map)
+            map=ones(7,1)*[0.75 0.75 0];
+        end
+        if isempty (center_V)
+            gpatch(F,V,C,'none', 1); %visualize faces
+        end
+
         gpatch(F,V,C,'none', 0.5); %visualize surface
         hold on;
         %Center vertices
@@ -63,9 +70,6 @@ switch nargin
             hold on;
         end
 
-        if isempty (map)
-            map=ones(7,1)*[0.75 0.75 0];
-        end
 end
 
 %% Visua;ization setting

@@ -6,10 +6,10 @@
 %
 
 %%
-% -----------------------------------------------------------------------
 % _*Name*_ 
 % 
 % License: <hyperlink to license>
+%
 % Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
 %
 %  Change log:
@@ -145,9 +145,9 @@ kappa = 8;
 % One can use any interpolation scheme of choice as long as weights at
 % every grid point sum up to 1.
 % Computing the weights for each spinodoid evaluated on all grid points.
-weights_A = exp(-kappa * squared_distance_from_point(X,Y,Z,center_A));
-weights_B = exp(-kappa * squared_distance_from_point(X,Y,Z,center_B));
-weights_C = exp(-kappa * squared_distance_from_point(X,Y,Z,center_C));
+weights_A = exp(-kappa * Squared_distance_from_point(X,Y,Z,center_A));
+weights_B = exp(-kappa * Squared_distance_from_point(X,Y,Z,center_B));
+weights_C = exp(-kappa * Squared_distance_from_point(X,Y,Z,center_C));
 
 % Weights must sum up to 1.
 sum_weights = weights_A + weights_B + weights_C;
@@ -202,7 +202,6 @@ c=c(logicKeep);
 % Invert faces
 f=fliplr(f); 
 
-
 %% Visualize
 
-Hybrid_visualize(f,v,c);
+Hybrid_vizualize(f,v,c);

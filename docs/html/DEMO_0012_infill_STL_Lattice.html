@@ -1,0 +1,342 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>DEMO_0012_infill_STL_Lattice</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-01-01"><meta name="DC.source" content="DEMO_0012_infill_STL_Lattice.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>DEMO_0012_infill_STL_Lattice</h1><!--introduction--><p>This is a demo for:</p><div><ul><li>Building infill lattice structures within a closed surface STL, using TPMS or Spinodoid structures.</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#4">Arbitrary surface data</a></li><li><a href="#5">Visualiza patch data</a></li><li><a href="#6">Create an image on the grids</a></li><li><a href="#7">Create an isosurface on the image (optinal)</a></li><li><a href="#8">Visualization</a></li><li><a href="#9">Evaluate triply periodic function</a></li><li><a href="#10">Visualize surfaces</a></li><li><a href="#11">Trim using boundary</a></li><li><a href="#12">Visualize trimmed field</a></li><li><a href="#13">Construct iso-surface</a></li><li><a href="#14">Visualize surface</a></li></ul></div><p><i><b>Name</b></i></p><p>License: <a href="hyperlink">to license</a> Author: <i>Mahtab Vafaee</i>, <a href="mahtab.vafaee@gmail.com">mahtab.vafaee@gmail.com</a></p><pre>Change log:
+2023/11/15 MV Created
+2024/02/06 MV  Edited
+----------------------------------------------------------------------</pre><pre class="codeinput">clear; close <span class="string">all</span>; clc;
+</pre><p>Plot settings</p><pre class="codeinput">cMap=jet(250);
+faceAlpha1=1;
+faceAlpha2=0.65;
+edgeColor1=<span class="string">'none'</span>;
+edgeColor2=<span class="string">'none'</span>;
+fontSize=25;
+pColors=gjet(6);
+</pre><h2 id="4">Arbitrary surface data</h2><pre class="codeinput"><span class="comment">% vertebra data from STL</span>
+data=graphicsModels(11);
+
+<span class="comment">% Vertices and faces</span>
+V=data.V;
+F=data.F;
+</pre><h2 id="5">Visualiza patch data</h2><pre class="codeinput">cFigure;
+title(<span class="string">'Input geometry'</span>);
+gpatch(F,V,<span class="string">'w'</span>,<span class="string">'k'</span>, 1);
+axisGeom; axis <span class="string">on</span>;
+camlight <span class="string">headlight</span>;
+</pre><img vspace="5" hspace="5" src="DEMO_0012_infill_STL_Lattice_01.png" alt=""> <h2 id="6">Create an image on the grids</h2><pre class="codeinput">Vi=V-min(V,[],1); <span class="comment">%shifting to the origin (0,0,0)</span>
+scaleFactor=max(Vi(:));
+Vi=Vi./scaleFactor; <span class="comment">% Normalizing the edges</span>
+Fb=F; <span class="comment">% boundary faces the same as F</span>
+
+voxelSize=0.01;
+[M,G,~]=patch2Im(Fb,Vi,[],voxelSize); <span class="comment">% converting to image</span>
+L= M==1; <span class="comment">% selecting the inside voxels</span>
+
+<span class="comment">% voxelSize=G.voxelSize;</span>
+imOrigin=G.origin;
+[J,I,K]=meshgrid(1:1:size(M,2),1:1:size(M,1),1:1:size(M,3));
+[X,Y,Z]=im2cart(I,J,K,voxelSize);
+
+VG=[X(:) Y(:) Z(:)]; <span class="comment">% grid vertices</span>
+
+Vi=Vi-imOrigin(ones(size(Vi,1),1),:); <span class="comment">% shift the vertices</span>
+
+Vsm=patchCentre(Fb,Vi);<span class="comment">% find the cneter of each face</span>
+
+[DG,indClosest]=minDist(VG,Vsm); <span class="comment">% finding the closest Vsm to each grid</span>
+DG_im=reshape(DG,size(L));
+
+Et=[Fb(indClosest,:) (1:numel(indClosest))'+size(Vi,1)]; <span class="comment">% tetrahedral elements with on face from Fs &amp; a vertix from VG</span>
+Vt=[Vi; VG]; <span class="comment">% merging the verices</span>
+
+[VE,logicPositive]=tetVol(Et,Vt,0); <span class="comment">% positive and negative volume of generated tet elements</span>
+
+logicPositive=reshape(logicPositive,size(L));
+
+DG_im(~logicPositive)=-DG_im(~logicPositive); <span class="comment">% apply negative image values to inner voxels</span>
+</pre><h2 id="7">Create an isosurface on the image (optinal)</h2><pre class="codeinput">[Fiso,Viso] = isosurface(X,Y,Z,DG_im,0); <span class="comment">%Create an isosurface on DG_im=0</span>
+Viso=Viso./(voxelSize);  <span class="comment">%scale vertices to image size</span>
+</pre><h2 id="8">Visualization</h2><pre class="codeinput">sv3(DG_im); colormap <span class="string">warmcold</span>;
+m=max(abs(DG)); caxis([-m m])
+Vi=Vi./voxelSize; <span class="comment">%scale vertices to image size</span>
+hold <span class="string">on</span>;
+gpatch(Fb,Vi,<span class="string">'kw'</span>,<span class="string">'none'</span>,0.3);
+gpatch(Fiso,Viso,<span class="string">'rw'</span>,<span class="string">'r'</span>,0.2);
+axisGeom; camlight <span class="string">headlight</span>;
+drawnow;
+</pre><img vspace="5" hspace="5" src="DEMO_0012_infill_STL_Lattice_02.png" alt=""> <h2 id="9">Evaluate triply periodic function</h2><pre class="codeinput"><span class="comment">% set input parameteres</span>
+freq=[200, 200, 100]; <span class="comment">%frequency of TPMS/angles for Spinododi (45,45,30)</span>
+levelset=0; <span class="comment">%TPMS relative density factor</span>
+
+inputStruct.levelset=levelset;
+inputStruct.numPeriods=freq;
+inputStruct.surfaceType=<span class="string">'g'</span>; <span class="comment">%{'g','d','n','p','pw','w','spin',}</span>
+
+<span class="keyword">if</span>  isequal(inputStruct.surfaceType,<span class="string">'spin'</span>)
+    inputStruct.numWaves=1000; <span class="comment">%In the case of Spinododi</span>
+    inputStruct.relativeDensity=0.4;
+    inputStruct.waveNumber=7*pi;
+<span class="keyword">end</span>
+
+<span class="comment">% Evaluate TPMS function</span>
+[Fg,Vg,S]=TPMSpin(X,Y,Z,inputStruct);
+
+Vg= Vg-min(Vg,[],1); <span class="comment">%shift grids to [0,0,0]</span>
+Vg=Vg./(voxelSize); <span class="comment">%Scale to image size</span>
+
+<span class="comment">% visualize evaluated gyroid field function</span>
+sv3(S); colormap <span class="string">warmcold</span>;
+hold <span class="string">on</span>;
+gpatch(Fb,Vi,<span class="string">'kw'</span>,<span class="string">'none'</span>,0.6);
+</pre><img vspace="5" hspace="5" src="DEMO_0012_infill_STL_Lattice_03.png" alt=""> <h2 id="10">Visualize surfaces</h2><pre class="codeinput">cFigure; hold <span class="string">on</span>;
+gpatch(Fg,Vg,<span class="string">'kw'</span>,<span class="string">'none'</span>,0.3); <span class="comment">%gyroid surface</span>
+gpatch(Fb,Vi,<span class="string">'rw'</span>,<span class="string">'none'</span>,0.4); <span class="comment">%Vertebrae surface</span>
+scatterV(VG./voxelSize,1,DG); <span class="comment">%Image grids</span>
+colorbar; camlight <span class="string">headlight</span>;
+axisGeom;
+drawnow;
+</pre><img vspace="5" hspace="5" src="DEMO_0012_infill_STL_Lattice_04.png" alt=""> <h2 id="11">Trim using boundary</h2><pre class="codeinput">Ls=(DG_im)&lt;=0; <span class="comment">% Inner grids</span>
+Sn=DG_im;
+Sn(Ls)=S(Ls); <span class="comment">% trim the outside gyroid field</span>
+</pre><h2 id="12">Visualize trimmed field</h2><pre class="codeinput">sv3(Sn); hold <span class="string">on</span>;
+m=max(abs(Sn(:))); colormap <span class="string">warmcold</span>;
+gpatch(Fb,Vi,<span class="string">'kw'</span>,<span class="string">'none'</span>,0.6);
+</pre><img vspace="5" hspace="5" src="DEMO_0012_infill_STL_Lattice_05.png" alt=""> <h2 id="13">Construct iso-surface</h2><pre class="codeinput">[Fsn,Vsn] = isosurface(X,Y,Z,Sn,0.5); <span class="comment">%draw trimmed  isosurface</span>
+Vsn=Vsn./voxelSize; <span class="comment">%scale vertices to image size</span>
+</pre><h2 id="14">Visualize surface</h2><pre class="codeinput">cFigure; hold <span class="string">on</span>;
+gpatch(Fsn,Vsn,[0.3, 0.3, 0.5],<span class="string">'none'</span>,0.5);
+gpatch(Fb,Vi,<span class="string">'rw'</span>,<span class="string">'none'</span>,0.2);
+
+axisGeom; colormap <span class="string">spectral</span>; icolorbar;
+camlight <span class="string">headlight</span>; axis <span class="string">on</span>;
+drawnow;
+</pre><img vspace="5" hspace="5" src="DEMO_0012_infill_STL_Lattice_06.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% DEMO_0012_infill_STL_Lattice
+% This is a demo for:
+% 
+% * Building infill lattice structures within a closed surface STL, using
+% TPMS or Spinodoid structures.
+%
+%%
+% _*Name*_ 
+% 
+% License: <hyperlink to license>
+% Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
+%
+%  Change log:
+%  2023/11/15 MV Created  
+%  2024/02/06 MV  Edited
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%%
+
+clear; close all; clc;
+
+%%
+% Plot settings
+cMap=jet(250);
+faceAlpha1=1;
+faceAlpha2=0.65;
+edgeColor1='none';
+edgeColor2='none';
+fontSize=25; 
+pColors=gjet(6);
+
+%% Arbitrary surface data
+
+% vertebra data from STL
+data=graphicsModels(11);
+
+% Vertices and faces
+V=data.V;
+F=data.F; 
+
+%% Visualiza patch data
+
+cFigure;
+title('Input geometry'); 
+gpatch(F,V,'w','k', 1);
+axisGeom; axis on;
+camlight headlight;
+
+%% Create an image on the grids
+
+Vi=V-min(V,[],1); %shifting to the origin (0,0,0)
+scaleFactor=max(Vi(:));
+Vi=Vi./scaleFactor; % Normalizing the edges
+Fb=F; % boundary faces the same as F
+
+voxelSize=0.01;
+[M,G,~]=patch2Im(Fb,Vi,[],voxelSize); % converting to image
+L= M==1; % selecting the inside voxels
+
+% voxelSize=G.voxelSize; 
+imOrigin=G.origin;
+[J,I,K]=meshgrid(1:1:size(M,2),1:1:size(M,1),1:1:size(M,3));
+[X,Y,Z]=im2cart(I,J,K,voxelSize);
+
+VG=[X(:) Y(:) Z(:)]; % grid vertices
+
+Vi=Vi-imOrigin(ones(size(Vi,1),1),:); % shift the vertices
+
+Vsm=patchCentre(Fb,Vi);% find the cneter of each face
+
+[DG,indClosest]=minDist(VG,Vsm); % finding the closest Vsm to each grid
+DG_im=reshape(DG,size(L));
+
+Et=[Fb(indClosest,:) (1:numel(indClosest))'+size(Vi,1)]; % tetrahedral elements with on face from Fs & a vertix from VG
+Vt=[Vi; VG]; % merging the verices
+
+[VE,logicPositive]=tetVol(Et,Vt,0); % positive and negative volume of generated tet elements
+
+logicPositive=reshape(logicPositive,size(L)); 
+
+DG_im(~logicPositive)=-DG_im(~logicPositive); % apply negative image values to inner voxels 
+
+%% Create an isosurface on the image (optinal)
+
+[Fiso,Viso] = isosurface(X,Y,Z,DG_im,0); %Create an isosurface on DG_im=0
+Viso=Viso./(voxelSize);  %scale vertices to image size
+
+%% Visualization
+
+sv3(DG_im); colormap warmcold; 
+m=max(abs(DG)); caxis([-m m])
+Vi=Vi./voxelSize; %scale vertices to image size
+hold on;
+gpatch(Fb,Vi,'kw','none',0.3);
+gpatch(Fiso,Viso,'rw','r',0.2);
+axisGeom; camlight headlight;
+drawnow; 
+
+%% Evaluate triply periodic function
+
+% set input parameteres
+freq=[200, 200, 100]; %frequency of TPMS/angles for Spinododi (45,45,30)
+levelset=0; %TPMS relative density factor
+
+inputStruct.levelset=levelset; 
+inputStruct.numPeriods=freq;
+inputStruct.surfaceType='g'; %{'g','d','n','p','pw','w','spin',}
+
+if  isequal(inputStruct.surfaceType,'spin')
+    inputStruct.numWaves=1000; %In the case of Spinododi
+    inputStruct.relativeDensity=0.4;
+    inputStruct.waveNumber=7*pi;
+end
+
+% Evaluate TPMS function
+[Fg,Vg,S]=TPMSpin(X,Y,Z,inputStruct);
+
+Vg= Vg-min(Vg,[],1); %shift grids to [0,0,0]
+Vg=Vg./(voxelSize); %Scale to image size
+
+% visualize evaluated gyroid field function
+sv3(S); colormap warmcold;
+hold on; 
+gpatch(Fb,Vi,'kw','none',0.6);
+
+%% Visualize surfaces
+
+cFigure; hold on;
+gpatch(Fg,Vg,'kw','none',0.3); %gyroid surface
+gpatch(Fb,Vi,'rw','none',0.4); %Vertebrae surface
+scatterV(VG./voxelSize,1,DG); %Image grids
+colorbar; camlight headlight;
+axisGeom;
+drawnow; 
+
+%% Trim using boundary
+
+Ls=(DG_im)<=0; % Inner grids
+Sn=DG_im;
+Sn(Ls)=S(Ls); % trim the outside gyroid field
+
+%% Visualize trimmed field 
+
+sv3(Sn); hold on; 
+m=max(abs(Sn(:))); colormap warmcold;
+gpatch(Fb,Vi,'kw','none',0.6);
+
+%% Construct iso-surface
+
+[Fsn,Vsn] = isosurface(X,Y,Z,Sn,0.5); %draw trimmed  isosurface 
+Vsn=Vsn./voxelSize; %scale vertices to image size
+
+%% Visualize surface
+
+cFigure; hold on;
+gpatch(Fsn,Vsn,[0.3, 0.3, 0.5],'none',0.5);
+gpatch(Fb,Vi,'rw','none',0.2);
+
+axisGeom; colormap spectral; icolorbar; 
+camlight headlight; axis on;
+drawnow; 
+##### SOURCE END #####
+--></body></html>

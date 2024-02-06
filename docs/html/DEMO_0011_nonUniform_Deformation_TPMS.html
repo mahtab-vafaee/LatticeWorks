@@ -1,0 +1,356 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>DEMO_0011_nonUniform_Deformation_TPMS</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-01-01"><meta name="DC.source" content="DEMO_0011_nonUniform_Deformation_TPMS.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>DEMO_0011_nonUniform_Deformation_TPMS</h1><!--introduction--><p>This is a demo for:</p><div><ul><li>Building geometry for an arbitrary non-uniform deformation matrix applied on gyroid structure.</li></ul></div><p>This demo contains:</p><div><ol><li>Case-1: Gyroid lattice under twist deformation.</li><li>Case-2: Gyroid lattice under rotation deformation.</li></ol></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#4">Control parameters</a></li><li><a href="#5">Create an origiional grid</a></li><li><a href="#6">Applying deformation</a></li><li><a href="#7">Create deformed grid</a></li><li><a href="#8">Evaluate triply periodic function</a></li><li><a href="#9">Visualize deformed surface</a></li></ul></div><p><i><b>Name</b></i></p><p>License: <a href="hyperlink">to license</a></p><p>Author: <i>Mahtab Vafaee</i>, <a href="mahtab.vafaee@gmail.com">mahtab.vafaee@gmail.com</a></p><pre>Change log:
+2023/11/15 MV Created
+2024/02/2 MV  Edited
+----------------------------------------------------------------------</pre><pre class="codeinput">clear; close <span class="string">all</span>; clc;
+</pre><p>Plot settings</p><pre class="codeinput">cMap=jet(250);
+faceAlpha1=1;
+faceAlpha2=0.65;
+edgeColor1=<span class="string">'none'</span>;
+edgeColor2=<span class="string">'none'</span>;
+fontSize=20;
+pColors=gjet(6);
+</pre><h2 id="4">Control parameters</h2><pre class="codeinput">n= 100; <span class="comment">% resolution</span>
+boxDim = [1, 1, 2]; <span class="comment">% dimenasion</span>
+
+rInner = 2;
+bendAngle = pi/2;
+barHeight = bendAngle*rInner;
+
+l=0.9;<span class="comment">% levleset</span>
+</pre><h2 id="5">Create an origiional grid</h2><pre class="codeinput">DefType=<span class="string">'Twist'</span>; <span class="comment">% Select between 'Twist' &amp; 'Rotate'</span>
+
+<span class="keyword">switch</span> DefType
+    <span class="keyword">case</span> <span class="string">'Rotate'</span>
+        xRange = linspace(-pi,0,boxDim(1,1)*n)-rInner;
+        yRange = linspace(0,2*pi,boxDim(1,2)*n);
+        zRange = linspace(0,barHeight,boxDim(1,3)*n);
+
+    <span class="keyword">case</span> <span class="string">'Twist'</span>
+        xRange = linspace(-pi,pi,boxDim(1,1)*n);
+        yRange = linspace(-pi,pi,boxDim(1,1)*n);
+        zRange = linspace(0,10,boxDim(1,1)*n);
+<span class="keyword">end</span>
+
+[X,Y,Z]=meshgrid(xRange,yRange,zRange);
+</pre><h2 id="6">Applying deformation</h2><pre class="codeinput"><span class="comment">%Deformation matrix</span>
+a=linspace(0,bendAngle,size(Z,3));
+Xp=X; Yp=Y; Zp=Z;
+
+<span class="keyword">switch</span> DefType
+    <span class="keyword">case</span> <span class="string">'Rotate'</span>
+        <span class="keyword">for</span> q=1:1:size(Z,3)
+            R = euler2DCM([0 a(q) 0]);
+            x = X(:,:,q);
+            y = Y(:,:,q);
+            z = zeros(size(x));
+            v = [x(:) y(:) z(:)];
+            <span class="comment">%     vp = v*R;</span>
+            vp = (R*v')';
+
+            xp = reshape(vp(:,1),size(x));
+            yp = reshape(vp(:,2),size(x));
+            zp = reshape(vp(:,3),size(x));
+
+            Xp(:,:,q)=xp;
+            Yp(:,:,q)=yp;
+            Zp(:,:,q)=zp;
+        <span class="keyword">end</span>
+
+    <span class="keyword">case</span> <span class="string">'Twist'</span>
+        <span class="keyword">for</span> q=1:1:size(Z,3)
+            R = euler2DCM([0 0 a(q)]);
+            x = X(:,:,q);
+            y = Y(:,:,q);
+            z = Z(:,:,q);
+            v = [x(:) y(:) z(:)];
+            <span class="comment">%     vp = v*R;</span>
+            vp = (R*v')';
+
+            xp = reshape(vp(:,1),size(x));
+            yp = reshape(vp(:,2),size(x));
+            zp = reshape(vp(:,3),size(x));
+
+            Xp(:,:,q)=xp;
+            Yp(:,:,q)=yp;
+            Zp(:,:,q)=zp;
+        <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><h2 id="7">Create deformed grid</h2><pre class="codeinput">Vo = [X(:) Y(:) Z(:)]; <span class="comment">%Origional grids</span>
+Vp = [Xp(:) Yp(:) Zp(:)]; <span class="comment">%Deformed grids</span>
+</pre><h2 id="8">Evaluate triply periodic function</h2><pre class="codeinput"><span class="comment">% calculate the grid value to create gyroid field</span>
+freq1=5; <span class="comment">%period number</span>
+S=(sin(freq1.*X).*cos(freq1.*Y))+<span class="keyword">...</span>
+    (sin(freq1.*Y).*cos(freq1.*Z))+<span class="keyword">...</span>
+    (cos(freq1.*X).*sin(freq1.*Z));
+
+<span class="comment">% Construct deformed iso-surface</span>
+Sn=S;
+[Fi,Vi] = isosurface(Xp,Yp,Zp,Sn,l);
+[Fc,Vc] = isocaps(Xp,Yp,Zp,Sn,l);
+[F,V] = joinElementSets({Fi,Fc},{Vi,Vc});
+[F,V] = mergeVertices(F,V);
+F=fliplr(F);
+
+<span class="comment">% Construct origional iso-surface</span>
+[Fi,Vi] = isosurface(X,Y,Z,Sn,l);
+[Fc,Vc] = isocaps(X,Y,Z,Sn,l);
+[Fj,Vj] = joinElementSets({Fi,Fc},{Vi,Vc});
+[Fj,Vj] = mergeVertices(Fj,Vj);
+Fj=fliplr(Fj);
+</pre><h2 id="9">Visualize deformed surface</h2><pre class="codeinput">cFigure;
+
+subplot(1,3,1);hold <span class="string">on</span>;
+title(<span class="string">'Original Structure'</span>,<span class="string">'FontSize'</span>,fontSize);
+gpatch(Fj,Vj,<span class="string">'kw'</span>,<span class="string">'none'</span>,1);
+axisGeom(gca, fontSize);
+camlight <span class="string">headlight</span>;
+
+hp1=subplot(1,3,2);hold <span class="string">on</span>;
+title(<span class="string">'Deformed Grids'</span>,<span class="string">'FontSize'</span>,fontSize);
+plotV(Vo,<span class="string">'k.'</span>,<span class="string">'MarkerSize'</span>,30);
+plotV(Vp,<span class="string">'r.'</span>,<span class="string">'MarkerSize'</span>,30);
+axisGeom(gca, fontSize);
+camlight <span class="string">headlight</span>;
+
+hp2=subplot(1,3,3);hold <span class="string">on</span>;
+title(<span class="string">'Deformed Gyroide'</span>,<span class="string">'FontSize'</span>,fontSize);
+gpatch(F,V,<span class="string">'kw'</span>,<span class="string">'none'</span>,1);
+axisGeom(gca, fontSize);
+camlight <span class="string">headlight</span>;
+drawnow;
+</pre><img vspace="5" hspace="5" src="DEMO_0011_nonUniform_Deformation_TPMS_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% DEMO_0011_nonUniform_Deformation_TPMS
+% This is a demo for:
+% 
+% * Building geometry for an arbitrary non-uniform deformation matrix
+% applied on gyroid structure.
+%
+% This demo contains:
+%
+% # Case-1: Gyroid lattice under twist deformation.
+% # Case-2: Gyroid lattice under rotation deformation.
+%
+%%
+% _*Name*_ 
+% 
+% License: <hyperlink to license>
+%
+% Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
+%
+%  Change log:
+%  2023/11/15 MV Created  
+%  2024/02/2 MV  Edited
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%%
+
+clear; close all; clc;
+
+%%
+% Plot settings
+cMap=jet(250);
+faceAlpha1=1;
+faceAlpha2=0.65;
+edgeColor1='none';
+edgeColor2='none';
+fontSize=20; 
+pColors=gjet(6);
+
+%% Control parameters
+
+n= 100; % resolution 
+boxDim = [1, 1, 2]; % dimenasion 
+
+rInner = 2;
+bendAngle = pi/2; 
+barHeight = bendAngle*rInner; 
+
+l=0.9;% levleset
+
+%% Create an origiional grid
+
+DefType='Twist'; % Select between 'Twist' & 'Rotate'
+
+switch DefType
+    case 'Rotate'
+        xRange = linspace(-pi,0,boxDim(1,1)*n)-rInner;
+        yRange = linspace(0,2*pi,boxDim(1,2)*n);
+        zRange = linspace(0,barHeight,boxDim(1,3)*n);
+
+    case 'Twist'
+        xRange = linspace(-pi,pi,boxDim(1,1)*n);
+        yRange = linspace(-pi,pi,boxDim(1,1)*n);
+        zRange = linspace(0,10,boxDim(1,1)*n);
+end
+
+[X,Y,Z]=meshgrid(xRange,yRange,zRange);
+
+%% Applying deformation
+
+%Deformation matrix
+a=linspace(0,bendAngle,size(Z,3));
+Xp=X; Yp=Y; Zp=Z;
+
+switch DefType
+    case 'Rotate'
+        for q=1:1:size(Z,3)
+            R = euler2DCM([0 a(q) 0]);
+            x = X(:,:,q);
+            y = Y(:,:,q);
+            z = zeros(size(x));
+            v = [x(:) y(:) z(:)];
+            %     vp = v*R;
+            vp = (R*v')';
+
+            xp = reshape(vp(:,1),size(x));
+            yp = reshape(vp(:,2),size(x));
+            zp = reshape(vp(:,3),size(x));
+
+            Xp(:,:,q)=xp;
+            Yp(:,:,q)=yp;
+            Zp(:,:,q)=zp;
+        end
+
+    case 'Twist'
+        for q=1:1:size(Z,3)
+            R = euler2DCM([0 0 a(q)]);
+            x = X(:,:,q);
+            y = Y(:,:,q);
+            z = Z(:,:,q);
+            v = [x(:) y(:) z(:)];
+            %     vp = v*R;
+            vp = (R*v')';
+
+            xp = reshape(vp(:,1),size(x));
+            yp = reshape(vp(:,2),size(x));
+            zp = reshape(vp(:,3),size(x));
+
+            Xp(:,:,q)=xp;
+            Yp(:,:,q)=yp;
+            Zp(:,:,q)=zp;
+        end
+end
+
+%% Create deformed grid
+
+Vo = [X(:) Y(:) Z(:)]; %Origional grids
+Vp = [Xp(:) Yp(:) Zp(:)]; %Deformed grids
+
+%% Evaluate triply periodic function
+
+% calculate the grid value to create gyroid field
+freq1=5; %period number
+S=(sin(freq1.*X).*cos(freq1.*Y))+...
+    (sin(freq1.*Y).*cos(freq1.*Z))+...
+    (cos(freq1.*X).*sin(freq1.*Z)); 
+
+% Construct deformed iso-surface
+Sn=S;
+[Fi,Vi] = isosurface(Xp,Yp,Zp,Sn,l);
+[Fc,Vc] = isocaps(Xp,Yp,Zp,Sn,l);
+[F,V] = joinElementSets({Fi,Fc},{Vi,Vc});
+[F,V] = mergeVertices(F,V);
+F=fliplr(F);
+
+% Construct origional iso-surface
+[Fi,Vi] = isosurface(X,Y,Z,Sn,l);
+[Fc,Vc] = isocaps(X,Y,Z,Sn,l);
+[Fj,Vj] = joinElementSets({Fi,Fc},{Vi,Vc});
+[Fj,Vj] = mergeVertices(Fj,Vj);
+Fj=fliplr(Fj);
+
+%% Visualize deformed surface 
+cFigure;
+
+subplot(1,3,1);hold on;
+title('Original Structure','FontSize',fontSize);
+gpatch(Fj,Vj,'kw','none',1);
+axisGeom(gca, fontSize);
+camlight headlight;
+
+hp1=subplot(1,3,2);hold on;
+title('Deformed Grids','FontSize',fontSize);
+plotV(Vo,'k.','MarkerSize',30);
+plotV(Vp,'r.','MarkerSize',30);
+axisGeom(gca, fontSize);
+camlight headlight;
+
+hp2=subplot(1,3,3);hold on;
+title('Deformed Gyroide','FontSize',fontSize);
+gpatch(F,V,'kw','none',1);
+axisGeom(gca, fontSize);
+camlight headlight;
+drawnow; 
+
+
+##### SOURCE END #####
+--></body></html>

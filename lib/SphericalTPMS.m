@@ -3,7 +3,8 @@ function [varargout]=SphericalTPMS(inputStruct)
 % function [varargout]=SphericalTPMS(SphericalTPMS);
 %
 % -----------------------------------------------------------------------
-% This function is used to ...
+% This function is used to generate TPMS structures in spherical
+% coordinates.
 %
 % _*Name*_ 
 % 

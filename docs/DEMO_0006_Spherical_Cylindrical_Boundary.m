@@ -4,13 +4,14 @@
 % * Building geometry for TPMS structures in spherical and cylindrical 
 % coordinates.
 %
-% # Example-1: TPMS in cylindrical coordinates.
-% # Example-2: TPMS in cylindrical coordinates.
+% # Example-1: TPMS in cylindrical coordinates in full cilinder and 5/4pi.
+% # Example-2: TPMS in spherical coordinates.
 %
 %%
 % _*Name*_ 
 % 
 % License: <hyperlink to license>
+%
 % Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
 %
 %  Change log:
@@ -54,30 +55,50 @@ levelset_A=inputStruct_A.levelset;
 
 levelset=inputStruct_A.levelset;
 
+% Structure_B: 5/4pi cross section
+inputStruct_B=inputStruct_A; 
+inputStruct_B.thetaMax=5/4*pi;
+
 % Compute cylindrical gyroid
 % No need to store faces and vertices, only require underlying S,
 % grid coordinates, and levelset values
-[F,V,C,S_A,X,Y,Z,~,~]=CylindricalTPMS(inputStruct_A);
+[Fa,Va,Ca,S_A,~,~,~,~,~]=CylindricalTPMS(inputStruct_A);
+[Fb,Vb,Cb,S_B,~,~,~,~,~]=CylindricalTPMS(inputStruct_B);
 
-% Using grouping to keep only largest group
+% Structure_A: Using grouping to keep only largest group
 groupOptStruct.outputType='label';
-[G,~,groupSize]=tesgroup(F,groupOptStruct); %Group connected faces
+[G,~,groupSize]=tesgroup(Fa,groupOptStruct); %Group connected faces
 [~,indKeep]=max(groupSize); %Index of largest group
-
 % Keep only largest group
-F=F(G==indKeep,:); %Trim faces
-C=C(G==indKeep,:); %Trim color data
-[F,V]=patchCleanUnused(F,V); %Remove unused nodes
+Fa=Fa(G==indKeep,:); %Trim faces
+Ca=Ca(G==indKeep,:); %Trim color data
+[Fa,Va]=patchCleanUnused(Fa,Va); %Remove unused node
+
+% Structure_B: Using grouping to keep only largest group
+groupOptStruct.outputType='label';
+[G,~,groupSize]=tesgroup(Fb,groupOptStruct); %Group connected faces
+[~,indKeep]=max(groupSize); %Index of largest group
+% Keep only largest group
+Fb=Fb(G==indKeep,:); %Trim faces
+Cb=Cb(G==indKeep,:); %Trim color data
+[Fb,Vb]=patchCleanUnused(Fb,Vb); %Remove unused node
 
 % Visualizing geometry
 cFigure; hold on;
-gpatch(F,V,[0.75, 0.75, 0],'none', 1);
+subplot(1,2,1);
+title('Full cylindrical gyroid','FontSize', fontSize, Interpreter='latex')
+gpatch(Fa,Va,[0.75, 0.75, 0],'none', 1);
 axisGeom(gca,fontSize); axis off;
-colormap gjet; icolorbar; 
 camlight headlight;
 drawnow;
 
-dfoioh
+subplot(1,2,2);
+title('$5/4pi$ cylindrical gyroid','FontSize', fontSize, Interpreter='latex')
+gpatch(Fb,Vb,[0.75, 0.75, 0],'none', 1);
+axisGeom(gca,fontSize); axis off;
+camlight headlight;
+drawnow;
+
 %% Example-2: Spherical TMPS (Figure-6(c,d))
 
 surfType='d'; %'g' for Figure-6(a), 'd' for Figure-6(b)
@@ -137,8 +158,8 @@ C=C(G==indKeep,:); %Trim color data
 
 % Visualizing geometry
 cFigure; hold on;
+title('Spherical Shell Diamond-Lattice','FontSize', fontSize)
 gpatch(F,V,[0.75, 0.75, 0],'none', 1);
 axisGeom(gca,fontSize); axis off;
-colormap gjet; icolorbar; 
 camlight headlight;
 drawnow;

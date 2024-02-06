@@ -1,0 +1,235 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>DEMO_0010_Cylindrical_Lattice_Shell_gyroid</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-01-01"><meta name="DC.source" content="DEMO_0010_Cylindrical_Lattice_Shell_gyroid.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>DEMO_0010_Cylindrical_Lattice_Shell_gyroid</h1><!--introduction--><p>This is a demo for:</p><div><ul><li>Building geometry for Cylindrical Lattice Shell (CLS), using gyroid structure.</li><li>For more information: Wang, Y., Ren, X., Chen, Z., Jiang, Y., Cao, X., Fang, S., Zhao, T., Li, Y., &amp; Fang, D. (2020). Numerical and experimental studies on compressive behavior of Gyroid lattice cylindrical shells. Materials &amp; Design, 186, 108340. <a href="https://doi.org/10.1016/J.MATDES.2019.108340">https://doi.org/10.1016/J.MATDES.2019.108340</a></li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Plot settings</a></li><li><a href="#4">Control parameters</a></li><li><a href="#5">create a grid</a></li><li><a href="#6">Evaluate triply periodic function</a></li><li><a href="#8">mapping from polar to new cartesian coordinates</a></li><li><a href="#9">Visualize original and deformed surfaces</a></li></ul></div><p><i><b>Name</b></i></p><p>License: <a href="hyperlink">to license</a></p><p>Author: <i>Mahtab Vafaee</i>, <a href="mahtab.vafaee@gmail.com">mahtab.vafaee@gmail.com</a></p><pre>Change log:
+2023/11/15 MV Created
+2024/02/2 MV Edited
+----------------------------------------------------------------------</pre><pre class="codeinput">clear; close <span class="string">all</span>; clc;
+</pre><h2 id="3">Plot settings</h2><pre class="codeinput">fontSize=20;
+faceAlpha1=0.8;
+markerSize=10;
+lineWidth1=3;
+lineWidth2=4;
+markerSize1=25;
+</pre><h2 id="4">Control parameters</h2><pre class="codeinput">sampleSize=[12,1,2]; <span class="comment">% Size of the sample</span>
+<span class="comment">% sampleSize=[1,1,2]; % Single Cell</span>
+levelSet = 0.6; <span class="comment">%Corelates to volume fraction</span>
+
+n=100; <span class="comment">% Set the resolution</span>
+</pre><h2 id="5">create a grid</h2><pre class="codeinput">x = linspace(-sampleSize(1)*pi,sampleSize(1)*pi,n);
+y = linspace(-sampleSize(2)*pi,sampleSize(2)*pi,n);
+z = linspace(-sampleSize(3)*pi,sampleSize(3)*pi,n);
+
+[X,Y,Z] = meshgrid(x,y,z);
+</pre><h2 id="6">Evaluate triply periodic function</h2><p>calculate the grid value to create gyroid field</p><pre class="codeinput">S=(sin(X).*cos(Y))+(sin(Y).*cos(Z))+(cos(X).*sin(Z));
+
+<span class="comment">% creating a surface</span>
+[Fi,Vi]=isosurface(X,Y,Z,S,levelSet);
+[Fc,Vc]=isocaps(X,Y,Z,S,levelSet);
+
+[F,V]=joinElementSets({Fi,Fc},{Vi,Vc});
+[F,V]=mergeVertices(F,V);
+</pre><pre class="codeinput">r=12; <span class="comment">% a radius to conserve circumferential area</span>
+c= max(y)-min(y);
+
+rho = Y + r; <span class="comment">% converting the y coordinates to radius</span>
+theta = (X./c)*(2*pi/12); <span class="comment">% calculate the rotation/curvature of the grids</span>
+</pre><h2 id="8">mapping from polar to new cartesian coordinates</h2><pre class="codeinput"><span class="comment">% compute Cartesian coordinates for grid points</span>
+X1 = rho .* cos(theta);
+Y1 = rho .* sin(theta);
+Z1 = Z;
+
+<span class="comment">% creating a surface</span>
+[Fi,Vi]=isosurface(X1,Y1,Z1,S,levelSet);
+[Fc,Vc]=isocaps(X1,Y1,Z1,S,levelSet);
+
+[F1,V1]=joinElementSets({Fi,Fc},{Vi,Vc});
+[F1,V1]=mergeVertices(F1,V1);
+</pre><h2 id="9">Visualize original and deformed surfaces</h2><pre class="codeinput">cFigure; hold <span class="string">on</span>;
+
+subplot(1,2,1); hold <span class="string">on</span>;
+title(<span class="string">'Original Gyroid'</span>,<span class="string">'FontSize'</span>,fontSize);
+gpatch(F,V,[0.75, 0.75, 0],<span class="string">'none'</span>,1);
+gca.Xcolor= <span class="string">'red'</span>; axis <span class="string">on</span>;
+axisGeom(gca,fontSize);
+camlight <span class="string">headlight</span>;
+drawnow;
+
+hs=subplot(1,2,2); hold <span class="string">on</span>;
+title(<span class="string">'Gyroid as Cylindrical Lattice Shell (CLS)'</span>,<span class="string">'FontSize'</span>,fontSize);
+gpatch(F1,V1,[0.75, 0.75, 0],<span class="string">'none'</span>,1);
+axisGeom(gca,fontSize);
+axis <span class="string">off</span>; box <span class="string">on</span>;
+camlight <span class="string">headlight</span>;
+drawnow;
+</pre><img vspace="5" hspace="5" src="DEMO_0010_Cylindrical_Lattice_Shell_gyroid_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% DEMO_0010_Cylindrical_Lattice_Shell_gyroid
+% This is a demo for:
+% 
+% * Building geometry for Cylindrical Lattice Shell (CLS), using gyroid
+% structure.
+% * For more information:
+% Wang, Y., Ren, X., Chen, Z., Jiang, Y., Cao, X., Fang, S., Zhao, T., Li,
+% Y., & Fang, D. (2020). Numerical and experimental studies on compressive
+% behavior of Gyroid lattice cylindrical shells. Materials & Design, 186,
+% 108340. https://doi.org/10.1016/J.MATDES.2019.108340
+%
+%%
+% _*Name*_ 
+% 
+% License: <hyperlink to license>
+%
+% Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
+%
+%  Change log:
+%  2023/11/15 MV Created  
+%  2024/02/2 MV Edited
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%%
+
+clear; close all; clc;
+
+%% Plot settings
+fontSize=20;
+faceAlpha1=0.8;
+markerSize=10;
+lineWidth1=3;
+lineWidth2=4;
+markerSize1=25;
+
+%% Control parameters
+
+sampleSize=[12,1,2]; % Size of the sample
+% sampleSize=[1,1,2]; % Single Cell
+levelSet = 0.6; %Corelates to volume fraction
+
+n=100; % Set the resolution
+
+%% create a grid
+x = linspace(-sampleSize(1)*pi,sampleSize(1)*pi,n);
+y = linspace(-sampleSize(2)*pi,sampleSize(2)*pi,n);
+z = linspace(-sampleSize(3)*pi,sampleSize(3)*pi,n);
+
+[X,Y,Z] = meshgrid(x,y,z);
+
+%% Evaluate triply periodic function
+% calculate the grid value to create gyroid field
+S=(sin(X).*cos(Y))+(sin(Y).*cos(Z))+(cos(X).*sin(Z)); 
+
+% creating a surface 
+[Fi,Vi]=isosurface(X,Y,Z,S,levelSet);
+[Fc,Vc]=isocaps(X,Y,Z,S,levelSet);
+
+[F,V]=joinElementSets({Fi,Fc},{Vi,Vc});
+[F,V]=mergeVertices(F,V);
+ 
+
+%% 
+r=12; % a radius to conserve circumferential area
+c= max(y)-min(y); 
+
+rho = Y + r; % converting the y coordinates to radius 
+theta = (X./c)*(2*pi/12); % calculate the rotation/curvature of the grids
+
+%% mapping from polar to new cartesian coordinates
+
+% compute Cartesian coordinates for grid points
+X1 = rho .* cos(theta);
+Y1 = rho .* sin(theta);
+Z1 = Z;
+
+% creating a surface 
+[Fi,Vi]=isosurface(X1,Y1,Z1,S,levelSet);
+[Fc,Vc]=isocaps(X1,Y1,Z1,S,levelSet);
+
+[F1,V1]=joinElementSets({Fi,Fc},{Vi,Vc});
+[F1,V1]=mergeVertices(F1,V1);
+
+%% Visualize original and deformed surfaces
+cFigure; hold on;
+
+subplot(1,2,1); hold on;
+title('Original Gyroid','FontSize',fontSize);
+gpatch(F,V,[0.75, 0.75, 0],'none',1);
+gca.Xcolor= 'red'; axis on;
+axisGeom(gca,fontSize); 
+camlight headlight;
+drawnow;
+
+hs=subplot(1,2,2); hold on;
+title('Gyroid as Cylindrical Lattice Shell (CLS)','FontSize',fontSize);
+gpatch(F1,V1,[0.75, 0.75, 0],'none',1);
+axisGeom(gca,fontSize); 
+axis off; box on;
+camlight headlight;
+drawnow; 
+
+##### SOURCE END #####
+--></body></html>

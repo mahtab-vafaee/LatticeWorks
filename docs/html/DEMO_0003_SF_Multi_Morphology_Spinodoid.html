@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>DEMO_0003_Multi_Morphology_Spinodoid</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-01-01"><meta name="DC.source" content="DEMO_0003_Multi_Morphology_Spinodoid.m"><style type="text/css">
+      --><title>DEMO_0003_Multi_Morphology_Spinodoid</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-01-01"><meta name="DC.source" content="DEMO_0003_SF_Multi_Morphology_Spinodoid.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>DEMO_0003_Multi_Morphology_Spinodoid</h1><!--introduction--><p>This is a demo for:</p><div><ul><li>Building geometry for generating multi-morphology lattice of Spinodoid in cubic domain using Sigmoid Function (SF)</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Plot settings</a></li><li><a href="#4">Control parameters</a></li><li><a href="#5">Figure-3: Cubic Domain-SF Gyroid-Diamond Multi-Morphology</a></li><li><a href="#6">Compute individual gyroids</a></li><li><a href="#7">Define the central location of each individual spinodoid in space</a></li><li><a href="#8">Transition lengthscal and shape</a></li><li><a href="#9">Compute weight functions</a></li><li><a href="#10">Compue isosurface</a></li><li><a href="#11">Visualize</a></li></ul></div><p>----------------------------------------------------------------------- <i><b>Name</b></i></p><p>License: <a href="hyperlink">to license</a></p><p>Author: <i>Mahtab Vafaee</i>, <a href="mahtab.vafaee@gmail.com">mahtab.vafaee@gmail.com</a></p><pre>Change log:
+  </style></head><body><div class="content"><h1>DEMO_0003_Multi_Morphology_Spinodoid</h1><!--introduction--><p>This is a demo for:</p><div><ul><li>Building geometry for generating multi-morphology lattice of Spinodoid in cubic domain using Sigmoid Function (SF)</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Plot settings</a></li><li><a href="#4">Control parameters</a></li><li><a href="#5">Figure-3: Cubic Domain-SF Gyroid-Diamond Multi-Morphology</a></li><li><a href="#6">Compute individual gyroids</a></li><li><a href="#7">Define the central location of each individual spinodoid in space</a></li><li><a href="#8">Transition lengthscal and shape</a></li><li><a href="#9">Compute weight functions</a></li><li><a href="#10">Figure-4(d-f): Cubic Domain-GRBF Graded Spinodoid</a></li><li><a href="#11">Compue isosurface</a></li><li><a href="#12">Visualize</a></li></ul></div><p><i><b>Name</b></i></p><p>License: <a href="hyperlink">to license</a></p><p>Author: <i>Mahtab Vafaee</i>, <a href="mahtab.vafaee@gmail.com">mahtab.vafaee@gmail.com</a></p><pre>Change log:
 2023/11/15 MV Created
 2024/01/31 MV Sorted for publishing
 -----------------------------------------------------------------------</pre><pre class="codeinput">clear; close <span class="string">all</span>; clc;
@@ -78,7 +78,8 @@ lineWidth1=3;
 lineWidth2=4;
 markerSize1=25;
 </pre><h2 id="4">Control parameters</h2><pre class="codeinput">sampleSize=[3 1 1]; <span class="comment">%Heigh of the sample</span>
-res=[100 100 100]; <span class="comment">% set the resolution in 3D</span>
+
+res=[300 100 100]; <span class="comment">% set the resolution in 3D</span>
 </pre><h2 id="5">Figure-3: Cubic Domain-SF Gyroid-Diamond Multi-Morphology</h2><pre class="codeinput">inputStruct.isocap=true;
 inputStruct_A.domainSize=sampleSize;
 inputStruct_A.resolution=res;
@@ -119,7 +120,72 @@ weights_B=(1-weights_A);
 <span class="comment">% Interpolating using the above weights</span>
 graded_S =  weights_A .* (S_A - levelset_A) <span class="keyword">...</span>
             + (weights_B).* (S_B - levelset_B);
-</pre><h2 id="10">Compue isosurface</h2><pre class="codeinput">graded_levelset = 0;
+</pre><h2 id="10">Figure-4(d-f): Cubic Domain-GRBF Graded Spinodoid</h2><pre class="codeinput">inputStruct.isocap=true;
+inputStruct_A.domainSize=sampleSize;
+inputStruct_A.resolution=res;
+inputStruct_A.numWaves=1000;
+<span class="comment">% isoLevel=inputStruct_A.levelset;</span>
+
+inputStruct_B = inputStruct_A;
+inputStruct_C = inputStruct_A;
+
+<span class="comment">% Set parameters for individual gyroid</span>
+inputStruct_A.waveNumber=10*pi;
+inputStruct_A.relativeDensity=0.3;
+inputStruct_A.thetas=[15 15 0];
+levelset_A=inputStruct_A.relativeDensity;
+
+inputStruct_B.waveNumber=15*pi;
+inputStruct_B.relativeDensity=0.7;
+inputStruct_B.thetas=[90 90 0];
+levelset_B=inputStruct_B.relativeDensity;
+
+inputStruct_C.waveNumber=20*pi;
+inputStruct_C.relativeDensity=0.4;
+inputStruct_C.thetas=[0 0 15];
+levelset_C=inputStruct_C.relativeDensity;
+
+<span class="comment">% Compute individual gyroids</span>
+<span class="comment">% No need to store faces and vertices, only require underlying S,</span>
+<span class="comment">% grid coordinates, and levelset values</span>
+[~,~,~,S_A,X,Y,Z]=spinodoid(inputStruct_A);
+[~,~,~,S_B,~,~,~]=spinodoid(inputStruct_B);
+[~,~,~,S_C,~,~,~]=spinodoid(inputStruct_C);
+
+<span class="comment">% Define the central location of each individual spinodoid in space</span>
+<span class="comment">% E.g., At center_A, the spinodoid will definitely correspond to input_A.</span>
+<span class="comment">% As we move away from center_A, it will slowly transition into other</span>
+<span class="comment">% spinodoids with input_B and input_C.</span>
+center_A = [0.5, 0.5, 0.5];
+center_B = [1.5, 0.5, 0.5];
+center_C = [2.5, 0.5, 0.5];
+
+
+<span class="comment">% kappa controls the lengthscale of transition between spinodoids</span>
+<span class="comment">% Higher kappa =&gt; faster transition</span>
+<span class="comment">% Lower kappa =&gt; slower transition</span>
+kappa = 8;
+
+<span class="comment">% Using Gaussian (a.k.a. radial basis functions) interpolation.</span>
+<span class="comment">% One can use any interpolation scheme of choice as long as weights at</span>
+<span class="comment">% every grid point sum up to 1.</span>
+<span class="comment">% Computing the weights for each spinodoid evaluated on all grid points.</span>
+weights_A = exp(-kappa * Squared_distance_from_point(X,Y,Z,center_A));
+weights_B = exp(-kappa * Squared_distance_from_point(X,Y,Z,center_B));
+weights_C = exp(-kappa * Squared_distance_from_point(X,Y,Z,center_C));
+
+<span class="comment">% Weights must sum up to 1.</span>
+sum_weights = weights_A + weights_B + weights_C;
+
+weights_A = weights_A ./ sum_weights;
+weights_B = weights_B ./ sum_weights;
+weights_C = weights_C ./ sum_weights;
+
+<span class="comment">% Interpolating using the above weights</span>
+graded_S =  weights_A .* (S_A - levelset_A) <span class="keyword">...</span>
+            + weights_B .* (S_B - levelset_B)<span class="keyword">...</span>
+            + weights_C .* (S_C - levelset_C);
+</pre><h2 id="11">Compue isosurface</h2><pre class="codeinput">graded_levelset = 0;
 
 [f,v] = isosurface(X,Y,Z,graded_S,graded_levelset);
 c=zeros(size(f,1),1);
@@ -157,17 +223,17 @@ c=c(logicKeep);
 
 <span class="comment">% Invert faces</span>
 f=fliplr(f);
-</pre><h2 id="11">Visualize</h2><pre class="codeinput">Hybrid_vizualize(f,v,c);
-</pre><img vspace="5" hspace="5" src="DEMO_0003_Multi_Morphology_Spinodoid_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+</pre><h2 id="12">Visualize</h2><pre class="codeinput">Hybrid_vizualize(f,v,c);
+</pre><img vspace="5" hspace="5" src="DEMO_0003_SF_Multi_Morphology_Spinodoid_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% DEMO_0003_Multi_Morphology_Spinodoid 
 % This is a demo for:
 % 
 % * Building geometry for generating multi-morphology lattice of 
 % Spinodoid in cubic domain using Sigmoid Function (SF)
+%
 
-%%  
-% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+%%
 % _*Name*_ 
 % 
 % License: <hyperlink to license>
@@ -193,7 +259,8 @@ markerSize1=25;
 %% Control parameters
 
 sampleSize=[3 1 1]; %Heigh of the sample
-res=[100 100 100]; % set the resolution in 3D
+
+res=[300 100 100]; % set the resolution in 3D
 
 %% Figure-3: Cubic Domain-SF Gyroid-Diamond Multi-Morphology 
 
@@ -218,7 +285,6 @@ levelset_B=inputStruct_B.relativeDensity;
 %% Compute individual gyroids
 % No need to store faces and vertices, only require underlying S,
 % grid coordinates, and levelset values
-
 [~,~,~,S_A,X,Y,Z]=spinodoid(inputStruct_A);
 [~,~,~,S_B,~,~,~]=spinodoid(inputStruct_B);
 
@@ -226,7 +292,6 @@ levelset_B=inputStruct_B.relativeDensity;
 % E.g., At center_A, the spinodoid will definitely correspond to input_A.
 % As we move away from center_A, it will slowly transition into other
 % spinodoids with input_B and input_C. 
-
 center_A = [0.5, 0.5, 0.5];
 center_B = [1.5, 0.5, 0.5];
 
@@ -255,6 +320,75 @@ weights_B=(1-weights_A);
 % Interpolating using the above weights
 graded_S =  weights_A .* (S_A - levelset_A) ...
             + (weights_B).* (S_B - levelset_B);
+
+%% Figure-4(d-f): Cubic Domain-GRBF Graded Spinodoid 
+
+inputStruct.isocap=true;
+inputStruct_A.domainSize=sampleSize; 
+inputStruct_A.resolution=res; 
+inputStruct_A.numWaves=1000; 
+% isoLevel=inputStruct_A.levelset;
+
+inputStruct_B = inputStruct_A;
+inputStruct_C = inputStruct_A;
+
+% Set parameters for individual gyroid
+inputStruct_A.waveNumber=10*pi; 
+inputStruct_A.relativeDensity=0.3; 
+inputStruct_A.thetas=[15 15 0];
+levelset_A=inputStruct_A.relativeDensity; 
+
+inputStruct_B.waveNumber=15*pi; 
+inputStruct_B.relativeDensity=0.7; 
+inputStruct_B.thetas=[90 90 0];
+levelset_B=inputStruct_B.relativeDensity; 
+
+inputStruct_C.waveNumber=20*pi; 
+inputStruct_C.relativeDensity=0.4; 
+inputStruct_C.thetas=[0 0 15];
+levelset_C=inputStruct_C.relativeDensity; 
+
+% Compute individual gyroids
+% No need to store faces and vertices, only require underlying S,
+% grid coordinates, and levelset values
+[~,~,~,S_A,X,Y,Z]=spinodoid(inputStruct_A);
+[~,~,~,S_B,~,~,~]=spinodoid(inputStruct_B);
+[~,~,~,S_C,~,~,~]=spinodoid(inputStruct_C);
+
+% Define the central location of each individual spinodoid in space
+% E.g., At center_A, the spinodoid will definitely correspond to input_A.
+% As we move away from center_A, it will slowly transition into other
+% spinodoids with input_B and input_C. 
+center_A = [0.5, 0.5, 0.5];
+center_B = [1.5, 0.5, 0.5];
+center_C = [2.5, 0.5, 0.5];
+
+
+% kappa controls the lengthscale of transition between spinodoids
+% Higher kappa => faster transition
+% Lower kappa => slower transition
+kappa = 8;
+
+% Using Gaussian (a.k.a. radial basis functions) interpolation.
+% One can use any interpolation scheme of choice as long as weights at
+% every grid point sum up to 1.
+% Computing the weights for each spinodoid evaluated on all grid points.
+weights_A = exp(-kappa * Squared_distance_from_point(X,Y,Z,center_A));
+weights_B = exp(-kappa * Squared_distance_from_point(X,Y,Z,center_B));
+weights_C = exp(-kappa * Squared_distance_from_point(X,Y,Z,center_C));
+
+% Weights must sum up to 1.
+sum_weights = weights_A + weights_B + weights_C;
+
+weights_A = weights_A ./ sum_weights;
+weights_B = weights_B ./ sum_weights;
+weights_C = weights_C ./ sum_weights;
+
+% Interpolating using the above weights
+graded_S =  weights_A .* (S_A - levelset_A) ...
+            + weights_B .* (S_B - levelset_B)...
+            + weights_C .* (S_C - levelset_C);
+
 
 %% Compue isosurface
 graded_levelset = 0;

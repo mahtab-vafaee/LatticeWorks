@@ -25,6 +25,7 @@ defaultInputStruct.L=1; % characteristic length
 defaultInputStruct.R=1; % characteristic radious
 defaultInputStruct.Ns=80; % number of sampling points
 defaultInputStruct.isocap=1; %Option to cap the isosurface
+defaultInputStruct.thetaMax=2*pi; % characterictic angle
 defaultInputStruct.surfaceCase='g';
 defaultInputStruct.numPeriods=[1 1 1]; 
 defaultInputStruct.levelset=0.5;
@@ -52,7 +53,7 @@ GF=inputStruct.gradiantF;
 rMin=0+phaseShift(1);
 rMax=rMin+2*pi;
 thetMin=0+phaseShift(2);
-thetMax=thetMin+2*pi;
+thetMax=thetMin+inputStruct.thetaMax;
 zMin=0+phaseShift(3);
 zMax=zMin+2*pi;
 

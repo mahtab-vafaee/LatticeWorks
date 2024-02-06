@@ -1,0 +1,571 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>DEMO_0013_Mapping_Density_Distribution</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-01-01"><meta name="DC.source" content="DEMO_0013_Mapping_Density_Distribution.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>DEMO_0013_Mapping_Density_Distribution</h1><!--introduction--><p>This is a demo for:</p><div><ul><li>Building a non-uniform infill lattice structure, to map a specific structural properties, e.g. in this demo, it is mapping a density distribution field within the domain.</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1"><i><b>Name</b></i></a></li><li><a href="#4">creating density field</a></li><li><a href="#5">grid for Phi-field</a></li><li><a href="#6">creating hex mesh</a></li><li><a href="#8">Access model element and patch data</a></li><li><a href="#9">Mesh output</a></li><li><a href="#10">Use barycentric mapping to figure out the elements voxel centres are found in</a></li><li><a href="#11">Interpolation of rho onto grid</a></li><li><a href="#13">Evaluate triply periodic function</a></li><li><a href="#15">create a shell boundary</a></li><li><a href="#17">Construct iso-surface</a></li><li><a href="#18">Visualize surface</a></li></ul></div><h2 id="1"><i><b>Name</b></i></h2><p>License: <a href="hyperlink">to license</a></p><p>Author: <i>Mahtab Vafaee</i>, <a href="mahtab.vafaee@gmail.com">mahtab.vafaee@gmail.com</a></p><pre>Change log:
+2023/11/15 MV Created
+2024/02/06 MV Edited
+----------------------------------------------------------------------</pre><pre class="codeinput">clc; clear <span class="string">all</span>; close <span class="string">all</span>;
+</pre><p>Plot settings</p><pre class="codeinput">cMap=jet(250);
+faceAlpha1=0.5;
+faceAlpha2=0.65;
+edgeColor1=<span class="string">'none'</span>;
+edgeColor2=<span class="string">'none'</span>;
+fontSize=25;
+pColors=gjet(6);
+</pre><h2 id="4">creating density field</h2><p>define input variables</p><pre class="codeinput">nelx = 50;
+nely = 25;
+nelz = 25;
+volfrac = 0.7;
+penal = 2;
+rmin = 6;
+
+<span class="comment">% calculating the density distribution map</span>
+[rho0] = top(nelx,nely,volfrac,penal,rmin);
+
+<span class="comment">% extending through the z-direction</span>
+n = [1, 1, nelz];
+rho = repmat(rho0, n);
+
+sv3(rho); colormap <span class="string">warmcold</span>
+</pre><pre class="codeoutput"> It.:    1 Obj.:    98.6867 Vol.:  0.700 ch.:  0.200
+ It.:    2 Obj.:    73.4967 Vol.:  0.700 ch.:  0.200
+ It.:    3 Obj.:    65.6763 Vol.:  0.700 ch.:  0.200
+ It.:    4 Obj.:    64.5356 Vol.:  0.700 ch.:  0.068
+ It.:    5 Obj.:    64.0940 Vol.:  0.700 ch.:  0.040
+ It.:    6 Obj.:    63.8484 Vol.:  0.700 ch.:  0.029
+ It.:    7 Obj.:    63.6814 Vol.:  0.700 ch.:  0.022
+ It.:    8 Obj.:    63.5642 Vol.:  0.700 ch.:  0.017
+ It.:    9 Obj.:    63.5002 Vol.:  0.700 ch.:  0.013
+ It.:   10 Obj.:    63.4375 Vol.:  0.700 ch.:  0.010
+</pre><img vspace="5" hspace="5" src="DEMO_0013_Mapping_Density_Distribution_01.png" alt=""> <img vspace="5" hspace="5" src="DEMO_0013_Mapping_Density_Distribution_02.png" alt=""> <h2 id="5">grid for Phi-field</h2><pre class="codeinput">n = 5; <span class="comment">% resolution scale factor</span>
+x = linspace (0,nelx,nelx*n);
+y = linspace (0,nely,nely*n);
+z = linspace (0,nelz,nelz*n);
+
+[XG, YG, ZG] = meshgrid(x, y, z);
+
+VG= [XG(:), YG(:), ZG(:)];
+</pre><h2 id="6">creating hex mesh</h2><pre class="codeinput">boxDim=[nelx nely nelz];
+boxEl=[nelx nely nelz];
+
+[meshStruct]=hexMeshBox(boxDim,boxEl);
+
+E=meshStruct.E;
+V=meshStruct.V;
+F=meshStruct.F;
+Fb=meshStruct.Fb;
+faceBoundaryMarker=meshStruct.faceBoundaryMarker;
+
+V=V-min(V,[],1); <span class="comment">% transforming on to grids</span>
+<span class="comment">% V=reshape (V, size(boxDim));</span>
+</pre><pre class="codeinput">cFigure;
+title(<span class="string">'Box boundaries faces'</span>,<span class="string">'FontSize'</span>,fontSize);
+hold <span class="string">on</span>;
+
+gpatch(Fb,V,<span class="string">'kw'</span>,<span class="string">'k'</span>,faceAlpha1, 0.5);
+scatter3(V(:,1),V(:,2),V(:,3),20,<span class="string">'red'</span>);
+<span class="comment">% scatter3(VG(:,1),VG(:,2),VG(:,3),3,'y');</span>
+
+axisGeom(gca,fontSize);
+colormap(gjet(6)); icolorbar;
+drawnow;
+
+fjoifj
+</pre><pre class="codeoutput error">Unrecognized function or variable 'fjoifj'.
+
+Error in DEMO_0013_Mapping_Density_Distribution (line 89)
+fjoifj
+</pre><h2 id="8">Access model element and patch data</h2><pre class="codeinput"><span class="comment">% Fb=boundary(Vd(:,1), Vd(:,2), Vd(:,3),1); % boundary with shrink-factor 1 (not the same as faceBoundary)</span>
+indBoundary=tesBoundary(Fb);
+Fb=Fb(indBoundary,:);
+Cb=-1*ones(size(Fb,1),1);
+CE=-2*ones(size(E,1),1);
+
+meshStructure.elementData=rho; <span class="comment">% To visualize</span>
+
+<span class="comment">% Access model element and patch data</span>
+meshStructure.facesBoundary=Fb;
+meshStructure.boundaryMarker=Cb;
+meshStructure.nodes=V;
+meshStructure.elementMaterialID=CE;
+meshStructure.elements=E;
+</pre><h2 id="9">Mesh output</h2><pre class="codeinput">meshView(meshStructure);
+</pre><h2 id="10">Use barycentric mapping to figure out the elements voxel centres are found in</h2><pre class="codeinput"><span class="comment">% TR = triangulation(E,V); %Conver to "triangulation" type</span>
+<span class="comment">% [elementIndexFound,baryCentricCoordinate]=pointLocationTR(TR,VG,1,1,1); % Compute</span>
+<span class="comment">% logicInside=~isnan(elementIndexFound); %if nan then the voxels are outside shape</span>
+</pre><h2 id="11">Interpolation of rho onto grid</h2><pre class="codeinput">interpolationMethod = 2;
+
+<span class="keyword">switch</span> interpolationMethod
+    <span class="keyword">case</span> 1 <span class="comment">% Neirest</span>
+        rho_VG=nan(size(VG,1),1);
+        rho_VG(logicInside)=rho(elementIndexFound(logicInside));
+        rho_VG=reshape(rho_VG, size(XG));
+
+    <span class="keyword">case</span> 2 <span class="comment">% Linear</span>
+        Vm=patchCentre(E,V); <span class="comment">% center of the elements</span>
+        rho_VG=griddata(Vm(:,1),Vm(:,2),Vm(:,3),rho,XG(:),YG(:),ZG(:),<span class="string">'linear'</span>); <span class="comment">%Interpolate on grid</span>
+
+    <span class="keyword">case</span> 3 <span class="comment">% Element nodal average tri-linear</span>
+        rho_V = faceToVertexMeasure(E,V,rho); <span class="comment">% Average from elements to nodes</span>
+        <span class="comment">% Shape function (=barycentric coordinate) based within element</span>
+        <span class="comment">% tri-linear interpolation</span>
+        rho_VG=nan(size(VG,1),1);
+        <span class="keyword">for</span> indPoint = find(logicInside)'
+            indElement =  elementIndexFound(indPoint);
+            indNodes = E(indElement,:);
+            rho_VG(indPoint) = sum(baryCentricCoordinate(indPoint,:) .* rho_V(indNodes)');
+        <span class="keyword">end</span>
+
+    <span class="keyword">case</span> 4 <span class="comment">% Natural</span>
+        Vm=patchCentre(E,Vi); <span class="comment">% center of the elements</span>
+        interpFunc_rho = scatteredInterpolant(Vm,rho,<span class="string">'natural'</span>,<span class="string">'none'</span>); <span class="comment">%Create interpolator</span>
+        rho_VG=nan(size(VG,1),1);
+        rho_VG(logicInside) = interpFunc_rho(VG(logicInside,:));
+<span class="keyword">end</span>
+
+rho_VG=reshape(rho_VG, size(XG));
+sv3(rho_VG); colormap <span class="string">gjet</span>;
+</pre><pre class="codeinput">l=(rho_VG-0.5)/-(1/3); <span class="comment">% [-1.5, 0.75] levelset range</span>
+freq=0.05;
+k = freq*boxDim; <span class="comment">% number of periods</span>
+
+cFigure;
+scatter3(VG(:,1),VG(:,2),VG(:,3),25,l(:),<span class="string">'filled'</span>);
+axis <span class="string">tight</span>; axis <span class="string">equal</span>;
+colorbar;
+</pre><h2 id="13">Evaluate triply periodic function</h2><pre class="codeinput">S=(sin(k(1,1).*XG).*cos(k(1,2).*YG))+(sin(k(1,2).*YG).*cos(k(1,3).*ZG))+(cos(k(1,1).*XG).*sin(k(1,3).*ZG));
+
+i=2.5; <span class="comment">% Leads to a minimu of 1 later</span>
+S=S+i; <span class="comment">% S=-S-i;</span>
+l=l+i; <span class="comment">% l=-l-i; % i - i+s</span>
+S=S./l;
+
+<span class="comment">% S=-S;</span>
+
+sv3(S); colormap <span class="string">warmcold</span>;
+
+<span class="comment">%Construct iso-surface</span>
+[Fg,Vg] = isosurface(XG,YG,ZG,S,1);
+<span class="comment">% [Fc,Vc] = isocaps(XG,YG,ZG,S,0);</span>
+<span class="comment">% [Fg,Vg]=joinElementSets({Fg,Fc},{Vg,Vc});</span>
+<span class="comment">% [Fg,Vg]=mergeVertices(Fg,Vg);</span>
+</pre><p>Visualize surface</p><pre class="codeinput">cFigure;
+gpatch(Fg,Vg,<span class="string">'kw'</span>,<span class="string">'k'</span>,1);
+hold <span class="string">on</span>;
+gpatch(Fb,V,<span class="string">'rw'</span>,<span class="string">'none'</span>,0.3);
+
+axisGeom;
+camlight <span class="string">headlight</span>;
+drawnow;
+</pre><h2 id="15">create a shell boundary</h2><p>t=0.02; % shell thickness</p><p>R=DG_im; R(R&lt;(-t/2))=-R(R&lt;(-t/2))-t; sv3&reg;; colormap warmcold caxis([-t t])</p><p>Ls=(DG_im)&lt;=-t;</p><p>Sn=R; Sn(Ls)=S(Ls);</p><p>sv3(Sn); colormap warmcold m=max(abs(Sn(:)));</p><pre class="codeinput">[Ft,Vt]=quad2tri(Fb,V,<span class="string">'f'</span>);
+</pre><h2 id="17">Construct iso-surface</h2><pre class="codeinput"><span class="comment">% [Fsn,Vsn] = isosurface(X,Y,Z,Sn,0); % create a gyroid isosurface</span>
+
+[Fsn,Vsn,Csn]=joinElementSets({Ft,Fg},{Vt,Vg});
+
+[Fsn,Vsn]=patchCleanUnused(Fsn,Vsn); <span class="comment">%Remove unused nodes</span>
+
+[Fsn,Vsn]=mergeVertices(Fsn,Vsn); <span class="comment">%Merge nodes</span>
+</pre><h2 id="18">Visualize surface</h2><pre class="codeinput">cFigure; hold <span class="string">on</span>;
+gpatch(Fsn,Vsn,<span class="string">'kw'</span>,<span class="string">'none'</span>,0.3);
+<span class="comment">% gpatch(Fb,V,'rw','none',0.3);</span>
+
+axisGeom; colormap <span class="string">spectral</span>; icolorbar;
+camlight <span class="string">headlight</span>; axis <span class="string">off</span>;
+drawnow;
+</pre><pre class="codeinput">cutViewAnim8(Fsn,Vsn);
+</pre><pre class="codeinput"><span class="keyword">function</span> cutViewAnim8(F,V)
+
+FV=patchCentre(F,V)/5;
+C=sin(FV(:,1))+sin(FV(:,2))+sin(FV(:,3));
+snapTolerance=mean(patchEdgeLengths(F,V))/50; <span class="comment">%Snapping tolerance</span>
+n=vecnormalize([0 0 1]); <span class="comment">%Plane normal vector</span>
+
+P=mean(V,1); <span class="comment">%Point on plane</span>
+
+[Fc,Vc,Cc,logicSide]=triSurfSlice(F,V,C,P,n,snapTolerance);
+Eb=patchBoundary(Fc(logicSide,:));
+
+hf=cFigure;
+
+hold <span class="string">on</span>;
+hp1=gpatch(Fc(logicSide,:),Vc,<span class="string">'w'</span>,<span class="string">'none'</span>,1,3);
+hp2=gpatch(Fc(~logicSide,:),Vc,<span class="string">'w'</span>,<span class="string">'none'</span>,0.25);
+hp3=gpatch(Eb,Vc,<span class="string">'none'</span>,<span class="string">'b'</span>,1,4);
+
+axisGeom; axis <span class="string">manual</span>; camlight <span class="string">headligth</span>;
+view(-90,0); zoom(1.25);axis <span class="string">off</span>;
+gdrawnow;
+
+nSteps=75; <span class="comment">%Number of animation steps</span>
+animStruct.Time=linspace(0,1,nSteps); <span class="comment">%Create the time vector</span>
+z=linspace(min(V(:,3)),max(V(:,3)),nSteps);
+<span class="keyword">for</span> q=1:1:nSteps
+    P=[0 0 z(q)];
+    [Fc,Vc,~,logicSide,Eb]=triSurfSlice(F,V,C,P,n,snapTolerance);
+
+    <span class="comment">%Set entries in animation structure</span>
+    animStruct.Handles{q}=[hp1 hp1 hp2 hp2 hp3 hp3]; <span class="comment">%Handles of objects to animate</span>
+    animStruct.Props{q}={<span class="string">'Vertices'</span>,<span class="string">'Faces'</span>,<span class="keyword">...</span>
+                         <span class="string">'Vertices'</span>,<span class="string">'Faces'</span>,<span class="keyword">...</span>
+                         <span class="string">'Vertices'</span>,<span class="string">'Faces'</span>,<span class="keyword">...</span>
+                         <span class="string">'Vertices'</span>,<span class="string">'Faces'</span>,<span class="string">'CData'</span><span class="keyword">...</span>
+                         }; <span class="comment">%Properties of objects to animate</span>
+    animStruct.Set{q}={Vc,Fc(logicSide,:),Vc,Fc(~logicSide,:),Vc,Eb,Vc,Fc,double(logicSide)}; <span class="comment">%Property values for to set in order to animate</span>
+<span class="keyword">end</span>
+anim8(hf,animStruct);
+
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% DEMO_0013_Mapping_Density_Distribution
+% This is a demo for:
+% 
+% * Building a non-uniform infill lattice structure, to map a specific 
+% structural properties, e.g. in this demo, it is mapping a density 
+% distribution field within the domain.
+%
+%% _*Name*_ 
+% 
+% License: <hyperlink to license>
+%  
+% Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
+%
+%  Change log:
+%  2023/11/15 MV Created  
+%  2024/02/06 MV Edited
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%%
+
+clc; clear all; close all;
+
+%%
+% Plot settings
+cMap=jet(250);
+faceAlpha1=0.5;
+faceAlpha2=0.65;
+edgeColor1='none';
+edgeColor2='none';
+fontSize=25; 
+pColors=gjet(6);
+
+%% creating density field
+% define input variables
+nelx = 50;
+nely = 25;
+nelz = 25;
+volfrac = 0.7;
+penal = 2;
+rmin = 6;
+
+% calculating the density distribution map
+[rho0] = top(nelx,nely,volfrac,penal,rmin);
+
+% extending through the z-direction
+n = [1, 1, nelz];
+rho = repmat(rho0, n); 
+
+sv3(rho); colormap warmcold
+
+%% grid for Phi-field
+
+n = 5; % resolution scale factor
+x = linspace (0,nelx,nelx*n); 
+y = linspace (0,nely,nely*n); 
+z = linspace (0,nelz,nelz*n); 
+
+[XG, YG, ZG] = meshgrid(x, y, z); 
+
+VG= [XG(:), YG(:), ZG(:)];
+
+%% creating hex mesh 
+boxDim=[nelx nely nelz];
+boxEl=[nelx nely nelz];
+
+[meshStruct]=hexMeshBox(boxDim,boxEl);
+
+E=meshStruct.E;
+V=meshStruct.V;
+F=meshStruct.F;
+Fb=meshStruct.Fb;
+faceBoundaryMarker=meshStruct.faceBoundaryMarker;
+
+V=V-min(V,[],1); % transforming on to grids
+% V=reshape (V, size(boxDim)); 
+
+%%
+cFigure;
+title('Box boundaries faces','FontSize',fontSize);
+hold on;
+
+gpatch(Fb,V,'kw','k',faceAlpha1, 0.5);
+scatter3(V(:,1),V(:,2),V(:,3),20,'red');
+% scatter3(VG(:,1),VG(:,2),VG(:,3),3,'y');
+
+axisGeom(gca,fontSize);
+colormap(gjet(6)); icolorbar;
+drawnow;
+
+fjoifj
+%% Access model element and patch data
+
+% Fb=boundary(Vd(:,1), Vd(:,2), Vd(:,3),1); % boundary with shrink-factor 1 (not the same as faceBoundary)
+indBoundary=tesBoundary(Fb);
+Fb=Fb(indBoundary,:);
+Cb=-1*ones(size(Fb,1),1);
+CE=-2*ones(size(E,1),1);
+
+meshStructure.elementData=rho; % To visualize
+
+% Access model element and patch data
+meshStructure.facesBoundary=Fb;
+meshStructure.boundaryMarker=Cb;
+meshStructure.nodes=V;
+meshStructure.elementMaterialID=CE;
+meshStructure.elements=E;
+
+%% Mesh output
+
+meshView(meshStructure);
+
+%% Use barycentric mapping to figure out the elements voxel centres are found in
+
+% TR = triangulation(E,V); %Conver to "triangulation" type
+% [elementIndexFound,baryCentricCoordinate]=pointLocationTR(TR,VG,1,1,1); % Compute 
+% logicInside=~isnan(elementIndexFound); %if nan then the voxels are outside shape 
+
+%% Interpolation of rho onto grid
+
+interpolationMethod = 2;
+
+switch interpolationMethod
+    case 1 % Neirest
+        rho_VG=nan(size(VG,1),1);
+        rho_VG(logicInside)=rho(elementIndexFound(logicInside));
+        rho_VG=reshape(rho_VG, size(XG));
+
+    case 2 % Linear
+        Vm=patchCentre(E,V); % center of the elements
+        rho_VG=griddata(Vm(:,1),Vm(:,2),Vm(:,3),rho,XG(:),YG(:),ZG(:),'linear'); %Interpolate on grid
+
+    case 3 % Element nodal average tri-linear
+        rho_V = faceToVertexMeasure(E,V,rho); % Average from elements to nodes
+        % Shape function (=barycentric coordinate) based within element
+        % tri-linear interpolation
+        rho_VG=nan(size(VG,1),1);
+        for indPoint = find(logicInside)'
+            indElement =  elementIndexFound(indPoint);
+            indNodes = E(indElement,:);
+            rho_VG(indPoint) = sum(baryCentricCoordinate(indPoint,:) .* rho_V(indNodes)');
+        end
+
+    case 4 % Natural
+        Vm=patchCentre(E,Vi); % center of the elements
+        interpFunc_rho = scatteredInterpolant(Vm,rho,'natural','none'); %Create interpolator
+        rho_VG=nan(size(VG,1),1);
+        rho_VG(logicInside) = interpFunc_rho(VG(logicInside,:));        
+end
+
+rho_VG=reshape(rho_VG, size(XG));
+sv3(rho_VG); colormap gjet; 
+
+%%
+
+l=(rho_VG-0.5)/-(1/3); % [-1.5, 0.75] levelset range 
+freq=0.05;
+k = freq*boxDim; % number of periods
+
+cFigure;  
+scatter3(VG(:,1),VG(:,2),VG(:,3),25,l(:),'filled');
+axis tight; axis equal; 
+colorbar;
+
+%% Evaluate triply periodic function
+
+S=(sin(k(1,1).*XG).*cos(k(1,2).*YG))+(sin(k(1,2).*YG).*cos(k(1,3).*ZG))+(cos(k(1,1).*XG).*sin(k(1,3).*ZG)); 
+
+i=2.5; % Leads to a minimu of 1 later
+S=S+i; % S=-S-i;
+l=l+i; % l=-l-i; % i - i+s
+S=S./l; 
+
+% S=-S; 
+
+sv3(S); colormap warmcold;
+
+%Construct iso-surface
+[Fg,Vg] = isosurface(XG,YG,ZG,S,1);
+% [Fc,Vc] = isocaps(XG,YG,ZG,S,0);
+% [Fg,Vg]=joinElementSets({Fg,Fc},{Vg,Vc});
+% [Fg,Vg]=mergeVertices(Fg,Vg);
+%%
+% Visualize surface
+cFigure; 
+gpatch(Fg,Vg,'kw','k',1);
+hold on;
+gpatch(Fb,V,'rw','none',0.3);
+
+axisGeom; 
+camlight headlight;
+drawnow; 
+
+%% create a shell boundary
+% t=0.02; % shell thickness
+% 
+% R=DG_im;
+% R(R<(-t/2))=-R(R<(-t/2))-t;
+% sv3(R); colormap warmcold
+% caxis([-t t])
+% 
+% Ls=(DG_im)<=-t;
+% 
+% Sn=R;
+% Sn(Ls)=S(Ls);
+% 
+% sv3(Sn); colormap warmcold
+% m=max(abs(Sn(:)));
+
+%%
+[Ft,Vt]=quad2tri(Fb,V,'f');
+
+%% Construct iso-surface
+
+% [Fsn,Vsn] = isosurface(X,Y,Z,Sn,0); % create a gyroid isosurface 
+
+[Fsn,Vsn,Csn]=joinElementSets({Ft,Fg},{Vt,Vg});
+
+[Fsn,Vsn]=patchCleanUnused(Fsn,Vsn); %Remove unused nodes
+
+[Fsn,Vsn]=mergeVertices(Fsn,Vsn); %Merge nodes
+
+%% Visualize surface
+
+cFigure; hold on;
+gpatch(Fsn,Vsn,'kw','none',0.3);
+% gpatch(Fb,V,'rw','none',0.3);
+
+axisGeom; colormap spectral; icolorbar; 
+camlight headlight; axis off;
+drawnow; 
+
+%%
+cutViewAnim8(Fsn,Vsn);
+
+%%
+function cutViewAnim8(F,V)
+
+FV=patchCentre(F,V)/5;
+C=sin(FV(:,1))+sin(FV(:,2))+sin(FV(:,3));
+snapTolerance=mean(patchEdgeLengths(F,V))/50; %Snapping tolerance
+n=vecnormalize([0 0 1]); %Plane normal vector
+
+P=mean(V,1); %Point on plane
+
+[Fc,Vc,Cc,logicSide]=triSurfSlice(F,V,C,P,n,snapTolerance);
+Eb=patchBoundary(Fc(logicSide,:));
+
+hf=cFigure; 
+
+hold on; 
+hp1=gpatch(Fc(logicSide,:),Vc,'w','none',1,3);
+hp2=gpatch(Fc(~logicSide,:),Vc,'w','none',0.25);
+hp3=gpatch(Eb,Vc,'none','b',1,4);
+
+axisGeom; axis manual; camlight headligth;
+view(-90,0); zoom(1.25);axis off; 
+gdrawnow; 
+
+nSteps=75; %Number of animation steps
+animStruct.Time=linspace(0,1,nSteps); %Create the time vector
+z=linspace(min(V(:,3)),max(V(:,3)),nSteps);
+for q=1:1:nSteps    
+    P=[0 0 z(q)];    
+    [Fc,Vc,~,logicSide,Eb]=triSurfSlice(F,V,C,P,n,snapTolerance);
+
+    %Set entries in animation structure
+    animStruct.Handles{q}=[hp1 hp1 hp2 hp2 hp3 hp3]; %Handles of objects to animate
+    animStruct.Props{q}={'Vertices','Faces',...
+                         'Vertices','Faces',...   
+                         'Vertices','Faces',... 
+                         'Vertices','Faces','CData'... 
+                         }; %Properties of objects to animate
+    animStruct.Set{q}={Vc,Fc(logicSide,:),Vc,Fc(~logicSide,:),Vc,Eb,Vc,Fc,double(logicSide)}; %Property values for to set in order to animate
+end
+anim8(hf,animStruct);
+
+end
+
+
+
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
