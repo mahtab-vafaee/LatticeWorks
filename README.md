@@ -4,6 +4,8 @@
 
 This is a MATLAB toolbox for creating and customizing lattice structures, multi-morphology lattices, and lattices in different coordinates and arrangements. 
 
+[![graphAbstract](docs/html/graphAbstract.jpg)](https://github.com/mahtab-vafaee/Lattice_Structures/tree/main)
+
 # Getting started
 ## Installation
 To install this toolbox, simply run `install_me.m` found in the main project folder. 
