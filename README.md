@@ -24,6 +24,13 @@ Optional functionality
 ## Running examples
 Examples are contained in the `docs` folder.
 
+# Applications
+* Lattice generation for tissue engineering and scaffolds, biomedical devices, energy absorption, etc.
+* Generating ready-to-print STL files for 3D printing of lattices. 
+* Finite element analysis (FEA) using ABAQUS directly in the toolbox, as well as post-processing the results. `DEMO_0014_FEA_ABAQUS_Twisted_Cylindrical_Gyroid` is an example of FEA on a generated lattice structure, through ABAQUS directly in the toolbox.
+* Mapping optimised nonuniform gradient lattices on distributed structural and mechanical properties, e.g. stiffness. `DEMO_0013_Mapping_Density_Distribution` maps nonuniform gradient gyroid on a density distribution field.
+* Creat infill lattice structures within a closed surface, using different lattice types. `DEMO_0012_infill_STL_Lattice` is an example of this application on a vertebrae model.
+
 # Contributing
 We welcome submissions. If you'd like to contribute please file a pull request or post an issue. Thanks! 
 
