@@ -15,7 +15,7 @@ markerSize=20;
 
 % Path names
 defaultFolder = fileparts(fileparts(mfilename('fullpath')));
-savePath=fullfile(defaultFolder,'temp');
+savePath=fullfile(defaultFolder,'assets','temp');
 
 % Defining file names
 abaqusInpFileNamePart='twistedCylinder_FEA';
@@ -36,7 +36,7 @@ Ns=100; % number of sampling points
 numPeriods=[2 12 2]; %Number of periods in each direction
 levelset=0.5 ; %Isosurface level
 
-pointSpacing=10/Ns;
+pointSpacing=6/Ns;
 tolDir=pointSpacing/5; %Tolerance for detecting sides after remeshing
 
 %% Compute gyroid sample in cilyndrical arrangment
@@ -112,17 +112,17 @@ drawnow;
 
 %% Exporting STL file 
 
-stlStruct.solidNames={'a'}; %names of parts
-stlStruct.solidFaces={F}; %Faces
-stlStruct.solidVertices={V}; %Vertices
-stlStruct.solidNormals={[]}; %Face normals (optional)
-
-%Set main folder and fileName
-defaultFolder=fileparts(fileparts(mfilename('fullpath')));
-pathName=fullfile(defaultFolder, 'assets', 'STL');
-fileName=fullfile(pathName,'cylindrical_twisted_gyroid.stl');
-
-export_STL_txt(fileName,stlStruct);
+% stlStruct.solidNames={'a'}; %names of parts
+% stlStruct.solidFaces={F}; %Faces
+% stlStruct.solidVertices={V}; %Vertices
+% stlStruct.solidNormals={[]}; %Face normals (optional)
+% 
+% %Set main folder and fileName
+% defaultFolder=fileparts(fileparts(mfilename('fullpath')));
+% pathName=fullfile(defaultFolder, 'assets', 'STL');
+% fileName=fullfile(pathName,'cylindrical_twisted_gyroid.stl');
+% 
+% export_STL_txt(fileName,stlStruct);
 
 %% Remesh using geomgram
 
@@ -180,7 +180,7 @@ xlabel('X','FontSize',fontSize); ylabel('Y','FontSize',fontSize); zlabel('Z','Fo
 hold on;
 
 gpatch(Fb,V,'w','none',1);
-scatterV(V,50,C_vertex,'filled');
+scatterV(V,10,C_vertex,'filled');
 
 axisGeom(gca,fontSize);
 colormap gjet; icolorbar;
@@ -230,7 +230,7 @@ abaqus_spec.Preprint.ATTR.contact='NO';
 % Node
 nodeIds=(1:1:size(V,1))';
 abaqus_spec.Part.COMMENT='This section defines the part geometry in terms of nodes and elements';
-abaqus_spec.Part.ATTR.name='Cube';
+abaqus_spec.Part.ATTR.name='Cylinder';
 abaqus_spec.Part.Node={nodeIds,V};
 
 % Element
@@ -376,7 +376,7 @@ maxV=max([V;V_def],[],1); %Maxima
 % Create basic view and store graphics handle to initiate animation
 hf=cFigure; %Open figure
 gtitle([abaqusInpFileNamePart,': Displacement data. Press play to animate']);
-hp=gpatch(Fb,V_def,colorDataVertices,'k',1); %Add graphics object to animate
+hp=gpatch(Fb,V_def,colorDataVertices,'none',1); %Add graphics object to animate
 gpatch(Fb,V,0.5*ones(1,3),'k',0.25); %A static graphics object
 axisGeom(gca,fontSize);
 colormap(gjet(250)); colorbar;
@@ -430,7 +430,7 @@ maxV=max([V;V_def],[],1); %Maxima
 % Create basic view and store graphics handle to initiate animation
 hf=cFigure; %Open figure
 gtitle([abaqusInpFileNamePart,': Effective stress data. Press play to animate']);
-hp=gpatch(FEb,V_def,colorDataFaces,'k',1); %Add graphics object to animate
+hp=gpatch(FEb,V_def,colorDataFaces,'none',1); %Add graphics object to animate
 gpatch(FEb,V,0.5*ones(1,3),'k',0.25); %A static graphics object
 axisGeom(gca,fontSize);
 colormap(gjet(250)); colorbar;
