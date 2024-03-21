@@ -76,7 +76,7 @@ end
 
 axisGeom; camlight headlight;
 colormap (map); icolorbar;
-grid off; axis off;
+grid off; axis on;
 gdrawnow;
 
 end

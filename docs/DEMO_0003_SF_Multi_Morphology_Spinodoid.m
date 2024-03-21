@@ -30,7 +30,7 @@ markerSize1=25;
 
 %% Control parameters
 
-sampleSize=[3 1 1]; %Heigh of the sample
+sampleSize=[2 1 1]; %Heigh of the sample
 
 res=[300 100 100]; % set the resolution in 3D
 
@@ -92,75 +92,6 @@ weights_B=(1-weights_A);
 % Interpolating using the above weights
 graded_S =  weights_A .* (S_A - levelset_A) ...
             + (weights_B).* (S_B - levelset_B);
-
-%% Figure-4(d-f): Cubic Domain-GRBF Graded Spinodoid 
-
-inputStruct.isocap=true;
-inputStruct_A.domainSize=sampleSize; 
-inputStruct_A.resolution=res; 
-inputStruct_A.numWaves=1000; 
-% isoLevel=inputStruct_A.levelset;
-
-inputStruct_B = inputStruct_A;
-inputStruct_C = inputStruct_A;
-
-% Set parameters for individual gyroid
-inputStruct_A.waveNumber=10*pi; 
-inputStruct_A.relativeDensity=0.3; 
-inputStruct_A.thetas=[15 15 0];
-levelset_A=inputStruct_A.relativeDensity; 
-
-inputStruct_B.waveNumber=15*pi; 
-inputStruct_B.relativeDensity=0.7; 
-inputStruct_B.thetas=[90 90 0];
-levelset_B=inputStruct_B.relativeDensity; 
-
-inputStruct_C.waveNumber=20*pi; 
-inputStruct_C.relativeDensity=0.4; 
-inputStruct_C.thetas=[0 0 15];
-levelset_C=inputStruct_C.relativeDensity; 
-
-% Compute individual gyroids
-% No need to store faces and vertices, only require underlying S,
-% grid coordinates, and levelset values
-[~,~,~,S_A,X,Y,Z]=spinodoid(inputStruct_A);
-[~,~,~,S_B,~,~,~]=spinodoid(inputStruct_B);
-[~,~,~,S_C,~,~,~]=spinodoid(inputStruct_C);
-
-% Define the central location of each individual spinodoid in space
-% E.g., At center_A, the spinodoid will definitely correspond to input_A.
-% As we move away from center_A, it will slowly transition into other
-% spinodoids with input_B and input_C. 
-center_A = [0.5, 0.5, 0.5];
-center_B = [1.5, 0.5, 0.5];
-center_C = [2.5, 0.5, 0.5];
-
-
-% kappa controls the lengthscale of transition between spinodoids
-% Higher kappa => faster transition
-% Lower kappa => slower transition
-kappa = 8;
-
-% Using Gaussian (a.k.a. radial basis functions) interpolation.
-% One can use any interpolation scheme of choice as long as weights at
-% every grid point sum up to 1.
-% Computing the weights for each spinodoid evaluated on all grid points.
-weights_A = exp(-kappa * Squared_distance_from_point(X,Y,Z,center_A));
-weights_B = exp(-kappa * Squared_distance_from_point(X,Y,Z,center_B));
-weights_C = exp(-kappa * Squared_distance_from_point(X,Y,Z,center_C));
-
-% Weights must sum up to 1.
-sum_weights = weights_A + weights_B + weights_C;
-
-weights_A = weights_A ./ sum_weights;
-weights_B = weights_B ./ sum_weights;
-weights_C = weights_C ./ sum_weights;
-
-% Interpolating using the above weights
-graded_S =  weights_A .* (S_A - levelset_A) ...
-            + weights_B .* (S_B - levelset_B)...
-            + weights_C .* (S_C - levelset_C);
-
 
 %% Compue isosurface
 graded_levelset = 0;
