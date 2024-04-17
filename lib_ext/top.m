@@ -40,7 +40,7 @@ function [xnew]=OC(nelx,nely,x,volfrac,dc)
 l1 = 0; l2 = 100000; move = 0.2;
 while (l2-l1 > 1e-4)
   lmid = 0.5*(l2+l1);
-  xnew = max(0.1,max(x-move,min(.9,min(x+move,x.*sqrt(-dc./lmid)))));
+  xnew = max(0.2,max(x-move,min(.8,min(x+move,x.*sqrt(-dc./lmid)))));
   if sum(sum(xnew)) - volfrac*nelx*nely > 0;
     l1 = lmid;
   else
