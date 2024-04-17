@@ -32,7 +32,7 @@ pColors=gjet(6);
 
 %% Using topology optimisation to create a density field
 % define box size, volume fraction as inputs for top.m
-s=1; % s=3
+s=2; 
 nelx = s*64;
 nely = s*24;
 nelz = s*24;

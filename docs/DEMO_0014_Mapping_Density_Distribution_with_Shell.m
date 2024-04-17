@@ -40,7 +40,7 @@ nelz = 2*24; % 20
 
 volfrac = 0.5;
 penal = 3;
-rmin = 10;
+rmin = 5;
 
 v=1; % im2patch voxel 
 t=1; % shell thickness
@@ -82,7 +82,7 @@ drawnow;
 %% Creating a grid  grid with a desired spacing (e.g. as per desired spatial frequency)
 
 spatialWaveLength = 6.66; % Nominal spatial wave length
-samplingRate = 4; % Rate per "wave" % 3
+samplingRate = 3; % Rate per "wave" 
 voxelSize = spatialWaveLength/samplingRate;
 
 %% Interpolating model data onto grid with a desired spacing (e.g. as per desired spatial frequency)
