@@ -4,7 +4,7 @@
 
 This is a MATLAB toolbox for creating and customizing lattice structures, multi-morphology lattices, and lattices in different coordinates and arrangements. 
 
-[![graphAbstract](docs/html/graphAbstract.jpg)](https://github.com/mahtab-vafaee/LatticeWorks/tree/main)
+[![graphAbstract](docs/html/graphAbstract.png)](https://github.com/mahtab-vafaee/LatticeWorks/tree/main)
 
 # Getting started
 ## Installation
