@@ -125,3 +125,13 @@ gpatch(Fsn,Vsn,'kw','none',1);
 axisGeom; colormap spectral; icolorbar; 
 camlight headlight; axis on;
 drawnow; 
+
+%% Scallin the Coordinates
+
+scalF=max(squeeze(Vsn(:, 1, :)))/60;
+Vsn1=Vsn./scalF;
+
+%% STL Export
+
+TR = triangulation(Fsn,Vsn1(:,1),Vsn1(:,2),Vsn1(:,3));
+stlwrite(TR,'3D_Printing_Prototye.stl');

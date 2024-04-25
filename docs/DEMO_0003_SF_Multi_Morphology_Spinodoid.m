@@ -1,4 +1,4 @@
-%% DEMO_0003_Multi_Morphology_Spinodoid 
+%% DEMO_0003_SF_Multi_Morphology_Spinodoid 
 % This is a demo for:
 % 
 % * Building geometry for generating multi-morphology lattice of 

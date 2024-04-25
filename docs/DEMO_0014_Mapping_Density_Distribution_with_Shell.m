@@ -43,7 +43,7 @@ penal = 3;
 rmin = 5;
 
 v=1; % im2patch voxel 
-t=1; % shell thickness
+t=3; % shell thickness
 
 %% calculating the density distribution map
 [rho0] = top(nelx,nely,volfrac,penal,rmin);
@@ -82,7 +82,7 @@ drawnow;
 %% Creating a grid  grid with a desired spacing (e.g. as per desired spatial frequency)
 
 spatialWaveLength = 6.66; % Nominal spatial wave length
-samplingRate = 3; % Rate per "wave" 
+samplingRate = 8; % Rate per "wave" 
 voxelSize = spatialWaveLength/samplingRate;
 
 %% Interpolating model data onto grid with a desired spacing (e.g. as per desired spatial frequency)
@@ -123,7 +123,7 @@ Sg=-Sg; % Negative
 
 [Fg,Vg] = isosurface(X,Y,Z,Sg,0);
 
-Vg=Vg+imOrigin/2; % shifting vertices 
+Vg=Vg+imOrigin; % shifting vertices 
 
 %% Visualize surface gyroid function field
 
@@ -158,10 +158,13 @@ Sn(Ls)=Sg(Ls); % keep mapped gyroid for R<=-t
 
 sv3(Sn); colormap warmcold
 m=max(abs(Sn(:)));
+caxis([-t, t])
 
 %% Construct iso-surface
 
 [Fsn,Vsn] = isosurface(X,Y,Z,Sn,0); % create a gyroid isosurface 
+
+Vsn=Vsn+imOrigin; % shifting vertices 
 
 %% Visualize surface
 cFigure; 

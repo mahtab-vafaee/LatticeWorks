@@ -1,4 +1,4 @@
-%% DEMO_0004_Hybrid_Lattices 
+%% DEMO_0004_GRBF_Multi_Morphology_Lattices 
 % This is a demo for:
 % 
 % * Building geometry for multi-morphology lattices of 
