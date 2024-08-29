@@ -14,9 +14,9 @@ authors:
   - name: Kevin M. Moerman
     orcid: 0000-0003-3768-4269
     affiliation: "1, 2"
-  - name: Ted J. Vaughan
+  - name: Ted J Vaughan
     orcid: 0000-0002-2219-7620
-	affiliation: 1
+    affiliation: 1
 affiliations:
  - name: Biomechanics Research Centre (BMEC), Schoole of Engineering, College of Science and Engineerig, University of Galway, Ireland
    index: 1
@@ -42,7 +42,7 @@ LatticeWorks toolbox can be used for a variety of applications, such as:
 
 # Statement of need
 
-Rapid advancement of additive manufacturing technology has expanded the design envelope for sophisticated lightweight lattice structures `[@Dong:2022]`. Due to their highly tunable and multifunctional nature of functionally graded lattice structures, they are used extensively in different applications from biomedical to aerospace engineering `[@Perez2022; @Veloso2022]`. In biomedical applications these structures are used as bone implants and scaffolds `[@Vafaeefar:2023; @Naghavi:2023, @Zadpoor:2019]`. In aerospace Lattice structures are frequently utilized in the aerospace industry along with topology optimization to provide lightweight designs `[@Veloso2022]`. Lattice structures are also used for energy absorption applications `[@Vafaeefar:2024]`.
+Rapid advancement of additive manufacturing technology has expanded the design envelope for sophisticated lightweight lattice structures `[@Dong2022]`. Due to their highly tunable and multifunctional nature of functionally graded lattice structures, they are used extensively in different applications from biomedical to aerospace engineering `[@Perez2022; @Veloso2022]`. In biomedical applications these structures are used as bone implants and scaffolds `[@Vafaeefar2023; @Naghavi2023, @Zadpoor2019]`. In aerospace Lattice structures are frequently utilized in the aerospace industry along with topology optimization to provide lightweight designs `[@Veloso2022]`. Lattice structures are also used for energy absorption applications `[@Vafaeefar2024]`.
 
 Given the current significance and potential of functionally graded lattice structures for many applications, identifying techniques and tools that can control lattice geometries to construct functional gradients, and multi-morphology lattices, in different configurations is the main objective of this work. 
 
