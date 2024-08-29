@@ -24,24 +24,25 @@ affiliations:
    index: 2
 date: 28 August 2024
 bibliography: paper.bib
+---
 
 # Summary
 
 [LatticeWorks](https://github.com/mahtab-vafaee/LatticeWorks) is a MMATLAB toolbox for creating and customizing lattice structures, multi-morphology lattices, and lattices in different coordinates and arrangements. 
 
-![A Graphical summary of the LatticeWorks toolbox](graphAbstract.png){ width=40% }
+![A Graphical summary of the LatticeWorks toolbox](graphAbstract.png)
 
 LatticeWorks toolbox can be used for a variety of applications, such as: 
 
-* **A variety of lattice generation methods for tissue engineering and scaffolds, biomedical devices, energy absorption, etc.
-* **Mapping optimised nonuniform gradient lattices on distributed structural and mechanical properties, e.g. stiffness.
-* **Creat infill lattice structures within a closed surface, using different lattice types.
-* **Finite element analysis (FEA) using ABAQUS directly in the toolbox, as well as post-processingthe results.
-* **Generating ready-to-print STL files for 3D printing of lattices.
+* A variety of **functionally graded lattice** generation methods for tissue engineering and scaffolds, biomedical devices, energy absorption, etc.
+* **Mapping optimised nonuniform gradient lattices** on distributed structural and mechanical properties, e.g. stiffness.
+* Creat **infill lattice structures** within a closed surface, using different lattice types.
+* **Finite element analysis (FEA)** using ABAQUS directly in the toolbox, as well as post-processingthe results.
+* **Generating ready-to-print STL** files for 3D printing of lattices.
 
 # Statement of need
 
-Rapid advancement of additive manufacturing technology has expanded the design envelope for sophisticated lightweight lattice structures `[dong2022]`. Due to their highly tunable and multifunctional nature of functionally graded lattice structures, they are used extensively in different applications from biomedical to aerospace engineering `[@Perez2022; @veloso2022]`. In biomedical applications these structures are used as bone implants and scaffolds `[@vafaeefar2023; @Naghavi2023, @zadpoor2019]`. In aerospace Lattice structures are frequently utilized in the aerospace industry along with topology optimization to provide lightweight designs `[@veloso2022]`. Lattice structures are also used for energy absorption applications `[@vafaeefar2024]`.
+Rapid advancement of additive manufacturing technology has expanded the design envelope for sophisticated lightweight lattice structures `[@Dong:2022]`. Due to their highly tunable and multifunctional nature of functionally graded lattice structures, they are used extensively in different applications from biomedical to aerospace engineering `[@Perez2022; @Veloso2022]`. In biomedical applications these structures are used as bone implants and scaffolds `[@Vafaeefar:2023; @Naghavi:2023, @Zadpoor:2019]`. In aerospace Lattice structures are frequently utilized in the aerospace industry along with topology optimization to provide lightweight designs `[@Veloso2022]`. Lattice structures are also used for energy absorption applications `[@Vafaeefar:2024]`.
 
 Given the current significance and potential of functionally graded lattice structures for many applications, identifying techniques and tools that can control lattice geometries to construct functional gradients, and multi-morphology lattices, in different configurations is the main objective of this work. 
 
