@@ -39,7 +39,7 @@ nelz = s*24;
 
 volfrac = 0.5;
 penal = 3;
-rmin = 10;
+rmin = 5;
 
 %% TOP: calculating the density distribution map
 [rho0] = top(nelx,nely,volfrac,penal,rmin);
@@ -82,7 +82,7 @@ caxis([0,1]);
 %% Mapping the density field to the equivalent gyroid levelSet field
 
 l=(rho_VG-0.5)/-(1/3); % Equivalent levelset image for rho
-k = (1*pi)/spatialWaveLength; % number of periods
+k = (2*pi)/spatialWaveLength; % number of periods
 
 %% Visualizig levelSet data
 cFigure;  
@@ -105,13 +105,16 @@ Sg=Sg./l;
 
 Sg=Sg-1; % bringing back to zero levelset
 
-%visualize gyroid function field
+%Visualize uniform gyroid function field
 sv3(S); colormap warmcold;
+
+%Visualize mapping gyroid function field
+sv3(Sg); colormap warmcold;
 
 %% Construct iso-surface
 
-[Fg,Vg] = isosurface(XG,YG,ZG,S,0);
-[Fgc,Vgc] = isocaps(XG,YG,ZG,S,0);
+[Fg,Vg] = isosurface(XG,YG,ZG,Sg,0);
+[Fgc,Vgc] = isocaps(XG,YG,ZG,Sg,0);
 
 %% Joining the two surfaces
 
