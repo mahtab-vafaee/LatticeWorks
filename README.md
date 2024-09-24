@@ -16,7 +16,6 @@ Alternatively one can manually install by adding `lib` and `lib_ext` folders to 
 * Install the [GIBBON MATLAB toolbox](https://www.gibboncode.org/)
 * Required MATLAB toolboxes:
 	- Image Processing toolbox
-Optional functionality
 * ABAQUS, to run finite element simulations through ABAQUS
 * [FEBio](https://www.febio.org/), to run finite element simulations through FEBio (see also configuration information with the GIBBON toolbox)
 * [export_fig](https://github.com/altmany/export_fig), to fascilitate the creation of publication quality figures. 
