@@ -10,11 +10,6 @@
 % # Case-2: Gyroid lattice under rotation deformation.
 %
 %%
-% _*Name*_ 
-% 
-% License: <hyperlink to license>
-%
-% Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
 %
 %  Change log:
 %  2023/11/15 MV Created  
@@ -160,3 +155,9 @@ axisGeom(gca, fontSize);
 camlight headlight;
 drawnow; 
 
+%% 
+% _*LatticeWorks footer text*_ 
+% 
+% License: <https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE>
+% 
+% Copyright (C) 2023 Mahtab Vafaeefar and the LatticeWorks contributors

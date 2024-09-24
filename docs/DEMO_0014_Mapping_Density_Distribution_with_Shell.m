@@ -5,12 +5,7 @@
 % structural properties on a rectangular domain, 
 % e.g. in this demo, it is mapping a density distribution field.
 % 
-%%  
-% _*Name*_ 
-% 
-% License: <hyperlink to license>
-%  
-% Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
+%%
 %
 %  Change log:
 %  2023/11/15 MV Created  

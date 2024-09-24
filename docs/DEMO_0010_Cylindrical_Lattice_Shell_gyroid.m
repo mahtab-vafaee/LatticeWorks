@@ -10,11 +10,6 @@
 % 108340. https://doi.org/10.1016/J.MATDES.2019.108340
 %
 %%
-% _*Name*_ 
-% 
-% License: <hyperlink to license>
-%
-% Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
 %
 %  Change log:
 %  2023/11/15 MV Created  
@@ -98,3 +93,9 @@ axisGeom(gca,fontSize);
 axis off; box on;
 camlight headlight;
 drawnow; 
+%% 
+% _*LatticeWorks footer text*_ 
+% 
+% License: <https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE>
+% 
+% Copyright (C) 2023 Mahtab Vafaeefar and the LatticeWorks contributors

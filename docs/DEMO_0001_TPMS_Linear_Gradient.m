@@ -5,15 +5,11 @@
 % lattices
 
 %%
-% _*Name*_ 
 % 
-% License: <hyperlink to license>
-%
-% Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
-%
 %  Change log:
 %  2023/11/15 MV Created  
 %  2024/01/29 MV Sorted for publishing
+%  2024/09/03 KMM cleaning up, commenting
 % -----------------------------------------------------------------------
 
 %%
@@ -22,28 +18,22 @@ clear; close all; clc;
 
 %% Plot settings
 
-cMap=parula(250);
-faceAlpha1=1;
-faceAlpha2=0.5;
-edgeColor1='none';
-edgeColor2='none';
+cMap=[0.6*ones(256,2), linspace(1, 0, 256)'];
 fontSize=15; 
 
 %% Control parameters
 % Creating control parameters depending on the type of demo the user wants
 % to run 
 
-gradType= 'levelSet'; % choose between cellSize or levelSet
+gradType= 'cellSize'; % choose between cellSize or levelSet
 levelset= 1; %Isosurface level, corresponding to volume fraction
 
 switch gradType
-
     case 'levelSet' % PAPER, figure 1
         inputStruct.L=[3 1 1]; % characteristic length
         inputStruct.Ns=100; % number of sampling points, resolution
         inputStruct.surfaceCase='g'; %Surface type
         inputStruct.numPeriods=[9 3 3]; %Number of periods in each direction [6 2 2]
-
     case 'cellSize' % Coarse version 
         inputStruct.L=[3 1 1]; % characteristic length
         inputStruct.Ns=100; % number of sampling points, resolution
@@ -69,9 +59,7 @@ zRange=linspace(zMin,zMax,Ns);
 [X,Y,Z]=meshgrid(xRange,yRange,zRange);
 
 switch gradType
-
     case 'levelSet' % volume fraction gradient, Figure 1 (a,b)
-
         %Calculate 3D image data
         S=(sin(X).*cos(Y))+(sin(Y).*cos(Z))+(cos(X).*sin(Z));
         S=reshape(S,size(X));
@@ -85,9 +73,7 @@ switch gradType
         GF=GF + (1/1.2); % 0.8333-3.3333
 
         S=S.*GF;
-
     case 'cellSize' % cell size gradient, Figure 1 (d,e)
-
         % Calculate gradient frequency
         m=3;
         K1= (m-1)/(xMax-xMin);
@@ -99,10 +85,9 @@ switch gradType
         c = K1*X+C1;
 
         %Calculate 3D image data
-        S=(sin(a.*(X-1/4*pi)).*cos(b.*(Y-1/4*pi)))+(sin(b.*(Y-1/4*pi)).*...
-            cos(c.*(Z-1/4*pi)))+(cos(a.*(X-1/4*pi)).*sin(c.*(Z-1/4*pi)));
+        S=( sin(a.*(X-1/4*pi)).*cos(b.*(Y-1/4*pi)))+(sin(b.*(Y-1/4*pi)).*...
+            cos(c.*(Z-1/4*pi)))+(cos(a.*(X-1/4*pi)).*sin(c.*(Z-1/4*pi)) );
         S=reshape(S,size(X));
-
 end
 
 %% Scaling coordinates
@@ -149,37 +134,44 @@ c=c(logicKeep);
 
 %Remove unused points
 [f,v]=patchCleanUnused(f,v); 
-
 f=fliplr(f); %Invert faces
-
 
 %% Visualize surface
 
-cFigure; hold on;
+cFigure; 
+subplot(1,2,1); hold on;
+title('Face labelling');
+hp1 = gpatch(f,v,c,'none', 1); 
+colormap(gca,gjet(6)); 
+axisGeom(gca,fontSize); camlight headlight; 
 
 switch gradType
-
     case 'levelSet'
-        [Vm] = patchCentre(f,v); % gradiant color
-        gpatch(f,v,Vm(:,1),'none', 1);
-
-        map=[0.6*ones(256,2), linspace(1, 0, 256)'];
-        cmap = colormap(map) ; %Create Colormap
+        subplot(1,2,2); hold on;        
+        title('Gradient');
+        hp2 = gpatch(f,v,v(:,1),'none', 1); % color gradient allong X-direction
+        hp2.FaceColor = 'interp'; % Use interpolated shading
+        colormap(gca,cMap) ; %Set Colormap
         cbh = colorbar;  %Create Colorbar
         cbh.Ticks = linspace(0, 3, 4); %Create 4 ticks 10%-40%
         cbh.TickLabelInterpreter = 'tex';
-        cbh.TickLabels = {'10%','20%','30%','40%'} ;    %Replace the labels
+        cbh.TickLabels = {'10%','20%','30%','40%'} ; %Replace the labels
         % of these 8 ticks with the numbers 1 to 8
-
-    case 'cellSize'
-        gpatch(f,v,[0.75, 0.75, 0],'none', 1);
-
+    case 'cellSize'        
+        subplot(1,2,2); hold on;                
+        title('Gradient');
+        hp2 = gpatch(f,v,v(:,1),'none', 1);
+        hp2.FaceColor = 'interp'; % Use interpolated shading
+        colormap(gca,cMap) ; %Set Colormap
+        % cbh = colorbar;  %Create Colorbar
 end
 
-axis off;
-axisGeom; camlight headlight; 
+axisGeom(gca,fontSize); camlight headlight; 
 gdrawnow;
 
-
-
-
+%% 
+% _*LatticeWorks footer text*_ 
+% 
+% License: <https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE>
+% 
+% Copyright (C) 2023 Mahtab Vafaeefar and the LatticeWorks contributors

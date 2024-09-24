@@ -6,13 +6,14 @@ function [] = Hybrid_vizualize(varargin)
 % This function is a customized version of |gpatch| function, specifically
 % designed for multi-morphology and hybrid lattices visualization.
 %
-% for |Hybrid_vizualize| are the faces (F), the vertices (V), the color 
-% description (C), the colormap description (map), the vertices of centre 
+% for |Hybrid_vizualize| are the faces (F), the vertices (V), the color
+% description (C), the colormap description (map), the vertices of centre
 % locations (center_V).
 %
-% _*Name*_
+% _*LatticeWorks*_ 
+% 
+% License: <https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE>
 %
-% License: <hyperlink to license>
 % Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
 %
 %  Change log:
@@ -69,7 +70,6 @@ switch nargin
             plotV(center_V(i,:),'r*', 'LineWidth',4.5,'markerSize',30);
             hold on;
         end
-
 end
 
 %% Visua;ization setting
@@ -80,3 +80,9 @@ grid off; axis on;
 gdrawnow;
 
 end
+%% 
+% _*LatticeWorks footer text*_ 
+% 
+% License: <https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE>
+% 
+% Copyright (C) 2023 Mahtab Vafaeefar and the LatticeWorks contributors

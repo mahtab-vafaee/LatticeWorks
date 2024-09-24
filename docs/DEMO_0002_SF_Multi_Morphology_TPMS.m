@@ -5,11 +5,6 @@
 % Gyroid-Diamond in cubic domain using Sigmoid Function (SF)
 
 %%
-% _*Name*_ 
-% 
-% License: <hyperlink to license>
-%
-% Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
 %
 %  Change log:
 %  2023/11/15 MV Created  
@@ -23,11 +18,6 @@ clear; close all; clc;
 %% Plot settings
 
 fontSize=20;
-faceAlpha1=0.8;
-markerSize=10;
-lineWidth1=3;
-lineWidth2=4;
-markerSize1=25;
 
 %% Control parameters
 
@@ -139,3 +129,9 @@ f=fliplr(f);
 %% Visualize
 Hybrid_vizualize(f,v,c);
 
+%% 
+% _*LatticeWorks footer text*_ 
+% 
+% License: <https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE>
+% 
+% Copyright (C) 2023 Mahtab Vafaeefar and the LatticeWorks contributors

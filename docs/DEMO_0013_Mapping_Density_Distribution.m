@@ -5,12 +5,7 @@
 % structural properties on a rectangular domain, 
 % e.g. in this demo, it is mapping a density distribution field.
 %
-%%  
-% _*Name*_ 
-% 
-% License: <hyperlink to license>
-%  
-% Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
+%%
 %
 %  Change log:
 %  2023/11/15 MV Created  
@@ -39,7 +34,7 @@ nelz = s*24;
 
 volfrac = 0.5;
 penal = 3;
-rmin = 10;
+rmin = 5;
 
 %% TOP: calculating the density distribution map
 [rho0] = top(nelx,nely,volfrac,penal,rmin);
@@ -104,14 +99,15 @@ l=l+i; % l=-l-i; % i:i+s
 Sg=Sg./l; 
 
 Sg=Sg-1; % bringing back to zero levelset
+% Sg=-Sg; % Negative
 
 %visualize gyroid function field
-sv3(S); colormap warmcold;
+sv3(Sg); colormap warmcold;
 
 %% Construct iso-surface
 
-[Fg,Vg] = isosurface(XG,YG,ZG,S,0);
-[Fgc,Vgc] = isocaps(XG,YG,ZG,S,0);
+[Fg,Vg] = isosurface(XG,YG,ZG,Sg,0.5);
+[Fgc,Vgc] = isocaps(XG,YG,ZG,Sg,0);
 
 %% Joining the two surfaces
 
@@ -135,3 +131,9 @@ Vsn1=Vsn./scalF;
 
 TR = triangulation(Fsn,Vsn1(:,1),Vsn1(:,2),Vsn1(:,3));
 stlwrite(TR,'3D_Printing_Prototye.stl');
+%% 
+% _*LatticeWorks footer text*_ 
+% 
+% License: <https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE>
+% 
+% Copyright (C) 2023 Mahtab Vafaeefar and the LatticeWorks contributors

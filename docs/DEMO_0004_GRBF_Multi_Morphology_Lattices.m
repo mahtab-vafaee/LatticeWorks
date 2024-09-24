@@ -10,11 +10,6 @@
 % in cubic domain
 
 %%
-% _*Name*_ 
-% 
-% License: <hyperlink to license>
-%
-% Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
 %
 %  Change log:
 %  2023/11/15 MV Created  
@@ -289,3 +284,9 @@ map=[0.75 0.75 0
     0.75 0.3 0.2
     0.75 0.75 0];
 Hybrid_vizualize(f,v,c, map, center_V)
+%% 
+% _*LatticeWorks footer text*_ 
+% 
+% License: <https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE>
+% 
+% Copyright (C) 2023 Mahtab Vafaeefar and the LatticeWorks contributors
