@@ -23,3 +23,9 @@ function [sq_dist] = Squared_distance_from_point(X,Y,Z,point)
 sq_dist = (X-point(1)).^2 + (Y-point(2)).^2 + (Z-point(3)).^2;
 
 end
+%% 
+% _*LatticeWorks footer text*_ 
+% 
+% License: <https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE>
+% 
+% Copyright (C) 2023 Mahtab Vafaeefar and the LatticeWorks contributors

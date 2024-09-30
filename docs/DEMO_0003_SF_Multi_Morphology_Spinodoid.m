@@ -6,11 +6,6 @@
 %
 
 %%
-% _*Name*_ 
-% 
-% License: <hyperlink to license>
-%
-% Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
 %
 %  Change log:
 %  2023/11/15 MV Created  

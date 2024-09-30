@@ -10,10 +10,6 @@
 % # Case-3: TPMS in spherical coordinates, linear transition.
 %
 %%
-% _*Name*_ 
-% 
-% License: <hyperlink to license>
-% Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
 %
 %  Change log:
 %  2023/11/15 MV Created  
@@ -130,10 +126,10 @@ switch transType
 end
 
 % Trimm outter and inner points
-Logic_out= ismember(1:size(X(:)) , Ind_out);
+Logic_out= ismember(1:numel(X), Ind_out);
 Logic_out=reshape(Logic_out,size(X));
 
-Logic_in= ismember(1:size(X(:)) , Ind_in);
+Logic_in= ismember(1:numel(X), Ind_in);
 Logic_in=reshape(Logic_in,size(X));
 
 keepLogic=and(Logic_out, ~Logic_in);
@@ -168,3 +164,9 @@ gpatch(F,V,[0.75, 0.75, 0],'none', 1);
 axisGeom(gca,fontSize); axis on;
 camlight headlight;
 drawnow;
+%% 
+% _*LatticeWorks footer text*_ 
+% 
+% License: <https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE>
+% 
+% Copyright (C) 2023 Mahtab Vafaeefar and the LatticeWorks contributors

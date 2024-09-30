@@ -1,4 +1,21 @@
+%% DEMO_0015_FEA_ABAQUS_Twisted_Cylindrical_Gyroid
+% This is a demo for:
+% 
+% * Building a cylinder containing a radial Gyroid lattice structure
+% * Defining boundary conditions for finite element analysis
+% * Automatically generating an ABAQUS .inp file
+% * Triggering finite element analysis using ABAQUS
+% * Importing and visualising the results 
+
+%%
+
 clear; close all; clc;
+
+%%
+%
+%  Change log:
+% 2023 VM created
+% 2024/09/03 KMM Added header description
 
 %% Plot settings
 
@@ -23,20 +40,25 @@ abaqusInpFileName=fullfile(savePath,[abaqusInpFileNamePart,'.inp']); %INP file n
 abaqusDATFileName=fullfile(savePath,[abaqusInpFileNamePart,'.dat']); %DAT file nameme for exporting stress
 
 % Define applied displacement & direction
-appliedStrain=0.025; %Linear strain (Only used to compute applied stretch)
-displacementMagnitude = -0.2; % 25% strain
+displacementMagnitude = -0.2; %
 
 % Material parameter set
 E_youngs=5000;
 v_poisson=0.33;
 
 % Set parameters for individual gyroid
-Dim=[0.2, 2, 2*pi, 4]; % size vector
-Ns=100; % number of sampling points
+% NOTE: Not all geometry parameters yield a valid mesh. If the image resolution 
+% is poor, or if the point spacing is too large, the mesh may be invalid. 
+
+radiusInner = 0.3; 
+radiusOuter = 1.2; 
+height = 2; 
+Dim=[radiusInner, radiusOuter, 2*pi, height]; % size vector
+Ns=150; % number of sampling points
 numPeriods=[2 12 2]; %Number of periods in each direction
 levelset=0.5 ; %Isosurface level
 
-pointSpacing=6/Ns;
+pointSpacing=(radiusOuter-radiusInner)/40;
 tolDir=pointSpacing/5; %Tolerance for detecting sides after remeshing
 
 %% Compute gyroid sample in cilyndrical arrangment
@@ -461,3 +483,9 @@ for qt=1:1:numel(timeVec) %Loop over time increments
 end
 anim8(hf,animStruct); %Initiate animation feature
 drawnow;
+%% 
+% _*LatticeWorks footer text*_ 
+% 
+% License: <https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE>
+% 
+% Copyright (C) 2023 Mahtab Vafaeefar and the LatticeWorks contributors

@@ -11,10 +11,6 @@
 % # Case-3: TPMS in cylindrical arrangment, axial transition.
 %
 %%
-% _*Name*_ 
-% 
-% License: <hyperlink to license>
-%aee@gmail.com>
 %
 %  Change log:
 %  2023/11/15 MV Created  
