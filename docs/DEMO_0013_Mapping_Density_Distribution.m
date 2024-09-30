@@ -5,7 +5,12 @@
 % structural properties on a rectangular domain, 
 % e.g. in this demo, it is mapping a density distribution field.
 %
-%%
+%%  
+% _*Name*_ 
+% 
+% License: <hyperlink to license>
+%  
+% Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
 %
 %  Change log:
 %  2023/11/15 MV Created  
@@ -77,7 +82,7 @@ caxis([0,1]);
 %% Mapping the density field to the equivalent gyroid levelSet field
 
 l=(rho_VG-0.5)/-(1/3); % Equivalent levelset image for rho
-k = (1*pi)/spatialWaveLength; % number of periods
+k = (2*pi)/spatialWaveLength; % number of periods
 
 %% Visualizig levelSet data
 cFigure;  
@@ -99,14 +104,16 @@ l=l+i; % l=-l-i; % i:i+s
 Sg=Sg./l; 
 
 Sg=Sg-1; % bringing back to zero levelset
-% Sg=-Sg; % Negative
 
-%visualize gyroid function field
+%Visualize uniform gyroid function field
+sv3(S); colormap warmcold;
+
+%Visualize mapping gyroid function field
 sv3(Sg); colormap warmcold;
 
 %% Construct iso-surface
 
-[Fg,Vg] = isosurface(XG,YG,ZG,Sg,0.5);
+[Fg,Vg] = isosurface(XG,YG,ZG,Sg,0);
 [Fgc,Vgc] = isocaps(XG,YG,ZG,Sg,0);
 
 %% Joining the two surfaces
@@ -131,10 +138,3 @@ Vsn1=Vsn./scalF;
 
 TR = triangulation(Fsn,Vsn1(:,1),Vsn1(:,2),Vsn1(:,3));
 stlwrite(TR,'3D_Printing_Prototye.stl');
-%% 
-% _*LatticeWorks footer text*_ 
-% 
-% License: <https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE
-
-% 
-% Copyright (C) 2023 Mahtab Vafaeefar and the LatticeWorks contributors
