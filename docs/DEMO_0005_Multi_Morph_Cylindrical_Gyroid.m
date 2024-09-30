@@ -262,6 +262,7 @@ f=fliplr(f);
 % Visualize
 center_V=[center_A; center_B; center_C];
 Hybrid_vizualize(f,v,c,[], center_V);
+
 %% 
 % _*LatticeWorks footer text*_ 
 % 

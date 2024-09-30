@@ -483,6 +483,7 @@ for qt=1:1:numel(timeVec) %Loop over time increments
 end
 anim8(hf,animStruct); %Initiate animation feature
 drawnow;
+
 %% 
 % _*LatticeWorks footer text*_ 
 % 

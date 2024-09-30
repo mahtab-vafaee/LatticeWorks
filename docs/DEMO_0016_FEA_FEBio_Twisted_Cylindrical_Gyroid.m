@@ -36,6 +36,8 @@ if ~exist(savePath,'dir')
     mkdir(savePath)
 end
 
+dfasfasdfs
+
 % Defining file names
 febioFebFileNamePart='twistedCylinder_FEA';
 febioFebFileName=fullfile(savePath,[febioFebFileNamePart,'.feb']); %FEB file name
@@ -444,7 +446,6 @@ for qt=1:1:size(N_disp_mat,3) %Loop over time increments
 end        
 anim8(hf,animStruct); %Initiate animation feature    
 drawnow;
-
 %% 
 % _*LatticeWorks footer text*_ 
 % 

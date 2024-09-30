@@ -168,7 +168,6 @@ end
 
 axisGeom(gca,fontSize); camlight headlight; 
 gdrawnow;
-
 %% 
 % _*LatticeWorks footer text*_ 
 % 

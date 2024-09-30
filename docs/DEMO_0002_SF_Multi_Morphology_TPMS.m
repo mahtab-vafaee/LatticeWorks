@@ -128,7 +128,6 @@ f=fliplr(f);
 
 %% Visualize
 Hybrid_vizualize(f,v,c);
-
 %% 
 % _*LatticeWorks footer text*_ 
 % 

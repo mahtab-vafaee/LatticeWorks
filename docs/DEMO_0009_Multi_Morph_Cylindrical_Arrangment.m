@@ -185,3 +185,9 @@ map=[0.75 0.75 0
     0.4 0.4 0.9];
 
 Hybrid_vizualize(f,v,c,map,[]);
+%% 
+% _*LatticeWorks footer text*_ 
+% 
+% License: <https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE>
+% 
+% Copyright (C) 2023 Mahtab Vafaeefar and the LatticeWorks contributors

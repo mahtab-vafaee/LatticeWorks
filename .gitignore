@@ -4,3 +4,6 @@
 #Ignore .backup files
 *.backup
 *.md.backup
+
+# Ignore the temporary file directory in the data folder
+/assets/temp
