@@ -6,12 +6,7 @@
 % e.g. in this demo, it is mapping a density distribution field.
 %
 %%  
-% _*Name*_ 
 % 
-% License: <hyperlink to license>
-%  
-% Author: _Mahtab Vafaee_, <mahtab.vafaee@gmail.com>
-%
 %  Change log:
 %  2023/11/15 MV Created  
 %  2024/02/06 MV Edited
@@ -29,6 +24,14 @@ edgeColor1='none';
 edgeColor2='none';
 fontSize=25; 
 pColors=gjet(6);
+
+%%
+% Path names
+defaultFolder = fileparts(fileparts(mfilename('fullpath')));
+savePath=fullfile(defaultFolder,'assets','temp');
+if ~exist(savePath,'dir')
+    mkdir(savePath)
+end
 
 %% Using topology optimisation to create a density field
 % define box size, volume fraction as inputs for top.m
@@ -129,7 +132,7 @@ axisGeom; colormap spectral; icolorbar;
 camlight headlight; axis on;
 drawnow; 
 
-%% Scallin the Coordinates
+%% Scalling the Coordinates
 
 scalF=max(squeeze(Vsn(:, 1, :)))/60;
 Vsn1=Vsn./scalF;
@@ -137,4 +140,10 @@ Vsn1=Vsn./scalF;
 %% STL Export
 
 TR = triangulation(Fsn,Vsn1(:,1),Vsn1(:,2),Vsn1(:,3));
-stlwrite(TR,'3D_Printing_Prototye.stl');
+stlwrite(TR,fullfile(savePath,'3D_Printing_Prototype.stl'));
+%% 
+% _*LatticeWorks footer text*_ 
+% 
+% License: <https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE>
+% 
+% Copyright (C) 2023 Mahtab Vafaeefar and the LatticeWorks contributors

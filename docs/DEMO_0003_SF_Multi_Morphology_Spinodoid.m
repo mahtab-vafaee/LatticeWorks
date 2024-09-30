@@ -88,7 +88,7 @@ weights_B=(1-weights_A);
 graded_S =  weights_A .* (S_A - levelset_A) ...
             + (weights_B).* (S_B - levelset_B);
 
-%% Compue isosurface
+%% Compute isosurface
 graded_levelset = 0;
 
 [f,v] = isosurface(X,Y,Z,graded_S,graded_levelset);
@@ -131,3 +131,9 @@ f=fliplr(f);
 %% Visualize
 
 Hybrid_vizualize(f,v,c);
+%% 
+% _*LatticeWorks footer text*_ 
+% 
+% License: <https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE>
+% 
+% Copyright (C) 2023 Mahtab Vafaeefar and the LatticeWorks contributors

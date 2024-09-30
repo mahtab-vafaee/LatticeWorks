@@ -75,8 +75,6 @@ colormap gjet; icolorbar;
 camlight left;
 drawnow;
 
-
-
 %% 
 % _*LatticeWorks footer text*_ 
 % 

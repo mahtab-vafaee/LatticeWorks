@@ -93,6 +93,7 @@ axisGeom(gca,fontSize);
 axis off; box on;
 camlight headlight;
 drawnow; 
+
 %% 
 % _*LatticeWorks footer text*_ 
 % 

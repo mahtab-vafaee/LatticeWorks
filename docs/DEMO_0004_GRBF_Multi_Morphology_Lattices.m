@@ -284,6 +284,7 @@ map=[0.75 0.75 0
     0.75 0.3 0.2
     0.75 0.75 0];
 Hybrid_vizualize(f,v,c, map, center_V)
+
 %% 
 % _*LatticeWorks footer text*_ 
 % 

@@ -155,3 +155,9 @@ gpatch(Fb,Vi,'rw','none',0.2);
 axisGeom; colormap spectral; icolorbar; 
 camlight headlight; axis on;
 drawnow; 
+%% 
+% _*LatticeWorks footer text*_ 
+% 
+% License: <https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE>
+% 
+% Copyright (C) 2023 Mahtab Vafaeefar and the LatticeWorks contributors

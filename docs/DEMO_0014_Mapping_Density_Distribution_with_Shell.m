@@ -222,3 +222,9 @@ drawnow;
 [Fsn,Vsn,Csn]=joinElementSets({Fb,Fsn},{V,Vsn});
 [Fsn,Vsn]=mergeVertices(Fsn,Vsn); %Merge nodes
 [Fsn,Vsn]=patchCleanUnused(Fsn,Vsn); %Remove unused nodes
+%% 
+% _*LatticeWorks footer text*_ 
+% 
+% License: <https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE>
+% 
+% Copyright (C) 2023 Mahtab Vafaeefar and the LatticeWorks contributors

@@ -72,7 +72,7 @@ switch nargin
         end
 end
 
-%% Visua;ization setting
+%% Visualization setting
 
 axisGeom; camlight headlight;
 colormap (map); icolorbar;

@@ -164,6 +164,7 @@ gpatch(F,V,[0.75, 0.75, 0],'none', 1);
 axisGeom(gca,fontSize); axis on;
 camlight headlight;
 drawnow;
+
 %% 
 % _*LatticeWorks footer text*_ 
 % 
