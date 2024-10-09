@@ -34,4 +34,4 @@ Examples are contained in the `docs` folder.
 We welcome submissions. If you'd like to contribute please file a pull request or post an issue. Thanks! 
 
 # License <a name="License"></a>
-LatticeWorks is provided under the[MIT license](https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE).
+LatticeWorks is provided under the [MIT license](https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE).
