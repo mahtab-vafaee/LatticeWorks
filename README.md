@@ -34,5 +34,4 @@ Examples are contained in the `docs` folder.
 We welcome submissions. If you'd like to contribute please file a pull request or post an issue. Thanks! 
 
 # License <a name="License"></a>
-LatticeWorks is provided under:
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE). The [license file](https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE) is found on the GitHub repository.
+LatticeWorks is provided under the [MIT license](https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE).
