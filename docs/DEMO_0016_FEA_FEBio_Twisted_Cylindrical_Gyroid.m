@@ -36,7 +36,6 @@ if ~exist(savePath,'dir')
     mkdir(savePath)
 end
 
-dfasfasdfs
 
 % Defining file names
 febioFebFileNamePart='twistedCylinder_FEA';
