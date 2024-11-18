@@ -55,7 +55,7 @@ logicInside = ~logicPositive;
 
 interpolationMethod = 2;
 switch interpolationMethod
-    case 1 % Neirest
+    case 1 % Nearest
         rho_VG=nan(size(VG,1),1);
         rho_VG(logicInside)=rho(elementIndexFound(logicInside));
         rho_VG=reshape(rho_VG, size(X));
