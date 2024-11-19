@@ -8,12 +8,16 @@
 %
 % # Case-1: Gyroid lattice under twist deformation.
 % # Case-2: Gyroid lattice under rotation deformation.
+% # Case-3: Gyroid lattice under bending deformation.
+% # Case-4: Gyroid lattice under shear deformation.
+% # Case-5: Gyroid lattice under stretch deformation.
 %
 %%
 %
 %  Change log:
 %  2023/11/15 MV Created  
 %  2024/02/2 MV  Edited
+%  2024/11/19 MV Edited
 % ----------------------------------------------------------------------
 %%
 
@@ -33,16 +37,27 @@ pColors=gjet(6);
 
 n= 100; % resolution 
 boxDim = [1, 1, 2]; % dimenasion 
+l=0.9;% levleset
 
-rInner = 2;
+% Define deformation control parameters
+% Rotation & Twist
 bendAngle = pi/2; 
+rInner = 2;
 barHeight = bendAngle*rInner; 
 
-l=0.9;% levleset
+% Radius of curvature for bending
+bend_radius = 40; 
+
+% Shear factor (controls the amount of shear)
+shear_factor = 0.2; 
+
+% Stretch factor (controls the amount of stretch)
+stretch_factor = 0.2; 
+necking_factor = 0.3; % Controls the necking effect
 
 %% Create an origiional grid
 
-DefType='Twist'; % Select between 'Twist' & 'Rotate'
+DefType='Shear'; % Select between 'Twist' & 'Rotate'
 
 switch DefType
     case 'Rotate'
@@ -50,10 +65,15 @@ switch DefType
         yRange = linspace(0,2*pi,boxDim(1,2)*n);
         zRange = linspace(0,barHeight,boxDim(1,3)*n);
 
-    case 'Twist'
+    case {'Twist', 'Bending', 'Shear'}
         xRange = linspace(-pi,pi,boxDim(1,1)*n);
         yRange = linspace(-pi,pi,boxDim(1,1)*n);
         zRange = linspace(0,10,boxDim(1,1)*n);
+
+    case 'Stretch'
+        xRange = linspace(-pi,pi,boxDim(1,1)*n);
+        yRange = linspace(-pi,pi,boxDim(1,1)*n);
+        zRange = linspace(-5,5,boxDim(1,1)*n);
 end
 
 [X,Y,Z]=meshgrid(xRange,yRange,zRange);
@@ -102,6 +122,35 @@ switch DefType
             Yp(:,:,q)=yp;
             Zp(:,:,q)=zp;
         end
+
+    case 'Bending'
+        % Angular deformation based on Z coordinates
+        theta = Z / bend_radius; 
+
+        % Apply bending transformation aound Y-axis
+        Xp = X + bend_radius*(1-cos(theta)); % Shift in X
+        Zp = bend_radius*sin(theta); % Shift in Z 
+
+        % Apply rotation the grid in xz surface around the Y-axis
+        Xp = Xp.*cos(theta)-Zp.*sin(theta);
+        Zp = Xp.*sin(theta)+Zp.*cos(theta);
+        Yp = Y; % Y remains unchanged
+
+    case 'Shear'
+        % Shear in the X-direction, normal to Z
+        Xp = X - shear_factor*Z; 
+        Yp = Y; 
+        Zp = Z; 
+
+    case 'Stretch'
+        % Stretching in Z-direction;
+        Zp = Z+stretch_factor*Z; 
+
+        neck_profile = 1 - necking_factor * exp(-((Z / max(abs(zRange))).^2)); % Gaussian necking
+        % Applying necking profile to X and Y
+        Xp = X .* neck_profile; 
+        Yp = Y .* neck_profile; 
+        
 end
 
 %% Create deformed grid
