@@ -194,7 +194,7 @@ axisGeom(gca, fontSize);
 camlight headlight;
 
 hp2=subplot(1,3,3);hold on;
-title('Deformed Gyroide','FontSize',fontSize);
+title('Deformed Gyroid','FontSize',fontSize);
 gpatch(F,V,'kw','none',1);
 axisGeom(gca, fontSize);
 camlight headlight;
