@@ -57,7 +57,7 @@ necking_factor = 0.3; % Controls the necking effect
 
 %% Create an origiional grid
 
-DefType='Shear'; % Select between 'Twist' & 'Rotate'
+DefType='Bending'; % {'Twist','Rotate', 'Bending', 'Shear', 'Stretch'}
 
 switch DefType
     case 'Rotate'
@@ -125,17 +125,13 @@ switch DefType
 
     case 'Bending'
         % Angular deformation based on Z coordinates
-        theta = Z / bend_radius; 
-
-        % Apply bending transformation aound Y-axis
-        Xp = X + bend_radius*(1-cos(theta)); % Shift in X
-        Zp = bend_radius*sin(theta); % Shift in Z 
+        theta = Z./bend_radius; 
 
         % Apply rotation the grid in xz surface around the Y-axis
-        Xp = Xp.*cos(theta)-Zp.*sin(theta);
-        Zp = Xp.*sin(theta)+Zp.*cos(theta);
+        Xp = X.*cos(theta)+Z.*sin(theta);
+        Zp = -X.*sin(theta)+Z.*cos(theta);
         Yp = Y; % Y remains unchanged
-
+        
     case 'Shear'
         % Shear in the X-direction, normal to Z
         Xp = X - shear_factor*Z; 
