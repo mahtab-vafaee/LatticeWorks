@@ -14,6 +14,7 @@
 %  Change log:
 %  2023/11/15 MV Created  
 %  2024/02/2 MV Added cases 1-3
+%  2024/11/21 MV Updated with SFmultiMorph
 % ----------------------------------------------------------------------
 %%
 
@@ -33,7 +34,7 @@ res=150; %Resolution
 
 R=1; %Outter radius
 r=0.5; % Inner radius (for spherical shape r=0)
-tranR=0.7; %Transition radius
+trR=0.7; %Transition radius
 
 transType= 1;  % 1:cylindrical, 2: spherical, 3:linear
 
@@ -50,12 +51,10 @@ inputStruct_B = inputStruct_A;
 inputStruct_A.numPeriods=[10 10 10]; %Number of periods in each direction
 inputStruct_A.levelset=0.75; %Isosurface level
 inputStruct_A.gradiantF=0; %Gradiant Factor
-levelset_A=inputStruct_A.levelset; 
 
 inputStruct_B.numPeriods=[10 10 10];
 inputStruct_B.levelset=0.6; 
 inputStruct_B.gradiantF=0 ; %Gradiant Factor
-levelset_B=inputStruct_B.levelset; 
 inputStruct_B.surfaceCase='d'; 
 
 %% Compute individual gyroids
@@ -67,35 +66,33 @@ inputStruct_B.surfaceCase='d';
 % kappa controls the lengthscale of transition between TPMS
 % Higher kappa => faster transition
 % Lower kappa => slower transition
-% G controls the shape of transition between TPMS
+kappa = 20;
 
+% G controls the shape of transition between TPMS
 switch transType
     case 1 % Figure-7(a)
         % Cylindrical transition boundary across x-axis
-        G=X.^2 + Y.^2 -(tranR^2);
-        kappa = 20;
+        G=X.^2 + Y.^2 -(trR^2);
 
     case 2 % Figure-7(b)
         % Spherical transition boundary across x-axis
-        G=X.^2 + Y.^2 + Z.^2 -(tranR^2);
-        kappa = 15;
+        G=X.^2 + Y.^2 + Z.^2 -(trR^2);
 
     case 3 % Figure-7(c)
         % linear transition boundary across x-axis
         G = X;
         G = G/max(G(:));
         %  G = G-(max(G(:))/2);
-        kappa = 20;
 end
 
+
 %% Compute the weitgh functions
+Data.S = {S_A; S_B};
+Data.L = {inputStruct_A.levelset; inputStruct_B.levelset};
+Data.K = kappa;
+Data.G = G;
 
-weights_A = 1/(1+exp(-kappa * G));
-weights_B = (1-weights_A);
-
-% Interpolating using the above weights
-graded_S =  weights_A .* (S_A - levelset_A) ...
-            + (1-weights_A).* (S_B - levelset_B);
+graded_S = SFmultiMorph(Data);
 
 %% Trimming the domain to spherical or shell
 
@@ -125,7 +122,7 @@ switch transType
 
 end
 
-% Trimm outter and inner points
+%% Trimm outter and inner points
 Logic_out= ismember(1:numel(X), Ind_out);
 Logic_out=reshape(Logic_out,size(X));
 

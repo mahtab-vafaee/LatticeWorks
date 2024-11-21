@@ -89,7 +89,7 @@ Data.C = {center_A; center_B; center_C; center_D};
 Data.L = {inputStruct_A.levelset; inputStruct_B.levelset; inputStruct_C.levelset; inputStruct_D.levelset};
 Data.K = kappa;
 
-graded_S = multiMorph(X,Y,Z,Data);
+graded_S = GRFBmultiMorph(X,Y,Z,Data);
 
 % Compue isosurface
 graded_levelset = 0;
@@ -157,7 +157,7 @@ Data.C = {center_A; center_B; center_C};
 Data.L = {inputStruct_A.relativeDensity; inputStruct_B.relativeDensity; inputStruct_C.relativeDensity};
 Data.K = kappa;
 
-graded_S = multiMorph(X,Y,Z,Data);
+graded_S = GRFBmultiMorph(X,Y,Z,Data);
 
 % Compue isosurface
 graded_levelset = 0;

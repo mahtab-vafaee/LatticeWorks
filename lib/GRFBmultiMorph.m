@@ -1,4 +1,4 @@
-function [graded_S]=multiMorph (X,Y,Z,Data)
+function [graded_S]=GRFBmultiMorph (X,Y,Z,inputStruct)
 
 % function [graded_S]=multiMorph (X,Y,Z,Data);
 %
@@ -7,7 +7,7 @@ function [graded_S]=multiMorph (X,Y,Z,Data)
 % lattices.
 %
 % for |multiMorph|, (X,Y,Z) are the coordinates of grids 
-% and  (Data) is the input structre with all individual surfaces and the
+% and  (inputStruct) is the input structre with all individual surfaces and the
 % centers of regions to generate multi-Morphology lattice.
 %
 % _*Name*_ 
@@ -20,20 +20,20 @@ function [graded_S]=multiMorph (X,Y,Z,Data)
 % -----------------------------------------------------------------------
 %%
 
-if ~isfield(Data,'T') || isempty (Data.T)
-    Data.T=1; % Default transition type
+if ~isfield(inputStruct,'T') || isempty (inputStruct.T)
+    inputStruct.T=1; % Default transition type
 end
-transType=Data.T; % Type {(1=square_distance), (2=)}
+transType=inputStruct.T; % Type {(1=square_distance), (2=)}
 
 % kappa controls the lengthscale of transition between lattices
 % Higher kappa => faster transition
 % Lower kappa => slower transition
-kappa = Data.K;
+kappa = inputStruct.K;
 
-l=length(Data.C);
+l=length(inputStruct.C);
 
 % Initializing parameters size
-sum_weights = zeros(size(Data.S{1}));
+sum_weights = zeros(size(inputStruct.S{1}));
 weights = cell(l, 1);
 S = cell(l, 1);
 center = cell(l, 1);
@@ -41,9 +41,9 @@ levelset = zeros(l, 1);
 
 % Loop over the individual morphologies/lattices
 for i= 1:l
-    S{i}= Data.S{i};
-    center{i} = Data.C{i};
-    levelset(i) = Data.L{i};
+    S{i}= inputStruct.S{i};
+    center{i} = inputStruct.C{i};
+    levelset(i) = inputStruct.L{i};
     
     % Using Gaussian (a.k.a. radial basis functions) interpolation.
     % Computing the weights for each lattice evaluated on all grid points.

@@ -9,6 +9,7 @@
 %  Change log:
 %  2023/11/15 MV Created  
 %  2024/01/31 MV Sorted for publishing
+%  2024/11/21 MV Updated with SFmultiMorph
 % -----------------------------------------------------------------------
 
 %%
@@ -77,57 +78,27 @@ G = G/max(G(:));
 G = G-(max(G(:))/2);
 
 %% Compute the weitgh functions
-%Weight functions of each morphology
-weights_A = 1/(1+exp(-kappa * G)); 
-weights_B=(1-weights_A);
+Data.S = {S_A; S_B};
+Data.C = {center_A; center_B};
+Data.L = {inputStruct_A.levelset; inputStruct_B.levelset};
+Data.K = kappa;
+Data.G = G;
 
-% Interpolating using the above weights
-graded_S =  weights_A .* (S_A - levelset_A) ...
-            + (weights_B).* (S_B - levelset_B);
-
+graded_S = SFmultiMorph(Data);
 
 %% Compue isosurface
 graded_levelset = 0;
-
 [f,v] = isosurface(X,Y,Z,graded_S,graded_levelset);
-c=zeros(size(f,1),1);
 
 % Compute isocaps
 [fc,vc] = isocaps(X,Y,Z,graded_S,graded_levelset,'enclose','below');
 
-% Boilerplate code for preparing output for exporting/visualization
-nc=patchNormal(fc,vc);
-cc=zeros(size(fc,1),1);
-cc(nc(:,1)<-0.5)=1;
-cc(nc(:,1)>0.5)=2;
-cc(nc(:,2)<-0.5)=3;
-cc(nc(:,2)>0.5)=4;
-cc(nc(:,3)<-0.5)=5;
-cc(nc(:,3)>0.5)=6;    
-
-% Join sets
-[f,v,c]=joinElementSets({f,fc},{v,vc},{c,cc});
-    
-% Merge nodes
-[f,v]=mergeVertices(f,v); 
-
-% Check for unique faces
-[~,indUni,~]=unique(sort(f,2),'rows');
-f=f(indUni,:); %Keep unique faces
-c=c(indUni);
-
-% Remove collapsed faces
-[f,logicKeep]=patchRemoveCollapsed(f); 
-c=c(logicKeep);
-
-% Remove unused points
-[f,v]=patchCleanUnused(f,v); 
-
-% Invert faces
-f=fliplr(f); 
+% Join, merge, and clean unused
+[f,v,c] = FV_arrange(f,v,fc,vc);
 
 %% Visualize
 Hybrid_vizualize(f,v,c);
+
 %% 
 % _*LatticeWorks footer text*_ 
 % 

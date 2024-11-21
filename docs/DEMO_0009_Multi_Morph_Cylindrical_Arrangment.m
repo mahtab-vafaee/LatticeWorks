@@ -103,7 +103,7 @@ Data.C = {center_A; center_B; center_C};
 Data.L = {inputStruct_A.levelset; inputStruct_B.levelset; inputStruct_C.levelset};
 Data.K = kappa;
 
-graded_S = multiMorph(X,Y,Z,Data);
+graded_S = GRFBmultiMorph(X,Y,Z,Data);
 
 %% Compue isosurface
 graded_levelset = 0;
