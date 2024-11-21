@@ -32,6 +32,7 @@ markerSize1=25;
 % Control parameters
 sampleSize=[2 2 1]; %Heigh of the sample
 pointSpacing=sampleSize/100; % Resolution
+kappa=8; 
 
 overSampleRatio=1;
 numStepsLevelset=ceil(overSampleRatio.*(sampleSize./pointSpacing)); %Number of voxel steps across period for image data (roughly number of points on mesh period)
@@ -49,24 +50,20 @@ inputStruct_D = inputStruct_A;
 inputStruct_A.numPeriods=[9 6 6]; %Number of periods in each direction
 inputStruct_A.levelset=-0.1 ; %Isosurface level
 inputStruct_A.gradiantF=0 ; %Gradiant Factor
-levelset_A=inputStruct_A.levelset; 
 
 inputStruct_B.numPeriods=[6 6 6];
 inputStruct_B.levelset=-0.4; 
 inputStruct_B.gradiantF=0 ; %Gradiant Factor
-levelset_B=inputStruct_B.levelset; 
 inputStruct_B.surfaceCase='d'; 
 
 inputStruct_C.numPeriods=[10 10 5];
 inputStruct_C.levelset=-0.4; 
 inputStruct_C.gradiantF=0; %Gradiant Factor
-levelset_C=inputStruct_C.levelset; 
 inputStruct_C.surfaceCase='p'; 
 
 inputStruct_D.numPeriods=[4 8 8];
 inputStruct_D.levelset=-0.2; 
 inputStruct_D.gradiantF=0 ; %Gradiant Factor
-levelset_D=inputStruct_D.levelset; 
 inputStruct_D.surfaceCase='n'; 
 
 % Compute individual TPMS
@@ -86,82 +83,28 @@ center_B = [0.5, 1.5, 0.5];
 center_C = [1.5, 0.5, 0.5];
 center_D = [1.5, 1.5, 0.5];
 
-% Transition lengthscal and shape
-% kappa controls the lengthscale of transition between TPMS
-% Higher kappa => faster transition
-% Lower kappa => slower transition
-kappa = 8;
+% Calculating the multi-morphology surface
+Data.S = {S_A; S_B; S_C; S_D};
+Data.C = {center_A; center_B; center_C; center_D};
+Data.L = {inputStruct_A.levelset; inputStruct_B.levelset; inputStruct_C.levelset; inputStruct_D.levelset};
+Data.K = kappa;
 
-% Using Gaussian (a.k.a. radial basis functions) interpolation.
-% One can use any interpolation scheme of choice as long as weights at
-% every grid point sum up to 1.
-% Computing the weights for each spinodoid evaluated on all grid points.
-weights_A = exp(-kappa * Squared_distance_from_point(X,Y,Z,center_A));
-weights_B = exp(-kappa * Squared_distance_from_point(X,Y,Z,center_B));
-weights_C = exp(-kappa * Squared_distance_from_point(X,Y,Z,center_C));
-weights_D = exp(-kappa * Squared_distance_from_point(X,Y,Z,center_D));
-
-% Compute weight functions
-% Weights must sum up to 1.
-sum_weights = weights_A + weights_B ...
-+ weights_C + weights_D;
-
-weights_A = weights_A ./ sum_weights;
-weights_B = weights_B ./ sum_weights;
-weights_C = weights_C ./ sum_weights;
-weights_D = weights_D ./ sum_weights;
-
-% Interpolating using the above weights
-graded_S =  weights_A .* (S_A - levelset_A) ...
-            + weights_B .* (S_B - levelset_B)...
-            + weights_C .* (S_C - levelset_C)...
-            + weights_D .* (S_D - levelset_D);
+graded_S = multiMorph(X,Y,Z,Data);
 
 % Compue isosurface
 graded_levelset = 0;
-
 [f,v] = isosurface(X,Y,Z,graded_S,graded_levelset);
-c=zeros(size(f,1),1);
 
 % Compute isocaps
 [fc,vc] = isocaps(X,Y,Z,graded_S,graded_levelset,'enclose','below');
 
-% Boilerplate code for preparing output for exporting/visualization
-nc=patchNormal(fc,vc);
-cc=zeros(size(fc,1),1);
-cc(nc(:,1)<-0.5)=1;
-cc(nc(:,1)>0.5)=2;
-cc(nc(:,2)<-0.5)=3;
-cc(nc(:,2)>0.5)=4;
-cc(nc(:,3)<-0.5)=5;
-cc(nc(:,3)>0.5)=6;    
-
-% Join sets
-[f,v,c]=joinElementSets({f,fc},{v,vc},{c,cc});
-    
-% Merge nodes
-[f,v]=mergeVertices(f,v); 
-
-% Check for unique faces
-[~,indUni,~]=unique(sort(f,2),'rows');
-f=f(indUni,:); %Keep unique faces
-c=c(indUni);
-
-% Remove collapsed faces
-[f,logicKeep]=patchRemoveCollapsed(f); 
-c=c(logicKeep);
-
-% Remove unused points
-[f,v]=patchCleanUnused(f,v); 
-
-% Invert faces
-f=fliplr(f); 
+% Join, merge, and clean unused
+[f,v,c] = FV_arrange(f,v,fc,vc);
 
 % Visualize
 % Hybrid_vizualize(f,v,c,map, center_V);
 map= [0.75 0.75 0];
-center_V= [center_A; center_B ; center_C; center_D];
-Hybrid_vizualize(f,v,c,map,center_V)
+Hybrid_vizualize(f,v,c,map,Data.C)
 
 %% Example 2: Cubic Hybrid Spinodoid (Figure-4(d-f))
 
@@ -208,74 +151,26 @@ center_A = [0.5, 0.5, 0.5];
 center_B = [1.5, 0.5, 0.5];
 center_C = [2.5, 0.5, 0.5];
 
-% kappa controls the lengthscale of transition between spinodoids
-% Higher kappa => faster transition
-% Lower kappa => slower transition
-kappa = 8;
+% Calculating the multi-morphology surface
+Data.S = {S_A; S_B; S_C};
+Data.C = {center_A; center_B; center_C};
+Data.L = {inputStruct_A.relativeDensity; inputStruct_B.relativeDensity; inputStruct_C.relativeDensity};
+Data.K = kappa;
 
-% Using Gaussian (a.k.a. radial basis functions) interpolation.
-% One can use any interpolation scheme of choice as long as weights at
-% every grid point sum up to 1.
-% Computing the weights for each spinodoid evaluated on all grid points.
-weights_A = exp(-kappa * Squared_distance_from_point(X,Y,Z,center_A));
-weights_B = exp(-kappa * Squared_distance_from_point(X,Y,Z,center_B));
-weights_C = exp(-kappa * Squared_distance_from_point(X,Y,Z,center_C));
-
-% Weights must sum up to 1.
-sum_weights = weights_A + weights_B + weights_C;
-
-weights_A = weights_A ./ sum_weights;
-weights_B = weights_B ./ sum_weights;
-weights_C = weights_C ./ sum_weights;
-
-% Interpolating using the above weights
-graded_S =  weights_A .* (S_A - levelset_A) ...
-            + weights_B .* (S_B - levelset_B)...
-            + weights_C .* (S_C - levelset_C);
+graded_S = multiMorph(X,Y,Z,Data);
 
 % Compue isosurface
 graded_levelset = 0;
-
 [f,v] = isosurface(X,Y,Z,graded_S,graded_levelset);
-c=zeros(size(f,1),1);
 
 % Compute isocaps
 [fc,vc] = isocaps(X,Y,Z,graded_S,graded_levelset,'enclose','below');
 
-% Boilerplate code for preparing output for exporting/visualization
-nc=patchNormal(fc,vc);
-cc=zeros(size(fc,1),1);
-cc(nc(:,1)<-0.5)=1;
-cc(nc(:,1)>0.5)=2;
-cc(nc(:,2)<-0.5)=3;
-cc(nc(:,2)>0.5)=4;
-cc(nc(:,3)<-0.5)=5;
-cc(nc(:,3)>0.5)=6;    
-
-% Join sets
-[f,v,c]=joinElementSets({f,fc},{v,vc},{c,cc});
-    
-% Merge nodes
-[f,v]=mergeVertices(f,v); 
-
-% Check for unique faces
-[~,indUni,~]=unique(sort(f,2),'rows');
-f=f(indUni,:); %Keep unique faces
-c=c(indUni);
-
-% Remove collapsed faces
-[f,logicKeep]=patchRemoveCollapsed(f); 
-c=c(logicKeep);
-
-% Remove unused points
-[f,v]=patchCleanUnused(f,v); 
-
-% Invert faces
-f=fliplr(f); 
+% Join, merge, and clean unused
+[f,v,c] = FV_arrange(f,v,fc,vc);
 
 % Visualize
 % Hybrid_vizualize(f,v,c,map, center_V);
-center_V=[center_A; center_B; center_C];
 map=[0.75 0.75 0
     0	0	0
     0.4 0.4 0.9
@@ -283,7 +178,7 @@ map=[0.75 0.75 0
     0	0	0
     0.75 0.3 0.2
     0.75 0.75 0];
-Hybrid_vizualize(f,v,c, map, center_V)
+Hybrid_vizualize(f,v,c, map, Data.C)
 
 %% 
 % _*LatticeWorks footer text*_ 
