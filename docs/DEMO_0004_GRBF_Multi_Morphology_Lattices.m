@@ -111,6 +111,7 @@ Hybrid_vizualize(f,v,c,map,Data.C)
 % Control parameters
 sampleSize=[3 1 1]; %Heigh of the sample
 res=[100 100 100]; % set the resolution in 3D
+kappa=8; 
 
 inputStruct.isocap=true;
 inputStruct_A.domainSize=sampleSize; 
