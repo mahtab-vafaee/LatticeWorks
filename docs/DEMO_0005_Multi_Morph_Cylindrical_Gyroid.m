@@ -18,6 +18,12 @@
 
 clear; close all; clc;
 
+%% Adding lib path so functions are known 
+
+mainPath=fileparts(mfilename('fullpath')); %Get the  path
+addpath(fullfile(fileparts(mainPath),'lib')); %Add lib path 
+addpath(fullfile(fileparts(mainPath),'lib_ext')); %Add external lib path 
+
 %% Plot settings
 fontSize=20;
 faceAlpha1=0.8;

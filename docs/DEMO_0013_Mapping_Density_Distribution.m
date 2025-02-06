@@ -11,9 +11,23 @@
 %  2023/11/15 MV Created  
 %  2024/02/06 MV Edited
 %  2024/04/15 MV/KM Revised
+%  2025/02/06 MV Added lib path
 % ----------------------------------------------------------------------
 %%
 clc; clear; close all;
+
+%% Adding lib path so functions are known 
+
+mainPath=fileparts(mfilename('fullpath')); %Get the  path
+addpath(fullfile(fileparts(mainPath),'lib')); %Add lib path 
+addpath(fullfile(fileparts(mainPath),'lib_ext')); %Add external lib path 
+
+% Adding savin path
+defaultFolder = fileparts(fileparts(mfilename('fullpath')));
+savePath=fullfile(defaultFolder,'assets','temp');
+if ~exist(savePath,'dir')
+    mkdir(savePath)
+end
 
 %% Plot settings
 
@@ -25,13 +39,6 @@ edgeColor2='none';
 fontSize=25; 
 pColors=gjet(6);
 
-%%
-% Path names
-defaultFolder = fileparts(fileparts(mfilename('fullpath')));
-savePath=fullfile(defaultFolder,'assets','temp');
-if ~exist(savePath,'dir')
-    mkdir(savePath)
-end
 
 %% Using topology optimisation to create a density field
 % define box size, volume fraction as inputs for top.m

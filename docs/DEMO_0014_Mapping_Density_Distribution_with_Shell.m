@@ -11,10 +11,17 @@
 %  2023/11/15 MV Created  
 %  2024/02/06 MV Edited
 %  2024/04/15 MV/KM Revised
+%  2025/02/06 MV Added lib path
 % ----------------------------------------------------------------------
 %%
 
 clc; clear; close all;
+
+%% Adding lib path so functions are known 
+
+mainPath=fileparts(mfilename('fullpath')); %Get the  path
+addpath(fullfile(fileparts(mainPath),'lib')); %Add lib path 
+addpath(fullfile(fileparts(mainPath),'lib_ext')); %Add external lib path 
 
 %% Plot settings
 
@@ -29,9 +36,9 @@ pColors=gjet(6);
 %% Using topology optimisation to create a density field
 
 % define box size, volume fraction as inputs for top.m
-nelx = 2*64; % 45
-nely = 2*24; % 20
-nelz = 2*24; % 20
+nelx = 3*64; % 45
+nely = 3*24; % 20
+nelz = 3*24; % 20
 
 volfrac = 0.5;
 penal = 3;
@@ -50,7 +57,6 @@ rho = repmat(rho0, ext);
 sv3(rho); colormap warmcold; % Visualize 3D field
 
 %% Access model elements and patch data
-
 % Patch rho information to Elements and Faces
 [E,V]=im2patch(rho,true(size(rho)),'h',v);
 [F,rho_F] = element2patch(E,rho(:));
@@ -210,7 +216,7 @@ drawnow;
 %% Visualize surface
 
 cFigure; hold on;
-gpatch(Fsn,Vsn,'kw','none',1);
+gpatch(Fsn,Vsn,'kw','none',0.3);
 gpatch(Fb,V,'rw','none',0.3);
 
 axisGeom; colormap spectral; icolorbar; 

@@ -18,10 +18,17 @@
 %  2023/11/15 MV Created  
 %  2024/02/2 MV  Edited
 %  2024/11/19 MV Edited
+%  2025/02/06 MV Added lib path
 % ----------------------------------------------------------------------
 %%
 
 clear; close all; clc;
+
+%% Adding lib path so functions are known 
+
+mainPath=fileparts(mfilename('fullpath')); %Get the  path
+addpath(fullfile(fileparts(mainPath),'lib')); %Add lib path 
+addpath(fullfile(fileparts(mainPath),'lib_ext')); %Add external lib path 
 
 %%
 % Plot settings

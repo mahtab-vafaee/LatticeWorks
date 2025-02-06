@@ -11,11 +11,18 @@
 %  2024/01/29 MV Sorted for publishing
 %  2024/09/03 KMM cleaning up, commenting
 %  2024/11/21 MV creating more core functions
+%  2025/02/06 MV Added lib path
 % -----------------------------------------------------------------------
 
 %%
 
 clear; close all; clc;
+
+%% Adding lib path so functions are known 
+
+mainPath=fileparts(mfilename('fullpath')); %Get the  path
+addpath(fullfile(fileparts(mainPath),'lib')); %Add lib path 
+addpath(fullfile(fileparts(mainPath),'lib_ext')); %Add external lib path 
 
 %% Plot settings
 

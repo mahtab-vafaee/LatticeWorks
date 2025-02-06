@@ -8,14 +8,21 @@
 % * Importing and visualising the results 
 
 %%
+%
+%  Change log:
+%  2023 VM created
+%  2024/09/03 KMM Added header description
+%  2025/02/06 MV Added lib path
+% ----------------------------------------------------------------------
+%%
 
 clear; close all; clc;
 
-%%
-%
-%  Change log:
-% 2023 VM created
-% 2024/09/03 KMM Added header description
+%% Adding lib path so functions are known 
+
+mainPath=fileparts(mfilename('fullpath')); %Get the  path
+addpath(fullfile(fileparts(mainPath),'lib')); %Add lib path 
+addpath(fullfile(fileparts(mainPath),'lib_ext')); %Add external lib path 
 
 %% Plot settings
 

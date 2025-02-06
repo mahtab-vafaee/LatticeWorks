@@ -6,9 +6,6 @@
 % * Automatically generating an ABAQUS .inp file
 % * Triggering finite element analysis using ABAQUS
 % * Importing and visualising the results 
-%%
-
-clear; close all; clc;
 
 %%
 %
@@ -16,6 +13,18 @@ clear; close all; clc;
 % 2023 VM created
 % 2024/09/03 KMM Added header description
 % 2024/09/24 KMM Edited to enable FEBio based simulation
+% 2025/02/06 MV Added lib path
+% ----------------------------------------------------------------------
+%%
+
+clear; close all; clc;
+
+%% Adding lib path so functions are known 
+
+mainPath=fileparts(mfilename('fullpath')); %Get the  path
+addpath(fullfile(fileparts(mainPath),'lib')); %Add lib path 
+addpath(fullfile(fileparts(mainPath),'lib_ext')); %Add external lib path 
+
 %% Plot settings
 
 cMap=spectral(250);
