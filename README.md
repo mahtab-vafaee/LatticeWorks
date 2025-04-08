@@ -24,7 +24,7 @@ Alternatively one can manually install by adding `lib` and `lib_ext` folders to 
 Examples are contained in the `docs` folder.
 
 # Theory Documentation
-For the theory background on demo examples in LatticeWorks can be found at [the supporting paper]([https://www.gibboncode.org/](https://www.sciencedirect.com/science/article/pii/S0264127524009390))
+For the theory background on demo examples in LatticeWorks can be found in [this supporting paper](https://www.sciencedirect.com/science/article/pii/S0264127524009390)
 
 # Applications
 * Lattice generation for tissue engineering and scaffolds, biomedical devices, energy absorption, etc.
