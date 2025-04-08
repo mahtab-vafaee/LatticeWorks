@@ -23,8 +23,10 @@ Alternatively one can manually install by adding `lib` and `lib_ext` folders to 
 ## Running examples
 Examples are contained in the `docs` folder.
 
-# Theory Documentation
-For the theory background on demo examples in LatticeWorks can be found in [this supporting paper](https://www.sciencedirect.com/science/article/pii/S0264127524009390)
+# Citing LatticeWorks
+Cite the Materials and Design Journal paper: [![DOI](https://www.sciencedirect.com/science/article/pii/S0264127524009390)](https://doi.org/10.1016/j.matdes.2024.113564)   
+    
+Vafaeefar, (2025). LatticeWorks: An open-source MATLAB toolbox for nonuniform, gradient and multi-morphology lattice generation, and analysis. Materials & Design, 250, 113564, [https://doi.org/10.21105/joss.00506](https://doi.org/10.21105/joss.00506)
 
 # Applications
 * Lattice generation for tissue engineering and scaffolds, biomedical devices, energy absorption, etc.
