@@ -24,7 +24,7 @@ Alternatively one can manually install by adding `lib` and `lib_ext` folders to 
 Examples are contained in the `docs` folder.
 
 # Citing LatticeWorks
-Cite the Materials and Design Journal paper: [![DOI](https://img.shields.io/badge/Materials%20and%20Design-10.1016/j.matdes.2024.113564-blue.svg)](https://doi.org/10.1016/j.matdes.2024.113564)
+If you make use of LatticeWorks, please cite the Materials and Design Journal paper: [![DOI](https://img.shields.io/badge/Materials%20and%20Design-10.1016/j.matdes.2024.113564-blue.svg)](https://doi.org/10.1016/j.matdes.2024.113564)
     
 Vafaeefar, et al. (2025). LatticeWorks: An open-source MATLAB toolbox for nonuniform, gradient and multi-morphology lattice generation, and analysis. Materials & Design, 250, 113564, [https://doi.org/10.21105/joss.00506](https://doi.org/10.1016/j.matdes.2024.113564)
 
