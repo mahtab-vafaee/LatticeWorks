@@ -28,7 +28,7 @@ If you make use of LatticeWorks, please cite the Materials and Design Journal pa
     
 Vafaeefar, et al. (2025). LatticeWorks: An open-source MATLAB toolbox for nonuniform, gradient and multi-morphology lattice generation, and analysis. Materials & Design, 250, 113564, [https://doi.org/10.21105/joss.00506](https://doi.org/10.1016/j.matdes.2024.113564)
 
-Please also cite Zenodo DOI [![DOI](https://zenodo.org/badge/486929347.svg)](https://doi.org/10.5281/zenodo.13862475) as a software citation.
+Please also cite Zenodo DOI [![DOI](https://zenodo.org/badge/Zenodo/486929347.svg)](https://doi.org/10.5281/zenodo.13862475) as a software citation.
 
 # Applications
 * Lattice generation for tissue engineering and scaffolds, biomedical devices, energy absorption, etc.
