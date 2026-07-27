@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment-project plugin="BuiltInDeploymentPlugin" plugin-version="1.0">
+  <archiveFileName>LatticeWorks.mlpkginstall</archiveFileName>
+  <appLabel>LatticeWorks</appLabel>
+  <appVersion>1.0</appVersion>
+  <autoIncrementVersion>off</autoIncrementVersion>
+  <buildDateTime>0000000000</buildDateTime>
+  <buildNumber>0</buildNumber>
+  <buildResults />
+  <configSet name="default" target="target.package" />
+  <configSet name="fileexchange" target="target.package" />
+  <deployableFiles>
+    <fileDeploymentData name="install_me.m">
+      <isممrelative>true</isRelative>
+      <fromFile>install_me.m</fromFile>
+      <targetFolder>$toolbox</targetFolder>
+    </fileDeploymentData>
+    <fileDeploymentData name="lib">
+      <isRelative>true</isRelative>
+      <fromFile>lib</fromFile>
+      <targetFolder>$toolbox</targetFolder>
+    </fileDeploymentData>
+    <fileDeploymentData name="lib_ext">
+      <isRelative>true</isRelative>
+      <fromFile>lib_ext</fromFile>
+      <targetFolder>$toolbox</targetFolder>
+    </fileDeploymentData>
+    <fileDeploymentData name="docs">
+      <isRelative>true</isRelative>
+      <fromFile>docs</fromFile>
+      <targetFolder>$toolbox</targetFolder>
+    </fileDeploymentData>
+  </deployableFiles>
+  <options>
+    <option name="AppName" value="LatticeWorks" />
+    <option name="Description" value="A MATLAB toolbox for functionally graded lattice generation, in different configurations." />
+    <option name="Version" value="1.0" />
+    <option name="OutputDir" value="release" />
+  </options>
+  <postDeploymentActions />
+  <preDeploymentActions />
+  <releaseUpdateInputsamtask />
+  <releaseUpdateOutputTask />
+  <SccProjectPath />
+  <SccProvider />
+  <itemType>Toolbox</itemType>
+  <matlab>
+    <root>$matlabroot</root>
+    <requirement />
+  </matlab>
+  <platform>
+    <unix>true</unix>
+    <win>false</win>
+    <mac>false</mac>
+  </platform>
+  <stage name="default" />
+  <stageDirectory>
+    <deployableFile name="default_copy_1">
+      <fromFile />
+      <targetFolder />
+    </deployableFile>
+  </stageDirectory>
+  <postStageFcns />
+  <preStageFcns />
+  <runtimeSource name="default" />
+  <runtimeTarget name="default" />
+  <runVmlTests>false</runVmlTests>
+  <targetPlatform name="target.package" />
+  <testPaths />
+  <tool name="Build" />
+  <tool name="DeploymentExtension" />
+  <tool name="ExternalPependencies" />
+  <tool name="InstallationExtension" />
+  <tool name="MATLABSourceExtension" />
+  <tool name="MATLABWebExtension" />
+  <tool name="PackagingExtension" />
+  <tool name="ReleaseTool" />
+  <tool name="Repository" />
+</deployment-project>

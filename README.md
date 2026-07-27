@@ -7,7 +7,12 @@ This is a MATLAB toolbox for creating and customizing lattice structures, multi-
 [![graphAbstract](docs/html/graphAbstract.png)](https://github.com/mahtab-vafaee/LatticeWorks/tree/main)
 
 # Getting started
-## Installation
+## 📥 Installation
+
+### Option 1: MATLAB File Exchange (Recommended)
+Coming soon on MATLAB File Exchange! Once available, install directly from the Add-On Explorer in MATLAB.
+
+### Option 2: From GitHub
 To install this toolbox, simply run `install_me.m` found in the main project folder. 
 
 Alternatively one can manually install by adding `lib` and `lib_ext` folders to the path. 

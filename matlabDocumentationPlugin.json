@@ -1,0 +1,7 @@
+{
+    "documentationPlugin": {
+        "name": "LatticeWorks",
+        "type": "toolbox",
+        "helpLocation": "docs"
+    }
+}
