@@ -12,7 +12,9 @@ This is a MATLAB toolbox for creating and customizing lattice structures, multi-
 ## 📥 Installation
 
 ### Option 1: MATLAB File Exchange (Recommended)
-Coming soon on MATLAB File Exchange! Once available, install directly from the Add-On Explorer in MATLAB.
+On MATLAB File Exchange! Install directly from the Add-On Explorer in MATLAB.
+[![View LatticeWorks on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://uk.mathworks.com/matlabcentral/fileexchange/184314-latticeworks)
+
 
 ### Option 2: From GitHub
 To install this toolbox, simply run `install_me.m` found in the main project folder. 
