@@ -1,6 +1,8 @@
 # LatticeWorks
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE) [![DOI](https://zenodo.org/badge/486929347.svg)](https://doi.org/10.5281/zenodo.13862475) 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/mahtab-vafaee/LatticeWorks/blob/main/LICENSE) 
+[![DOI](https://img.shields.io/badge/DOI-10.1016/j.matdes.2024.113564-blue.svg)](https://doi.org/10.1016/j.matdes.2024.113564)
+[![DOI](https://zenodo.org/badge/486929347.svg)](https://doi.org/10.5281/zenodo.13862475) 
 
 This is a MATLAB toolbox for creating and customizing lattice structures, multi-morphology lattices, and lattices in different coordinates and arrangements. 
 
